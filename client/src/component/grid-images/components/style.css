@@ -1,0 +1,7 @@
+.img-of-profile-images{
+    height: 200px !important;
+    width: 300px;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}
