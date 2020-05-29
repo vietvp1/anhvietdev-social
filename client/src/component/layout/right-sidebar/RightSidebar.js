@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import ChatBox from '../../chatbox/ChatBox'
 import { useSelector, useDispatch } from 'react-redux';
+import { bufferToBase64 } from '../../../clientHelper/helperClient';
 
 const RightSidebar = () => {
     const [groupsChat, setGroupsChat] = useState([]);
@@ -91,7 +92,7 @@ const RightSidebar = () => {
                                         <div className="user-online" key={i} onClick={e => openConversation(user)}>
                                             <div className="media align-items-center mb-4">
                                                 <div className="iq-profile-avatar status-online">
-                                                    <img className="rounded-circle avatar-50" src={`${process.env.REACT_APP_API}/${user.avatar}`} alt="" />
+                                                    <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} className="rounded-circle avatar-50" alt="" />
                                                 </div>
                                                 <div className="media-body ml-3">
                                                     <h6 className="mb-0"><span>{user.firstName}&nbsp;{user.lastName}</span></h6>

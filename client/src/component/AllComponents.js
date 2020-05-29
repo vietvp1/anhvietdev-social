@@ -9,6 +9,7 @@ import Sidebar from './layout/sidebar/Sidebar';
 import RightSidebar from './layout/right-sidebar/RightSidebar';
 import { CSSTransition } from 'react-transition-group'
 import ChatVideoModal from './chat/chatVideoCall/ChatVideoModal';
+import PageUnLogin from './pages/authentication/PageUnLogin';
 
 // import ChatVideoModal from './chat/chatVideoCall/ChatVideoModal';
 

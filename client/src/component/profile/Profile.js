@@ -13,13 +13,6 @@ const Profile = ({ match }) => {
         return () => isSubscribed = false
     }, [match]);
 
-    useEffect(() => {
-        let isSubscribed = true;
-        axios.get(`/get-user/${match.params.id}`).then(res => {
-            if (isSubscribed) setContact(res.data.user);
-        });
-        return () => isSubscribed = false
-    }, [match]);
     return (
         <div id="content-page" className="content-page">
             <div className="container">

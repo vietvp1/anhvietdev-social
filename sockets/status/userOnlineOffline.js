@@ -28,7 +28,7 @@ let userOnlineOffline = (io) => {
             listUsersOnline = Object.keys(clients);
             friendIds = []
 
-            let friends = await ContactModel.getFriends(currentUserId);
+            let friends = await ContactModel.getAllFriends(currentUserId);
             friends.forEach((item) => {
                 friendIds.push(item.userId);
                 friendIds.push(item.contactId)

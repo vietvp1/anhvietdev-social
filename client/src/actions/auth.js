@@ -103,7 +103,6 @@ export const login = (email, password) => async dispatch => {
             type: LOGIN_SUCCESS,
             payload: res.data
         });
-        //window.location.reload(false);
         dispatch(loadUser());
         return res;
     } catch (err) {

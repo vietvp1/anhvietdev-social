@@ -5,8 +5,8 @@ let NotificationeSchema = new Schema({
     sender: {
         type: Schema.Types.ObjectId,
         ref: 'user'
-    } ,
-    receiver: [  
+    },
+    receiver: [
         {
             type: Schema.Types.ObjectId,
             ref: 'user'
@@ -26,18 +26,26 @@ let NotificationeSchema = new Schema({
         ref: 'comment',
         default: null
     },
-    isRead: {type: Boolean, default: false}
+    isRead: { type: Boolean, default: false }
 }, { timestamps: true })
 
 NotificationeSchema.statics = {
-    getNotifications(userId, LIMIT){
+    getNotifications(userId, LIMIT) {
         return this.find({
             "receiver": userId
         })
-        .populate('sender', ['firstName','lastName','address', 'avatar'])
-        .populate('post')
-        .populate('comment')
-        .sort({"updatedAt": -1}).limit(LIMIT);
+            .populate(
+                {
+                    path: 'sender',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .populate('post')
+            .populate('comment')
+            .sort({ "updatedAt": -1 }).limit(LIMIT);
     }
 }
 

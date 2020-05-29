@@ -3,12 +3,12 @@ let Schema = mongoose.Schema;
 
 let ChatGroupSchema = new Schema({
     name: String,
-    userAmount: {type: Number, min: 3, max: 200},
+    userAmount: { type: Number, min: 3, max: 200 },
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'user'
     },
-    members: [  
+    members: [
         {
             type: Schema.Types.ObjectId,
             ref: 'user'
@@ -17,63 +17,81 @@ let ChatGroupSchema = new Schema({
 }, { timestamps: true })
 
 ChatGroupSchema.statics = {
-    getChatGroups(userId, limit){
+    getChatGroups(userId, limit) {
         return this.find({
-            "members" : {$elemMatch: {"$eq": userId}}
+            "members": { $elemMatch: { "$eq": userId } }
         })
-        .populate('members', ['firstName','lastName','address', 'avatar'])
-        .sort({"updatedAt": -1})
-        .limit(limit).exec();
+            .populate(
+                {
+                    path: 'members',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .sort({ "updatedAt": -1 })
+            .limit(limit).exec();
     },
 
     getChatGroupById(id) {
         return this.findById(id)
-        .populate('members', ['firstName','lastName','address', 'avatar'])
-        .select('-__v');
+            .populate(
+                {
+                    path: 'members',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .select('-__v');
     },
 
-    updateWhenHasNewMessage(id){
+    updateWhenHasNewMessage(id) {
         return this.findByIdAndUpdate(id, {
             "updatedAt": Date.now(),
         });
     },
 
-    getChatGroupIdsByUser(userId){
+    getChatGroupIdsByUser(userId) {
         return this.find({
-            "members" : {$elemMatch: {"$eq": userId}}
-        }, {_id: 1});
+            "members": { $elemMatch: { "$eq": userId } }
+        }, { _id: 1 });
     },
 
-    readMoreChatGroups(userId, skip, limit){
+    readMoreChatGroups(userId, skip, limit) {
         return this.find({
-            "members" : {$elemMatch: {"$eq": userId}}
-        }).sort({"updatedAt": -1}).skip(skip).limit(limit);
+            "members": { $elemMatch: { "$eq": userId } }
+        }).sort({ "updatedAt": -1 }).skip(skip).limit(limit);
     },
 
-    getChatGroupsByKeyword(userId, keyword, limit){
+    getChatGroupsByKeyword(userId, keyword, limit) {
         return this.find({
             $and: [
-                {"members" : {$elemMatch: {"$eq": userId}}},
-                {$or: [
-                    {"name": {"$regex": new RegExp(keyword, "i")}},
-                ]}
+                { "members": { $elemMatch: { "$eq": userId } } },
+                {
+                    $or: [
+                        { "name": { "$regex": new RegExp(keyword, "i") } },
+                    ]
+                }
             ]
-        }).sort({"updatedAt": -1}).limit(limit);
+        }).sort({ "updatedAt": -1 }).limit(limit);
     },
 
-    addMoreMembersForGroup(id ,arrayMemberIds, numberOfMembers){
-        return this.findByIdAndUpdate(id, 
+    addMoreMembersForGroup(id, arrayMemberIds, numberOfMembers) {
+        return this.findByIdAndUpdate(id,
             {
                 "userAmount": numberOfMembers,
-                $push: {"members": {$each : arrayMemberIds }}
+                $push: { "members": { $each: arrayMemberIds } }
             }
         )
     },
 
-    removeMembers(id , arrayMemberIds){
-        return this.findByIdAndUpdate(id, 
+    removeMembers(id, arrayMemberIds) {
+        return this.findByIdAndUpdate(id,
             {
-                $pull: { "members": {$each : arrayMemberIds } } 
+                $pull: { "members": { $each: arrayMemberIds } }
             }
         )
     }

@@ -30,7 +30,8 @@ const addNew = async (req, res) => {
             let text = req.body.text;
             let filesVal = req.files;
             let groupId = req.body.groupId? req.body.groupId : false;
-            let newPost = await postService.addNew(writerId, filesVal, text, groupId);
+            let title = req.body.title? req.body.title : "";
+            let newPost = await postService.addNew(writerId, filesVal, text, title, groupId);
             for(var x = 0; x < filesVal.length; x++) {
                 await fsExtra.remove(`${app.post_directory}/${filesVal[x].filename}`)
             };
@@ -86,7 +87,7 @@ const getAllPosts = async (req,res) => {
 const removePost = async (req,res) => {
     try {
         const postId = req.params.id;
-        let removeReq = await postService.removePost(postId);
+        let removeReq = await postService.removePost(postId, req.user._id);
         res.json({ success: !!removeReq });
     } catch (error) {
         res.status(500).send({ success: false });

@@ -7,7 +7,7 @@ import Details from './details/Details';
 
 const About = ({user}) => {
     return (
-        <div className="tab-pane fade active show" id="about" role="tabpanel">
+        <div className="tab-pane fade" id="about" role="tabpanel">
             <div className="iq-card">
                 <div className="iq-card-body">
                 <div className="row">

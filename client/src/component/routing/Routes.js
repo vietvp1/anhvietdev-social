@@ -18,6 +18,10 @@ import Music from '../music/Music';
 import EmailCompose from '../email/EmailCompose';
 import SignIn from '../pages/authentication/SignIn';
 import SignUp from '../pages/authentication/SignUp';
+import Forgot from '../pages/authentication/Forgot';
+import LockScreen from '../pages/authentication/LockScreen';
+import RecoverPw from '../pages/authentication/RecoverPw';
+import ConfirmMail from '../pages/authentication/ConfirmMail';
 import PageError404 from '../pages/axtra-pages/PageError404';
 import PageError500 from '../pages/axtra-pages/PageError500';
 import PrivateRoute from './PrivateRoute';
@@ -47,6 +51,10 @@ const Root = () => (
     <PrivateRoute exact path='/email-compose' component={EmailCompose} />
     <Route exact path='/sign-in' component={SignIn} />
     <Route exact path='/sign-up' component={SignUp} />
+    <Route exact path='/forgot-password' component={Forgot} />
+    <Route exact path='/lock-screen' component={LockScreen} />
+    <Route exact path='/confirm-mail' component={ConfirmMail} />
+    <Route exact path='/reset-password' component={RecoverPw} />
     <Route exact path='/page-error-500' component={PageError500} />
     <Route component={PageError404} />
   </Switch>

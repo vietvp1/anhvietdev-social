@@ -23,7 +23,7 @@ ContactSchema.statics = {
         })
     },
 
-    getContacts(id, limit) {
+    getFriends(id, limit) {
         return this.find({
             $and: [   
                 {$or: [
@@ -47,7 +47,7 @@ ContactSchema.statics = {
         }).sort({"updatedAt": -1}).skip(skipNumber).limit(limit);
     },
 
-    getFriends(id) {
+    getAllFriends(id) {
         return this.find({
             $and: [   
                 {$or: [

@@ -4,28 +4,38 @@ const CommentModel = require('../models/commentModel')
 const videoModel = require('../models/videoModel')
 const photoModel = require('../models/photoModel')
 const attachmentModel = require('../models/attachmentModel')
+const userModel = require('../models/userModel')
 const _ = require('lodash');
 const fsExtra = require('fs-extra')
-const {videoType, imgType} = require('../config/mimeType')
+const { videoType, imgType } = require('../config/mimeType')
 
-const addNew = (writerId, filesVal, text, groupId) => {
-    return new Promise(async (resolve, reject) =>{
+const addNew = (writerId, filesVal, text, title, groupId) => {
+    return new Promise(async (resolve, reject) => {
         try {
             if (!text && filesVal.length == 0) {
                 return reject(false);
             }
             let from = {
-                managedBy: groupId? PostModel.from.GROUP: PostModel.from.PERSONAL,
-                idManager: groupId? groupId: writerId
+                managedBy: groupId ? PostModel.from.GROUP : PostModel.from.PERSONAL,
+                idManager: groupId ? groupId : writerId
             };
             let newPostItem = {
-                text: text? text:'',
+                text: text ? text : '',
                 from: from,
                 writer: writerId,
+                title: title
             };
             let newPost = await (await PostModel.model.create(newPostItem))
-            .populate('writer', ['firstName','lastName','address', 'avatar'])
-            .execPopulate();
+                .populate(
+                    {
+                        path: 'writer',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                )
+                .execPopulate();
             if (filesVal.length > 0) {
                 let arrayFilesPromise = filesVal.map(async fileVal => {
                     let checkImg = 0;
@@ -33,13 +43,14 @@ const addNew = (writerId, filesVal, text, groupId) => {
                     // let url = fileVal.path.replace(/\\/g, '/');
                     let ContentType = fileVal.mimetype;
                     let Name = fileVal.filename;
-                    
+
                     if (ContentType === videoType[0]) {
                         await videoModel.create({
                             post: newPost._id,
                             from: from,
                             contentType: ContentType,
-                            fileName: Name})
+                            fileName: Name
+                        })
                         return;
                     }
                     imgType.map(type => {
@@ -51,17 +62,19 @@ const addNew = (writerId, filesVal, text, groupId) => {
                     if (checkImg) {
                         await photoModel.create({
                             post: newPost._id,
-                            from: from, 
-                            data: BufferFile, 
-                            contentType: ContentType, 
-                            fileName: Name})
-                    }else{
+                            from: from,
+                            data: BufferFile,
+                            contentType: ContentType,
+                            fileName: Name
+                        })
+                    } else {
                         await attachmentModel.create({
                             post: newPost._id,
                             from: from,
-                            data: BufferFile, 
-                            contentType: ContentType, 
-                            fileName: Name})
+                            data: BufferFile,
+                            contentType: ContentType,
+                            fileName: Name
+                        })
                     }
                 });
                 await Promise.all(arrayFilesPromise);
@@ -70,52 +83,52 @@ const addNew = (writerId, filesVal, text, groupId) => {
         } catch (error) {
             reject(error)
         }
-    })   
+    })
 }
 
 const getOnePost = (postId) => {
-    return new Promise(async (resolve, reject) =>{
+    return new Promise(async (resolve, reject) => {
         const post = await PostModel.model.findById(postId);
         if (!post) {
             return reject(false)
         }
         resolve(post)
-    })   
+    })
 }
 
 const getMyPosts = (userId) => {
-    return new Promise(async (resolve, reject) =>{
+    return new Promise(async (resolve, reject) => {
         try {
-            let posts = await PostModel.model.getposts(userId).sort({"updatedAt": -1});
+            let posts = await PostModel.model.getposts(userId).sort({ "updatedAt": -1 });
             if (!posts) {
                 return reject
             }
-            
+
             resolve(posts)
         } catch (error) {
             return reject(error);
         }
-        
-    })   
+
+    })
 }
 
 const getpostsByUserId = (userId) => {
-    return new Promise(async (resolve, reject) =>{
+    return new Promise(async (resolve, reject) => {
         try {
             let posts = await PostModel.model.getposts(userId);
             resolve(posts);
         } catch (error) {
             return reject(error);
         }
-        
-    })   
+
+    })
 }
 
 const getAllPosts = (currentUserId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let friendIds = [];
-            let friends = await ContactModel.getFriends(currentUserId);
+            let friends = await ContactModel.getAllFriends(currentUserId);
             friends.forEach((item) => {
                 friendIds.push(item.userId);
                 friendIds.push(item.contactId)
@@ -127,14 +140,23 @@ const getAllPosts = (currentUserId) => {
         } catch (error) {
             reject(error);
         }
-    })  
+    })
 }
 
-const removePost = (postId) => {
-    return new Promise(async (resolve, reject) =>{
+const removePost = (postId, userId) => {
+    return new Promise(async (resolve, reject) => {
         try {
-            const removeReq = await PostModel.model.findOneAndDelete({"_id": postId});
+            const removeReq = await PostModel.model.findOneAndDelete({ "_id": postId });
             if (removeReq) {
+                let photoOfAvatar = await photoModel.findOne({ "post": postId });
+                let avatarUser = await userModel.findById(userId, {"avatar": 1, "cover" : 1});
+
+                if (avatarUser.avatar.toString() === photoOfAvatar._id.toString()) {
+                    await userModel.findByIdAndUpdate(userId , {"avatar" : process.env.AVATAR_DEFAULT})
+                }if (avatarUser.cover.toString() === photoOfAvatar._id.toString()) {
+                    await userModel.findByIdAndUpdate(userId , {"cover" : process.env.COVER_DEFAULT})
+                }
+
                 await photoModel.deletePhotoInPost(postId);
                 await attachmentModel.deleteAttachmentInPost(postId);
                 await videoModel.deleteVideoInPost(postId);
@@ -144,11 +166,11 @@ const removePost = (postId) => {
         } catch (error) {
             reject(error);
         }
-    })   
+    })
 }
 
 const getPostInGroup = (groupId) => {
-    return new Promise(async (resolve, reject) =>{
+    return new Promise(async (resolve, reject) => {
         try {
             let item = {
                 from: {
@@ -156,22 +178,22 @@ const getPostInGroup = (groupId) => {
                     idManager: groupId
                 }
             }
-            let posts = await PostModel.model.getPostInGroup(item).sort({"updatedAt": -1});
+            let posts = await PostModel.model.getPostInGroup(item).sort({ "updatedAt": -1 });
             resolve(posts)
         } catch (error) {
             return reject(error);
         }
-        
-    })   
+
+    })
 }
 
 let getFileInPost = (postId) => {
-    return new Promise( async (resolve, reject ) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let photos = await photoModel.photoInPost(postId);
             let attachments = await attachmentModel.attachmentInPost(postId);
             let videos = await videoModel.videoInPost(postId);
-            resolve({photos, attachments, videos});
+            resolve({ photos, attachments, videos });
         } catch (error) {
             reject(error)
         }

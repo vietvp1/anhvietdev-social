@@ -1,6 +1,7 @@
 import React, { useEffect, useState }  from 'react'
 import ImageLibrary from '../../../grid-images';
 import axios from "axios"
+import { bufferToBase64 } from '../../../../clientHelper/helperClient';
 
 const Photos = ({user}) => {
     const [photos, setPhotos] = useState([]);
@@ -10,7 +11,7 @@ const Photos = ({user}) => {
             if(isSubscribed) {
                 let img = [];
                 res.data.photos.forEach(item => {
-                    img.push(`${process.env.REACT_APP_API}/${item.url}`);
+                    img.push(`data:${item.contentType};base64,${bufferToBase64(item.data.data)}`);
                 });
                 setPhotos(img);
             }

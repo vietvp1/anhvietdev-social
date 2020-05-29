@@ -7,6 +7,7 @@ import ChatDrop from './ChatDrop'
 import Control from './Control'
 import Search from './Search'
 import logo from '../../../images/logochuan.png'
+import { bufferToBase64 } from '../../../clientHelper/helperClient'
 
 const TopNavbar = () => {
     const user = useSelector(state => state.auth.user);
@@ -39,7 +40,7 @@ const TopNavbar = () => {
                         <ul className="navbar-nav ml-auto navbar-list">
                             <li>
                                 <Link to={`/profile/${user._id}`} className="iq-waves-effect d-flex align-items-center">
-                                    <img src={`${process.env.REACT_APP_API}/${user.avatar}`} className="img-fluid rounded-circle mr-3" alt="user" />
+                                    <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} className="img-fluid rounded-circle mr-3" alt="user" />
                                     <div className="caption">
                                         <h6 className="mb-0 line-height">{user.firstName} {user.lastName}</h6>
                                     </div>

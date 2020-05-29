@@ -11,32 +11,8 @@ import logo from '../../../images/logo-av.png'
 import login1 from '../../../images/login/1.png'
 import login2 from '../../../images/login/2.png'
 import login3 from '../../../images/login/3.png'
-import Google from './Google';
-import Facebook from './Facebook';
 
-const SignIn = () => {
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-    const dispatch = useDispatch();
-
-    const [formData, setFormData] = useState({
-        email: '',
-        password: ''
-    });
-
-    const { email, password } = formData;
-
-    const onChange = e =>
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    const onSubmit = async e => {
-        e.preventDefault();
-        await dispatch(login(email, password));
-    };
-
-    if (isAuthenticated) {
-        return <Redirect to='/' />;
-    }
-
+const ConfirmMail = () => {
     return (
         <section className="sign-in-page">
             <Particles
@@ -98,64 +74,18 @@ const SignIn = () => {
                             </div>
                         </div>
                     </div>
+
                     <div className="col-md-6 bg-white pt-5">
                         <div className="sign-in-from">
-                            <h1 className="mb-0">Đăng nhập</h1>
-                            <p>Nhập địa chỉ email và mật khẩu của bạn.</p>
-                            <form className="mt-4">
-                                <div className="form-group">
-                                    <label htmlFor="exampleInputEmail1">Địa chỉ Email</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={email}
-                                        onChange={e => onChange(e)}
-                                        className="form-control mb-0"
-                                        id="exampleInputEmail1"
-                                        placeholder="Email"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="exampleInputPassword1">Mật khẩu</label>
-                                    <a href="/#" className="float-right">Quên mật khẩu?</a>
-                                    <input
-                                        type="password"
-                                        name='password'
-                                        value={password}
-                                        onChange={e => onChange(e)}
-                                        minLength='6'
-                                        className="form-control mb-0"
-                                        id="exampleInputPassword1"
-                                        placeholder="Mật khẩu"
-                                        required
-                                    />
-                                </div>
-
-                                <div className="d-inline-block w-100">
-                                    <div className="custom-control custom-checkbox d-inline-block mt-2 pt-1">
-                                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                        <label className="custom-control-label" htmlFor="customCheck1">Nhớ mật khẩu</label>
-                                    </div>
-                                    <button type="submit" className="btn btn-primary float-right" onClick={e => onSubmit(e)}>Đăng nhập</button>
-                                </div>
-                                <div className="sign-info">
-                                    <span className="dark-color d-inline-block line-height-2">Bạn chưa có tài khoản?
-                                <Link to="/sign-up"> Đăng ký</Link>
-                                    </span>
-                                    <ul className="iq-social-media">
-                                        <li>
-                                            <Facebook/>
-                                        </li>
-                                        <li>
-                                            <Google/>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </form>
+                            <img src="images/login/mail.png" width="80"  alt=""/>
+                            <h1 className="mt-3 mb-0">Success !</h1>
+                            <p>A email has been send to <a href="/cdn-cgi/l/email-protection" className="__cf_email__" data-cfemail="6910061c1b0c04080005290d0604080007470a060447">[email&#160;protected]</a> Please check for an email from company and click on the included link to reset your password.</p>
+                            <div className="d-inline-block w-100">
+                                <button type="submit" className="btn btn-primary mt-3">Back to Home</button>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -163,4 +93,5 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+export default ConfirmMail
+

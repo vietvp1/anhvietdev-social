@@ -46,9 +46,6 @@ photoSchema.statics = {
     },
 
     deletePhotoInPost(postId) {
-            // nếu lưu hình ảnh trong folder uploads thì khi xóa phải xóa cả hình ảnh lưu trong folder này
-            //const photos = await this.find({ "post": postId })
-            //photos.forEach(item => fsExtra.remove(item.url))
         return this.deleteMany({ "post": postId });
     },
 

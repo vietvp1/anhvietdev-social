@@ -57,7 +57,7 @@ const Cover = ({ user, userauth }) => {
 
             {
                 preview ? <img src={picture} alt="profile-bg" className="rounded" /> :
-                    user.cover ?
+                    user.cover.data ?
                         <img src={`data:${user.cover.contentType};base64,${bufferToBase64(user.cover.data.data)}`} alt="profile-bg" className="rounded" />
                         : null
 

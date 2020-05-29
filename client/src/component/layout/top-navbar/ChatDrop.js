@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { lastItemOfArray } from "../../../clientHelper/helperClient"
+import { lastItemOfArray, bufferToBase64 } from "../../../clientHelper/helperClient"
 import moment from 'moment';
 
 const ChatDrop = ({ userId }) => {
@@ -67,7 +67,7 @@ const ChatDrop = ({ userId }) => {
                                     lastItemOfArray(c.messages).receiver === userId ? "iq-sub-card readed-false" : "iq-sub-card"}>
                                     <div className="media align-items-center">
                                         <div>
-                                            <img src={`${process.env.REACT_APP_API}/${c.userChat.avatar}`} className="avatar-40 rounded" alt="" />
+                                            <img src={`data:${c.userChat.avatar.contentType};base64,${bufferToBase64(c.userChat.avatar.data.data)}`} className="avatar-40 rounded" alt="" />
                                         </div>
                                         <div className="media-body ml-3 chat-sidebar-name">
                                             <h6 className="mb-0 "> {c.userChat.firstName} {c.userChat.lastName}</h6>

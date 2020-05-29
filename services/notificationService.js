@@ -44,7 +44,15 @@ let addNotifComment = (variable, writerPost) => {
                         comment: variable.responseTo
                     }
                     notification = await (await NotificationModel.model.create(item))
-                    .populate('sender', ['firstName','lastName','address', 'avatar'])
+                    .populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                )
                     .populate('post')
                     .populate('comment')
                     .execPopulate();
@@ -69,7 +77,15 @@ let addNotifComment = (variable, writerPost) => {
                         post: variable.parent,
                     }
                     notification = await (await NotificationModel.model.create(item))
-                    .populate('sender', ['firstName','lastName','address', 'avatar'])
+                    .populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                )
                     .populate('post')
                     .execPopulate();
                 }
@@ -99,12 +115,28 @@ let addNotifUpReaction = (postId, userId, writerPost) => {
                 let notifExist = await NotificationModel.model.findOneAndUpdate(item, {isRead:false, updatedAt: Date.now});
                 if(!notifExist){
                     notification = await (await NotificationModel.model.create(item))
-                    .populate('sender', ['firstName','lastName','address', 'avatar'])
+                    .populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                )
                     .populate('post')
                     .execPopulate();
                 }else{
                     notification = await (await NotificationModel.model.findById(notifExist._id))
-                    .populate('sender', ['firstName','lastName','address', 'avatar'])
+                    .populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                )
                     .populate('post')
                     .execPopulate();
                 }
@@ -135,12 +167,28 @@ let addNotifUpReactionCmt = (postId, commentId, userId, writerComment) => {
                 let notifExist = await NotificationModel.model.findOneAndUpdate(item, {isRead:false, updatedAt: Date.now});
                 if(!notifExist){
                     notification = await (await NotificationModel.model.create(item))
-                    .populate('sender', ['firstName','lastName','address', 'avatar'])
+                    .populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                )
                     .populate('post').populate('comment')
                     .execPopulate();
                 }else{
                     notification = await (await NotificationModel.model.findById(notifExist._id))
-                    .populate('sender', ['firstName','lastName','address', 'avatar'])
+                    .populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                )
                     .populate('post').populate('comment')
                     .execPopulate();
                 }

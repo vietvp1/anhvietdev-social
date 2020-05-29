@@ -1,4 +1,6 @@
 const UserModel = require('../models/userModel')
+const photoModel = require('../models/photoModel')
+const postService = require('./postService')
 
 let updatePassword = (id, item) => {
     return UserModel.findByIdAndUpdate(id, item);
@@ -18,10 +20,29 @@ let updateInfo = (id, item) => {
     })
 };
 
+let update_Avatar_Cover = (id, file, text, title, typeUpdate) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let post = await postService.addNew(id, [file], text, title, false);
+            let photo = await photoModel.photoInPost(post._id);
+            let item = {
+                [typeUpdate]: photo[0]._id
+            }
+            const user = await UserModel.findByIdAndUpdate(id, item, {
+                fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
+                new: true
+            }).populate('avatar').populate('cover');
+            resolve(user)
+        } catch (error) {
+            reject(error)
+        }
+    })
+};
+
 let getUser = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.getNormalUserDataById(userId);
+            const user = await UserModel.findUserByIdForClientToUse(userId);
             resolve(user)
         } catch (error) {
             reject(error)
@@ -43,9 +64,9 @@ let searchUser = (keyword) => {
 let addWork = (id, work) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.findByIdAndUpdate(id, 
+            const user = await UserModel.findByIdAndUpdate(id,
                 {
-                    $push: {"work": work} // hoạt động nhưng update xong k trả về giá trị sau update neeus k cos new:true
+                    $push: { "work": work } // hoạt động nhưng update xong k trả về giá trị sau update neeus k cos new:true
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -85,7 +106,7 @@ let addSkill = (id, skill) => {
         try {
             const user = await UserModel.findOneAndUpdate({ _id: id },
                 {
-                    $push: { "skills": {skillname: skill} }
+                    $push: { "skills": { skillname: skill } }
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -103,9 +124,9 @@ let addSkill = (id, skill) => {
 let deleteSkill = (id, skillId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.findByIdAndUpdate( id,
+            const user = await UserModel.findByIdAndUpdate(id,
                 {
-                    $pull: { "skills": {_id: skillId} }
+                    $pull: { "skills": { _id: skillId } }
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -123,9 +144,9 @@ let deleteSkill = (id, skillId) => {
 let addEducation = (id, education) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.findByIdAndUpdate(id, 
+            const user = await UserModel.findByIdAndUpdate(id,
                 {
-                    $push: {"education": education}
+                    $push: { "education": education }
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -163,9 +184,9 @@ let updateEducation = (id, education) => {
 let addPlaceLived = (id, placelived) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.findByIdAndUpdate(id, 
+            const user = await UserModel.findByIdAndUpdate(id,
                 {
-                    $push: {"placeslived": placelived}
+                    $push: { "placeslived": placelived }
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -203,9 +224,9 @@ let updatePlaceLived = (id, placelived) => {
 let deleteWork = (id, workId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.findByIdAndUpdate( id,
+            const user = await UserModel.findByIdAndUpdate(id,
                 {
-                    $pull: { "work": {_id: workId} }
+                    $pull: { "work": { _id: workId } }
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -223,9 +244,9 @@ let deleteWork = (id, workId) => {
 let deleteEducation = (id, eduId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.findByIdAndUpdate( id,
+            const user = await UserModel.findByIdAndUpdate(id,
                 {
-                    $pull: { "education": {_id: eduId} }
+                    $pull: { "education": { _id: eduId } }
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -243,9 +264,9 @@ let deleteEducation = (id, eduId) => {
 let deletePlaceLived = (id, placeId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const user = await UserModel.findByIdAndUpdate( id,
+            const user = await UserModel.findByIdAndUpdate(id,
                 {
-                    $pull: { "placeslived": {_id: placeId} }
+                    $pull: { "placeslived": { _id: placeId } }
                 },
                 {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
@@ -275,5 +296,6 @@ module.exports = {
     updatePlaceLived,
     deleteWork,
     deleteEducation,
-    deletePlaceLived
+    deletePlaceLived,
+    update_Avatar_Cover
 }

@@ -11,26 +11,26 @@ let MessageSchema = new Schema({
         ref: 'user'
     },
     conversationType: String,
-    userCurrent: [ 
+    userCurrent: [
         {
             type: Schema.Types.ObjectId,
             ref: 'user'
         }
     ],
-    isReaded: {type: Boolean, default: false},
+    isReaded: { type: Boolean, default: false },
     text: String,
     video: [
         {
             url: String,
-            contentType: String, 
+            contentType: String,
             fileName: String,
             messageType: String,
         }
     ],
     file: [
         {
-            data: Buffer, 
-            contentType: String, 
+            data: Buffer,
+            contentType: String,
             fileName: String,
             messageType: String,
         }
@@ -42,41 +42,57 @@ let MessageSchema = new Schema({
 //   });
 
 MessageSchema.statics = {
-    getMessagesInPersonal(currentId, receiver, limit){
+    getMessagesInPersonal(currentId, receiver, limit) {
         return this.find({
-            $or: [ 
-                {$and: [
-                    {"sender": currentId},
-                    {"receiver": receiver},
-                    {"userCurrent" :  {$elemMatch: {"$eq": currentId}}}
-                ]},
-                {$and: [
-                    {"receiver": currentId},
-                    {"sender": receiver},
-                    {"userCurrent" :  {$elemMatch: {"$eq": currentId}}}
-                ]},
+            $or: [
+                {
+                    $and: [
+                        { "sender": currentId },
+                        { "receiver": receiver },
+                        { "userCurrent": { $elemMatch: { "$eq": currentId } } }
+                    ]
+                },
+                {
+                    $and: [
+                        { "receiver": currentId },
+                        { "sender": receiver },
+                        { "userCurrent": { $elemMatch: { "$eq": currentId } } }
+                    ]
+                },
             ]
         })
-        .populate('sender', ['firstName','lastName','address', 'avatar'])
-        .sort({"createdAt": -1}).limit(limit);
+            .populate(
+                {
+                    path: 'sender',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .sort({ "createdAt": -1 }).limit(limit);
     },
 
-    deleteAllMessagesFisrtUser(sender, userChatId){
+    deleteAllMessagesFisrtUser(sender, userChatId) {
         return this.updateMany({
-            $or: [ 
-                {$and: [
-                    {"sender": sender},
-                    {"receiver": userChatId},
-                    {"userCurrent" :  {$elemMatch: {"$eq": sender}}}
-                ]},
-                {$and: [
-                    {"receiver": sender},
-                    {"sender": userChatId},
-                    {"userCurrent" :  {$elemMatch: {"$eq": sender}}}
-                ]},
+            $or: [
+                {
+                    $and: [
+                        { "sender": sender },
+                        { "receiver": userChatId },
+                        { "userCurrent": { $elemMatch: { "$eq": sender } } }
+                    ]
+                },
+                {
+                    $and: [
+                        { "receiver": sender },
+                        { "sender": userChatId },
+                        { "userCurrent": { $elemMatch: { "$eq": sender } } }
+                    ]
+                },
             ]
-        },{
-            "userCurrent": [{userId: userChatId}]
+        }, {
+            "userCurrent": [{ userId: userChatId }]
             // {
             //     $filter: {
             //         input: "$userCurrent",
@@ -84,52 +100,68 @@ MessageSchema.statics = {
             //         cond: { $ne: [{"$$userId": sender}] }
             //     }
             // }
-        } );
+        });
     },
 
-    deleteAllMessages(sender, userChatId){
+    deleteAllMessages(sender, userChatId) {
         return this.deleteMany({
-            $or: [ 
-                {$and: [
-                    {"sender": sender},
-                    {"receiver": userChatId},
-                    {"userCurrent" :  {$elemMatch: {"$eq": sender}}},
-                    {"userCurrent" :  { $size : 1 }}
-                ]},
-                {$and: [
-                    {"receiver": sender},
-                    {"sender": userChatId},
-                    {"userCurrent" :  {$elemMatch: {"$eq": sender}}},
-                    {"userCurrent" :  { $size : 1 }}
-                ]},
+            $or: [
+                {
+                    $and: [
+                        { "sender": sender },
+                        { "receiver": userChatId },
+                        { "userCurrent": { $elemMatch: { "$eq": sender } } },
+                        { "userCurrent": { $size: 1 } }
+                    ]
+                },
+                {
+                    $and: [
+                        { "receiver": sender },
+                        { "sender": userChatId },
+                        { "userCurrent": { $elemMatch: { "$eq": sender } } },
+                        { "userCurrent": { $size: 1 } }
+                    ]
+                },
             ]
         });
     },
 
     //receiver là id của group chat
-    getMessagesInGroup(receiver, limit){
-        return this.find({"receiver": receiver})
-        .populate('sender', ['firstName','lastName','address', 'avatar'])
-        .sort({"createdAt": -1}).limit(limit);
+    getMessagesInGroup(receiver, limit) {
+        return this.find({ "receiver": receiver })
+            .populate(
+                {
+                    path: 'sender',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .sort({ "createdAt": -1 }).limit(limit);
     },
 
-    readMoreMessagesInPersonal(sender, receiver, skip, limit){
+    readMoreMessagesInPersonal(sender, receiver, skip, limit) {
         return this.find({
-            $or: [ 
-                {$and: [
-                    {"sender": sender},
-                    {"receiver": receiver}
-                ]},
-                {$and: [
-                    {"receiver": sender},
-                    {"sender": receiver}
-                ]},
+            $or: [
+                {
+                    $and: [
+                        { "sender": sender },
+                        { "receiver": receiver }
+                    ]
+                },
+                {
+                    $and: [
+                        { "receiver": sender },
+                        { "sender": receiver }
+                    ]
+                },
             ]
-        }).sort({"createdAt": -1}).skip(skip).limit(limit);
+        }).sort({ "createdAt": -1 }).skip(skip).limit(limit);
     },
 
-    readMoreMessagesInGroup(receiver, skip, limit){
-        return this.find({"receiver": receiver}).sort({"createdAt": -1}).skip(skip).limit(limit);
+    readMoreMessagesInGroup(receiver, skip, limit) {
+        return this.find({ "receiver": receiver }).sort({ "createdAt": -1 }).skip(skip).limit(limit);
     },
 
 }

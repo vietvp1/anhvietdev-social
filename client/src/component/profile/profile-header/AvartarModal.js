@@ -9,12 +9,15 @@ import AvatarEditor from 'react-avatar-editor';
 import { Picker } from 'emoji-mart';
 import Swal from 'sweetalert2';
 import TextareaAutosize from 'react-autosize-textarea';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../../actions/auth';
 
 const AvatarModal = ({ picture, file, toggle, setToggle, remove }) => {
     const [text, setText] = useState('');
     const [scaleValue, setScaleValue] = useState(1);
     const [editor, setEditor] = useState(null);
     const [userProfilePic, setUserProfilePic] = useState('');
+    const dispatch = useDispatch();
 
     const onChangeEmoji = (e) => {
         let emoji = e.native;
@@ -27,7 +30,7 @@ const AvatarModal = ({ picture, file, toggle, setToggle, remove }) => {
     }
 
     const onSave = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (editor !== null) {
             const url = editor.getImageScaledToCanvas().toDataURL();
             setUserProfilePic(url);
@@ -45,12 +48,12 @@ const AvatarModal = ({ picture, file, toggle, setToggle, remove }) => {
         if (res.data.success) {
             console.log(res.data);
             setToggle(!toggle);
+            dispatch(updateUser(res.data.user));
             Swal.fire({
                 title: `Cập nhập ảnh đại diện thành công.`,
                 icon: "success",
                 timer: 3000,
             });
-            window.location.reload(false);
         }
     }
 

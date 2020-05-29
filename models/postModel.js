@@ -14,7 +14,7 @@ const PostSchema = new Schema({
     text: {
         type: String
     },
-    tags:[
+    tags: [
         {
             type: Schema.Types.ObjectId,
             ref: 'user'
@@ -39,7 +39,7 @@ const PostSchema = new Schema({
         max: 2,
         default: 1  // 0: private, 2: friends, 1: public
     },
-    
+
 }, { timestamps: true })
 
 const FROM = {
@@ -48,39 +48,55 @@ const FROM = {
 }
 
 PostSchema.statics = {
-    getposts(userId){
-        return this.find({"from.managedBy": FROM.PERSONAL, "writer" : userId})
-            .populate('writer', ['firstName','lastName','address', 'avatar'])
-            .populate('reactions.user', ['firstName','lastName','address', 'avatar'])
-            .sort({"updatedAt": -1});
+    getposts(userId) {
+        return this.find({ "from.managedBy": FROM.PERSONAL, "writer": userId })
+            .populate(
+                {
+                    path: 'writer',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
+            .sort({ "updatedAt": -1 });
     },
 
-    getAllPosts(UserIds){
-        return this.find({"from.managedBy": FROM.PERSONAL, "writer": {$in: UserIds}})
-            .populate('writer', ['firstName','lastName','address', 'avatar'])
-            .populate('reactions.user', ['firstName','lastName','address', 'avatar'])
-            .sort({"updatedAt": -1});
+    getAllPosts(UserIds) {
+        return this.find({ "from.managedBy": FROM.PERSONAL, "writer": { $in: UserIds } })
+            .populate(
+                {
+                    path: 'writer',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
+            .sort({ "updatedAt": -1 });
     },
 
-    getPostInGroup(item){
+    getPostInGroup(item) {
         return this.find(item)
-            .populate('writer', ['firstName','lastName','address', 'avatar'])
-            .populate('reactions.user', ['firstName','lastName','address', 'avatar'])
-            .sort({"updatedAt": -1});
+            .populate('writer', ['firstName', 'lastName', 'address', 'avatar'])
+            .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
+            .sort({ "updatedAt": -1 });
     },
 
-    upReaction(id , userId, type){
-        return this.findByIdAndUpdate(id, 
+    upReaction(id, userId, type) {
+        return this.findByIdAndUpdate(id,
             {
-                $push: {"reactions": { user: userId, typeReact: type } }
+                $push: { "reactions": { user: userId, typeReact: type } }
             }
         )
     },
 
-    unReaction(id , userId){
-        return this.findByIdAndUpdate(id, 
+    unReaction(id, userId) {
+        return this.findByIdAndUpdate(id,
             {
-                $pull: { "reactions": { user: userId } } 
+                $pull: { "reactions": { user: userId } }
             }
         )
     }

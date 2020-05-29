@@ -7,8 +7,9 @@ import CommentOptions from './CommentOptions';
 import CommentReaction from './CommentReaction';
 import { Link } from 'react-router-dom';
 import ReactAction from '../home/newsfeed/ReactAction';
+import { bufferToBase64 } from '../../clientHelper/helperClient';
 
-const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep}) => {
+const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep }) => {
     let user = useSelector(state => state.auth.user);
     let socket = useSelector(state => state.master_data.socket);
     const [data, setData] = useState({
@@ -67,11 +68,11 @@ const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep}) => {
             })
         }
     }, [comment, user, socket])
-    
+
     const openReply = () => {
         if (setOpenRep) {
             setOpenRep(!OpenRep);
-        }else setOpenReply(!OpenReply)
+        } else setOpenReply(!OpenReply)
     }
 
     return (
@@ -79,14 +80,14 @@ const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep}) => {
             <div className="post-comments-single">
                 <div className="post-comment-avatar">
                     <Link to={`/profile/${comment.writer._id}`}>
-                        <img src={`${process.env.REACT_APP_API}/${comment.writer.avatar}`} alt="userimg" className="avatar-35 rounded-circle img-fluid" />
+                        <img src={`data:${comment.writer.avatar.contentType};base64,${bufferToBase64(comment.writer.avatar.data.data)}`} alt="userimg" className="avatar-35 rounded-circle img-fluid" />
                     </Link>
                 </div>
                 <div className="post-comment-text">
                     <div className="post-comment-text-inner">
                         <h6> {comment.writer.firstName}&nbsp;{comment.writer.lastName}</h6>
                         <p> {comment.content} </p>
-                        <CommentReaction data={data} comment={comment}/>
+                        <CommentReaction data={data} comment={comment} />
                     </div>
                     <div className="uk-text-small">
                         <span className="mr-3">
@@ -103,17 +104,17 @@ const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep}) => {
                         <span className="time-cmt">{moment(comment.createdAt).locale('vi').startOf("seconds").fromNow()} </span>
                     </div>
                 </div>
-                <CommentOptions comment={comment} hideComment={hideComment}/>
+                <CommentOptions comment={comment} hideComment={hideComment} />
             </div>
-            <ReplyComment 
-                comment={comment} 
-                user={user} post={post} 
-                OpenReply={OpenReply} 
+            <ReplyComment
+                comment={comment}
+                user={user} post={post}
+                OpenReply={OpenReply}
                 setOpenReply={setOpenReply}
                 setReactAction={setReactAction}
                 reactAction={reactAction}
                 data={data}
-                setData={setData}/>
+                setData={setData} />
         </Fragment>
     )
 }

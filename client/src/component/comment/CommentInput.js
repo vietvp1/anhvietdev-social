@@ -3,8 +3,9 @@ import { Picker } from 'emoji-mart'
 import { useSelector } from 'react-redux'
 import TextareaAutosize from 'react-autosize-textarea';
 import axios from 'axios'
+import { bufferToBase64 } from '../../clientHelper/helperClient';
 
-const CommentInput = ({post, updateComment, comment}) => {
+const CommentInput = ({ post, updateComment, comment }) => {
     const user = useSelector(state => state.auth.user)
     const [Comment, setComment] = useState("");
     const handleChange = (e) => {
@@ -15,20 +16,20 @@ const CommentInput = ({post, updateComment, comment}) => {
         let emoji = e.native;
         setComment(Comment + emoji);
     }
-    
+
     const onSubmit = (e) => {
         e.preventDefault();
-        let variables = comment?  {
+        let variables = comment ? {
             content: Comment,
             writer: user._id,
             parent: comment.parent,
             responseTo: comment._id,
-        } :  {
-            content: Comment,
-            writer: user._id,
-            parent: post._id
-        }
-        axios.post('/comment/saveComment', {variables, writerPost: post.writer._id})
+        } : {
+                content: Comment,
+                writer: user._id,
+                parent: post._id
+            }
+        axios.post('/comment/saveComment', { variables, writerPost: post.writer._id })
             .then(response => {
                 if (response.data.success) {
                     setComment("")
@@ -40,28 +41,28 @@ const CommentInput = ({post, updateComment, comment}) => {
     return (
         <div className="post-add-comment">
             <div className="post-comment-avatar">
-                <img src={`${process.env.REACT_APP_API}/${post.writer.avatar}`} alt=""/>
+                <img src={`data:${post.writer.avatar.contentType};base64,${bufferToBase64(post.writer.avatar.data.data)}`} alt="" />
             </div>
             <div className="post-add-comment-text-area">
                 <TextareaAutosize
-                    type="text" 
+                    type="text"
                     onChange={handleChange}
                     value={Comment}
                     placeholder="Viết bình luận..."
-                    onKeyPress={e => e.key === "Enter" ? onSubmit(e): null}
+                    onKeyPress={e => e.key === "Enter" ? onSubmit(e) : null}
                 />
                 <div className="icons">
                     <i className="fal fa-paperclip"></i>
 
                     <span className="dropdown not-close-when-click">
                         <span className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                            <i  className="fal fa-laugh-wink" />
+                            <i className="fal fa-laugh-wink" />
                         </span>
                         <div className="dropdown-menu dropdown-menu-right comment-input-picker">
-                            <Picker onSelect={onChangeEmoji} darkMode={true}/> 
+                            <Picker onSelect={onChangeEmoji} darkMode={true} />
                         </div>
                     </span>
-                    <i className="fal fa-image"/>
+                    <i className="fal fa-image" />
                 </div>
             </div>
         </div>

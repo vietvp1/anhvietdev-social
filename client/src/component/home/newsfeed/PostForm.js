@@ -3,7 +3,7 @@ import axios from 'axios';
 import FlipMove from 'react-flip-move';
 import Swal from 'sweetalert2';
 import { useSelector } from 'react-redux'
-import { readFile, maxSelectFile, checkFileSize, checkFilesQuantity } from '../../../clientHelper/helperClient'
+import { readFile, maxSelectFile, checkFileSize, checkFilesQuantity, bufferToBase64 } from '../../../clientHelper/helperClient'
 import { imgType, videoType } from "../../../clientHelper/mimeType"
 import img07 from '../../../images/small/07.png'
 import img08 from '../../../images/small/08.png'
@@ -164,7 +164,7 @@ const PostForm = ({ updatePost, groupId }) => {
             <div className="iq-card-body" data-toggle="modal" data-target="#post-modal">
                 <div className="d-flex align-items-center">
                     <div className="user-img">
-                        <img src={`${process.env.REACT_APP_API}/${user.avatar}`} alt="userimg" className="avatar-60 rounded-circle" />
+                        <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="userimg" className="avatar-60 rounded-circle" />
                     </div>
                     <form className="post-text ml-3 w-100">
                         <input type="text" className="form-control rounded" placeholder="Bạn đang nghĩ gì..." style={{ border: 'none' }} />
@@ -209,7 +209,7 @@ const PostForm = ({ updatePost, groupId }) => {
                         <div className="modal-body">
                             <div className="d-flex align-items-center">
                                 <div className="user-img">
-                                    <img src={`${process.env.REACT_APP_API}/${user.avatar}`} alt="userimg" className="avatar-60 rounded-circle img-fluid" />
+                                    <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="userimg" className="avatar-60 rounded-circle img-fluid" />
                                 </div>
                                 <form className="post-text ml-3 w-100" action="">
                                     <input
@@ -267,7 +267,7 @@ const PostForm = ({ updatePost, groupId }) => {
                                 <div className="d-flex align-items-center justify-content-between">
                                     <div className="d-flex align-items-center">
                                         <div className="user-img mr-3">
-                                            <img src={`${process.env.REACT_APP_API}/${user.avatar}`} alt="userimg" className="avatar-60 rounded-circle img-fluid" />
+                                            <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="userimg" className="avatar-60 rounded-circle img-fluid" />
                                         </div>
                                         <h6>Tin của bạn</h6>
                                     </div>

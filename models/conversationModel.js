@@ -16,70 +16,98 @@ conversationSchema.statics = {
     getConversations(id, limit) {
         return this.find({
             $or: [
-                {"firstOne": id},
-                {"secondOne": id}
+                { "firstOne": id },
+                { "secondOne": id }
             ]
         })
-        .populate('firstOne', ['firstName','lastName','address', 'avatar'])
-        .populate('secondOne', ['firstName','lastName','address', 'avatar'])
-        .sort({"updatedAt": -1})
-        .limit(limit);
+            .populate(
+                {
+                    path: 'firstOne',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .populate(
+                {
+                    path: 'secondOne',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
+            .sort({ "updatedAt": -1 })
+            .limit(limit);
     },
 
-    updateWhenHasNewMessage(firstOne, secondOne){
+    updateWhenHasNewMessage(firstOne, secondOne) {
         return this.updateOne({
             $or: [
-                {$and: [
-                    {"firstOne": firstOne},
-                    {"secondOne": secondOne}
-                ]},
-                {$and: [
-                    {"firstOne": secondOne},
-                    {"secondOne": firstOne}
-                ]},
+                {
+                    $and: [
+                        { "firstOne": firstOne },
+                        { "secondOne": secondOne }
+                    ]
+                },
+                {
+                    $and: [
+                        { "firstOne": secondOne },
+                        { "secondOne": firstOne }
+                    ]
+                },
             ]
         }, {
             "updatedAt": Date.now()
         });
     },
 
-    getOneConversation(firstOne, secondOne){
+    getOneConversation(firstOne, secondOne) {
         return this.findOne({
             $or: [
-                {$and: [
-                    {"firstOne": firstOne},
-                    {"secondOne": secondOne}
-                ]},
-                {$and: [
-                    {"firstOne": secondOne},
-                    {"secondOne": firstOne}
-                ]},
+                {
+                    $and: [
+                        { "firstOne": firstOne },
+                        { "secondOne": secondOne }
+                    ]
+                },
+                {
+                    $and: [
+                        { "firstOne": secondOne },
+                        { "secondOne": firstOne }
+                    ]
+                },
             ]
         });
     },
 
-    deleteOneConversation(firstOne, secondOne){
+    deleteOneConversation(firstOne, secondOne) {
         return this.deleteOne({
             $or: [
-                {$and: [
-                    {"firstOne": firstOne},
-                    {"secondOne": secondOne}
-                ]},
-                {$and: [
-                    {"firstOne": secondOne},
-                    {"secondOne": firstOne}
-                ]},
+                {
+                    $and: [
+                        { "firstOne": firstOne },
+                        { "secondOne": secondOne }
+                    ]
+                },
+                {
+                    $and: [
+                        { "firstOne": secondOne },
+                        { "secondOne": firstOne }
+                    ]
+                },
             ]
         });
     },
 
-    readMoreConversations(id, skipNumber, limit){
+    readMoreConversations(id, skipNumber, limit) {
         return this.find({
             $or: [
-                {"firstOne": id},
-                {"secondOne": id}
+                { "firstOne": id },
+                { "secondOne": id }
             ]
-        }).sort({"updatedAt": -1}).skip(skipNumber).limit(limit);
+        }).sort({ "updatedAt": -1 }).skip(skipNumber).limit(limit);
     },
 
 }

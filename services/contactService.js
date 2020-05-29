@@ -7,7 +7,7 @@ const LIMIT = 15;
 let getContacts = (currentUserId) => {
     return new Promise( async (resolve, reject) => {
         try {
-            let contacts = await ContactModel.getContacts(currentUserId, LIMIT);
+            let contacts = await ContactModel.getFriends(currentUserId, LIMIT);
             let users = contacts.map(async (contact) => {
                 if (contact.contactId == currentUserId) {
                     return await UserModel.getNormalUserDataById(contact.userId);
@@ -232,7 +232,7 @@ let findUsersContact = (currentUserId, keyword) => {
 let searchFriends = (currentUserId, keyword) => {
     return new Promise( async (resolve, reject) => {
         let friendIds = [];
-        let friends = await ContactModel.getFriends(currentUserId);
+        let friends = await ContactModel.getFriends(currentUserId, 20);
         friends.forEach((item) => {
             friendIds.push(item.userId);
             friendIds.push(item.contactId)

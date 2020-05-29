@@ -81,7 +81,15 @@ let addNewTextEmoji = (senderId, receivedId, messageVal, isChatGroup, isCurrent)
                 };
 
                 //create new message
-                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate('sender', ['firstName','lastName','address', 'avatar']).execPopulate();
+                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                ).execPopulate();
 
                 //update group chat
                 await ChatGroupModel.updateWhenHasNewMessage(receivedId);
@@ -110,7 +118,15 @@ let addNewTextEmoji = (senderId, receivedId, messageVal, isChatGroup, isCurrent)
                     text: messageVal,
                 };
                 //create new message
-                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate('sender', ['firstName','lastName','address', 'avatar']).execPopulate();
+                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                ).execPopulate();
                 //update
                 await ConversationModel.updateWhenHasNewMessage(senderId, receivedId);
                 (!isCurrent)? resolve({newMessage, newConversation}) : resolve({newMessage})
@@ -172,7 +188,15 @@ let addNewFile = (senderId, receivedId, messageVal, isChatGroup, isCurrent) => {
                 }
 
                 //create new message
-                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate('sender', ['firstName','lastName','address', 'avatar']).execPopulate();
+                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                ).execPopulate();
         
                 //update group chat
                 await ChatGroupModel.updateWhenHasNewMessage(receivedId);
@@ -231,7 +255,15 @@ let addNewFile = (senderId, receivedId, messageVal, isChatGroup, isCurrent) => {
                     };
                 }
                 //create new message
-                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate('sender', ['firstName','lastName','address', 'avatar']).execPopulate();;
+                let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
+                    {
+                        path: 'sender',
+                        select: ['firstName', 'lastName', 'address', 'avatar'],
+                        populate: {
+                            path: "avatar",
+                        }
+                    }
+                ).execPopulate();;
  
                 await ConversationModel.updateWhenHasNewMessage(senderId, receivedId);
 

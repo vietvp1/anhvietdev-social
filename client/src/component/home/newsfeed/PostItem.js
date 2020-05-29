@@ -78,7 +78,7 @@ const PostItem = ({ post, hidePost }) => {
                         <div className="d-flex flex-wrap">
                             <div className="media-support-user-img mr-3">
                                 <Link to={`/profile/${post.writer._id}`}>
-                                    <img className="rounded-circle img-fluid" src={`${process.env.REACT_APP_API}/${post.writer.avatar}`} alt="" />
+                                    <img src={`data:${post.writer.avatar.contentType};base64,${bufferToBase64(post.writer.avatar.data.data)}`} className="rounded-circle img-fluid" alt="" />
                                 </Link>
                             </div>
                             <div className="media-support-info mt-2">
