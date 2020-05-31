@@ -233,7 +233,9 @@ UserSchema.statics = {
         return this.findById(id, { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 });
     },
     getNormalUserDataById(id) {
-        return this.findById(id, { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 }).populate('avatar').exec();
+        return this.findById(id, { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 })
+        .populate('cover')
+        .populate('avatar')
     },
     getNormalUserDataByIdAndKeyword(friendIds, keyword) {
         return this.find({
@@ -246,14 +248,14 @@ UserSchema.statics = {
                     ]
                 }
             ]
-        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 });
+        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 }).populate('avatar');
     },
     getNormalUsersDataByIdsAndLimit(UserIds, limit) {
         return this.find({
             $and: [
                 { "_id": { $in: UserIds } },
             ]
-        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 }).limit(limit);
+        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 }).populate('avatar').limit(limit);
     },
     getNormalUserDataByKeyword(keyword) {
         return this.find({
@@ -261,7 +263,7 @@ UserSchema.statics = {
                 { "firstName": { "$regex": new RegExp(keyword, "i") } },
                 { "lastName": { "$regex": new RegExp(keyword, "i") } }
             ]
-        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 });
+        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 }).populate('avatar');
     },
 }
 

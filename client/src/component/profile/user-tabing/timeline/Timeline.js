@@ -18,10 +18,7 @@ const Timeline = ({ user }) => {
             axios.get(`/photos/${user._id}`).then(res => {
                 setPhotos(res.data.photos);
             });
-            console.log("check");
-            
             axios.get(`/contact/get-contacts/${user._id}`).then(res => {
-                console.log(res.data);
                 setList(res.data);
             })
         }
@@ -42,43 +39,9 @@ const Timeline = ({ user }) => {
                 <div className="row">
                     <div className="col-lg-4">
                         <div className="iq-card">
-                            <div className="iq-card-body">
-                                <a href="/"><span className="badge badge-pill badge-primary font-weight-normal ml-auto mr-1"><i className="ri-star-line" /></span> 27 Items for yoou</a>
-                            </div>
-                        </div>
-                        <div className="iq-card">
-                            <div className="iq-card-header d-flex justify-content-between">
-                                <div className="iq-header-title">
-                                    <h4 className="card-title">Life Event</h4>
-                                </div>
-                                <div className="iq-card-header-toolbar d-flex align-items-center">
-                                    <p className="m-0"><span> Tạo </span></p>
-                                </div>
-                            </div>
-                            <div className="iq-card-body">
-                                <div className="row">
-                                    <div className="col-sm-12">
-                                        <div className="event-post position-relative">
-                                            <a href="/"><img src={require('../../../../images/page-img/07.jpg')} alt="gallary-img" className="img-fluid rounded" /></a>
-                                            <div className="job-icon-position">
-                                                <div className="job-icon bg-primary p-2 d-inline-block rounded-circle"><i className="ri-briefcase-line" /></div>
-                                            </div>
-                                            <div className="iq-card-body text-center p-2">
-                                                <h5>Started New Job at Apple</h5>
-                                                <p>January 24, 2019</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="iq-card">
                             <div className="iq-card-header d-flex justify-content-between">
                                 <div className="iq-header-title">
                                     <h4 className="card-title">Ảnh</h4>
-                                </div>
-                                <div className="iq-card-header-toolbar d-flex align-items-center">
-                                    <p className="m-0"><span>Thêm</span></p>
                                 </div>
                             </div>
                             <div className="iq-card-body">
@@ -101,9 +64,6 @@ const Timeline = ({ user }) => {
                             <div className="iq-card-header d-flex justify-content-between">
                                 <div className="iq-header-title">
                                     <h4 className="card-title">Bạn bè</h4>
-                                </div>
-                                <div className="iq-card-header-toolbar d-flex align-items-center">
-                                    <p className="m-0"><span>Thêm</span></p>
                                 </div>
                             </div>
                             <div className="iq-card-body">

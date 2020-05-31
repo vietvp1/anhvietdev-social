@@ -9,10 +9,6 @@ import img07 from '../../../images/small/07.png'
 import img08 from '../../../images/small/08.png'
 import img09 from '../../../images/small/09.png'
 import img10 from '../../../images/small/10.png'
-import img11 from '../../../images/small/11.png'
-import img12 from '../../../images/small/12.png'
-import img13 from '../../../images/small/13.png'
-import img14 from '../../../images/small/14.png'
 
 const PostForm = ({ updatePost, groupId }) => {
     const user = useSelector(state => state.auth.user);
@@ -189,10 +185,6 @@ const PostForm = ({ updatePost, groupId }) => {
                                 </span>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="post-option">
                                     <div className="dropdown-item">Check in</div>
-                                    <div className="dropdown-item">Trực Tiếp</div>
-                                    <div className="dropdown-item">Gif</div>
-                                    <div className="dropdown-item">Xem Tiệc</div>
-                                    <div className="dropdown-item">Chơi với bạn</div>
                                 </div>
                             </div>
                         </div>
@@ -248,18 +240,6 @@ const PostForm = ({ updatePost, groupId }) => {
                                 </li>
                                 <li className="col-md-6 mb-3">
                                     <div className="iq-bg-primary rounded p-2 pointer mr-3"><img src={img10} alt="icon" className="img-fluid avatar-25" /> Check in</div>
-                                </li>
-                                <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3"><img src={img11} alt="icon" className="img-fluid avatar-25" /> Trực tiếp</div>
-                                </li>
-                                <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3"><img src={img12} alt="icon" className="img-fluid avatar-25" /> Gif</div>
-                                </li>
-                                <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3"><img src={img13} alt="icon" className="img-fluid avatar-25" /> Xem tiệc</div>
-                                </li>
-                                <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3"><img src={img14} alt="icon" className="img-fluid avatar-25" /> Chơi với bạn</div>
                                 </li>
                             </ul>
                             <hr />

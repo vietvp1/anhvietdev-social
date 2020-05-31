@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { loginFacebook } from '../../../actions/auth'
+import { loginFacebook } from '../../actions/auth'
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 const Facebook = () => {
@@ -20,7 +20,7 @@ const Facebook = () => {
                 callback={responseFacebook}
                 render={renderProps => (
                     <span onClick={renderProps.onClick}>
-                        <img className="avatar-35 pointer" src={require('../../../images/icon/facebook.png')} alt="f" />
+                        <img className="avatar-35 pointer" src={require('../../images/icon/facebook.png')} alt="f" />
                     </span>
                 )}
             />

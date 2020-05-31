@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 import {
     Modal,
@@ -6,7 +6,6 @@ import {
     ModalBody,
 } from 'reactstrap';
 import AvatarEditor from 'react-avatar-editor';
-import { Picker } from 'emoji-mart';
 import Swal from 'sweetalert2';
 import TextareaAutosize from 'react-autosize-textarea';
 import { useDispatch } from 'react-redux';
@@ -18,17 +17,13 @@ const AvatarModal = ({ picture, file, toggle, setToggle, remove }) => {
     const [editor, setEditor] = useState(null);
     const [userProfilePic, setUserProfilePic] = useState('');
     const dispatch = useDispatch();
-
-    const onChangeEmoji = (e) => {
-        let emoji = e.native;
-        setText(text + emoji);
-    }
-
+    
     const toggleHandle = () => {
         remove();
         setToggle(!toggle)
     }
 
+    console.log(userProfilePic);
     const onSave = async (e) => {
         e.preventDefault();
         if (editor !== null) {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { GoogleLogin } from 'react-google-login';
 import { useDispatch } from 'react-redux';
-import { loginGoogle } from '../../../actions/auth';
+import { loginGoogle } from '../../actions/auth';
 
 const Google = () => {
     const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const Google = () => {
                 className=""
                 render={renderProps => (
                     <span onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                        <img className="avatar-35 pointer" src={require('../../../images/icon/google-plus.png')} alt="f" />
+                        <img className="avatar-35 pointer" src={require('../../images/icon/google-plus.png')} alt="f" />
                     </span>
                 )}
                 autoLoad={false}

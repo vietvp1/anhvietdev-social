@@ -9,6 +9,14 @@ const _ = require('lodash');
 const fsExtra = require('fs-extra')
 const { videoType, imgType } = require('../config/mimeType')
 
+/**
+ * 
+ * @param {String} writerId id of user
+ * @param {Array} filesVal array file
+ * @param {String} text 
+ * @param {String} title 
+ * @param {String} groupId id of group
+ */
 const addNew = (writerId, filesVal, text, title, groupId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -178,7 +186,7 @@ const getPostInGroup = (groupId) => {
                     idManager: groupId
                 }
             }
-            let posts = await PostModel.model.getPostInGroup(item).sort({ "updatedAt": -1 });
+            let posts = await PostModel.model.getPostInGroup(item);
             resolve(posts)
         } catch (error) {
             return reject(error);

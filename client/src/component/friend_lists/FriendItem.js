@@ -2,13 +2,15 @@ import React from 'react'
 import { bufferToBase64 } from '../../clientHelper/helperClient'
 
 const FriendItem = ({ user }) => {
+    console.log(user);
+    
     return (
         <div className="col-md-6">
             <div className="iq-card">
                 <div className="iq-card-body profile-page p-0">
                     <div className="profile-header-image">
-                        <div className="cover-container">
-                            <img src="images/page-img/profile-bg2.jpg" alt="profile-bg" className="rounded img-fluid w-100" />
+                        <div className="friend-item-cover-container">
+                            <img src={`data:${user.cover.contentType};base64,${bufferToBase64(user.cover.data.data)}`} alt="profile-bg" className="rounded img-fluid w-100" />
                         </div>
                         <div className="profile-info p-4">
                             <div className="user-detail">

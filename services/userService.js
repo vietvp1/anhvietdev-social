@@ -12,7 +12,7 @@ let updateInfo = (id, item) => {
             const user = await UserModel.findByIdAndUpdate(id, item, {
                 fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
                 new: true
-            });
+            }).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -72,7 +72,7 @@ let addWork = (id, work) => {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
                     new: true
                 }
-            )
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -93,7 +93,7 @@ let updateWork = (id, work) => {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
                     new: true
                 }
-            );
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -113,7 +113,7 @@ let addSkill = (id, skill) => {
                     new: true,
                     runValidators: true,
                 }
-            )
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -133,7 +133,7 @@ let deleteSkill = (id, skillId) => {
                     new: true,
                     runValidators: true,
                 }
-            )
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -152,7 +152,7 @@ let addEducation = (id, education) => {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
                     new: true
                 }
-            )
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -173,7 +173,7 @@ let updateEducation = (id, education) => {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
                     new: true
                 }
-            );
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -192,7 +192,7 @@ let addPlaceLived = (id, placelived) => {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
                     new: true
                 }
-            )
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -213,7 +213,7 @@ let updatePlaceLived = (id, placelived) => {
                     fields: { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 },
                     new: true
                 }
-            );
+            ).populate('avatar').populate('cover');
             resolve(user)
         } catch (error) {
             reject(error)
@@ -233,7 +233,7 @@ let deleteWork = (id, workId) => {
                     new: true,
                     runValidators: true,
                 }
-            )
+            ).populate('avatar').populate('cover')
             resolve(user)
         } catch (error) {
             reject(error)
@@ -253,7 +253,7 @@ let deleteEducation = (id, eduId) => {
                     new: true,
                     runValidators: true,
                 }
-            )
+            ).populate('avatar').populate('cover')
             resolve(user)
         } catch (error) {
             reject(error)
@@ -273,7 +273,7 @@ let deletePlaceLived = (id, placeId) => {
                     new: true,
                     runValidators: true,
                 }
-            )
+            ).populate('avatar').populate('cover')
             resolve(user)
         } catch (error) {
             reject(error)

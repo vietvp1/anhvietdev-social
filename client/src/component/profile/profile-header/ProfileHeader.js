@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux'
 import facebook from '../../../images/icon/facebook.png'
 import twitter from '../../../images/icon/twitter.png'

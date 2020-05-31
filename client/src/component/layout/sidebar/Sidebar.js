@@ -61,17 +61,12 @@ const Sidebar = () => {
                         </li>
                         <li onClick={e => chooseOption(9)} className={option === 9 ? "active" : null}>
                             <Link to="/files" className="iq-waves-effect">
-                                <i className="fal fa-folder-open" /><span className="ml-2">Files</span>
+                                <i className="fal fa-folder-open" /><span className="ml-2">Tập tin</span>
                             </Link>
                         </li>
                         <li onClick={e => chooseOption(10)} className={option === 10 ? "active" : null}>
                             <Link to="/friend-request" className="iq-waves-effect">
                                 <i className="fal fa-anchor" /><span className="ml-2">Yêu cầu kết bạn</span>
-                            </Link>
-                        </li>
-                        <li onClick={e => chooseOption(11)} className={option === 11 ? "active" : null}>
-                            <Link to="/todo" className="iq-waves-effect">
-                                <i className="fal fa-check-circle" /><span className="ml-2">Danh sách công việc</span>
                             </Link>
                         </li>
                         <li onClick={e => chooseOption(12)} className={option === 12 ? "active" : null}>
@@ -88,12 +83,6 @@ const Sidebar = () => {
                             <Link to="/weather" className="iq-waves-effect">
                                 <i className="fal fa-clouds-sun" />
                                 <span className="ml-2">Thời tiết</span>
-                            </Link>
-                        </li>
-                        <li onClick={e => chooseOption(15)} className={option === 15 ? "active" : null}>
-                            <Link to="/music" className="iq-waves-effect">
-                                <i className="fal fa-play-circle" />
-                                <span className="ml-2">Âm nhạc</span>
                             </Link>
                         </li>
                         <li onClick={e => chooseOption(16)} className={option === 16 ? "active" : null}>
@@ -126,24 +115,6 @@ const Sidebar = () => {
                                         <li onClick={e => chooseOption()} ><Link to="pages-recoverpw"><i className="ri-record-mail-line" />Đổi mật khẩu</Link></li>
                                         <li onClick={e => chooseOption()} ><Link to="pages-confirm-mail"><i className="ri-file-code-line" />Xác nhận email</Link></li>
                                         <li onClick={e => chooseOption()} ><Link to="pages-lock-screen"><i className="ri-lock-line" />Lock Screen</Link></li>
-                                    </ul>
-                                </li>
-                                <li onClick={e => chooseOption()}>
-                                    <a href="#extra-pages" className="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false">
-                                        <i className="ri-pantone-line" />
-                                        <span className="ml-2">Extra Pages</span>
-                                        <i className="fas fa-chevron-right iq-arrow-right" /></a>
-                                    <ul id="extra-pages" className="iq-submenu collapse" data-parent="#pages">
-                                        <li onClick={e => chooseOption()} ><Link to="pages-timeline"><i className="ri-map-pin-time-line" />Timeline</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-invoice"><i className="ri-question-answer-line" />Invoice</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="blank-page"><i className="ri-invision-line" />Blank Page</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-error"><i className="ri-error-warning-line" />Error 404</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-error-500"><i className="ri-error-warning-line" />Error 500</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-pricing"><i className="ri-price-tag-line" />Pricing</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-pricing-one"><i className="ri-price-tag-2-line" />Pricing 1</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-maintenance"><i className="ri-archive-line" />Maintenance</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-comingsoon"><i className="ri-mastercard-line" />Coming Soon</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-faq"><i className="ri-compasses-line" />Faq</Link></li>
                                     </ul>
                                 </li>
                             </ul>

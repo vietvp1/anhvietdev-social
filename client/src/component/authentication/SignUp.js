@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import Particles from 'react-particles-js';
 import { Link, Redirect } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import { register } from '../../../actions/auth';
+import { register } from '../../actions/auth';
 import { toast } from 'react-toastify';
-import logo from '../../../images/logo-av.png'
-import login1 from '../../../images/login/1.png'
-import login2 from '../../../images/login/2.png'
-import login3 from '../../../images/login/3.png'
+import CarouselInAuthPage from './CarouselInAuthPage';
+import ParticlesPage from './ParticlesPage';
 
 const SignUp = ({history}) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -46,8 +43,10 @@ const SignUp = ({history}) => {
 
     return (
         <section className="sign-in-page">
+            <ParticlesPage/>
             <div className="container p-0">
                 <div className="row no-gutters">
+                    <CarouselInAuthPage/>
                     <div className="col-md-6 bg-white pt-5">
                         <div className="sign-in-from">
                             <h1 className="mb-0">Đăng ký</h1>

@@ -34,7 +34,12 @@ const Notification = ({ user }) => {
         <li className="nav-item dropdown">
             <span className="dropdown-toggle iq-waves-effect" data-toggle="dropdown">
                 <i className="fal fa-bells"></i>
-                <span className="bg-danger dots" />
+                {
+                    count > 0 ?
+                        <div className="dots">
+                            <span> {count} </span>
+                        </div> : null
+                }
             </span>
             <div className="dropdown-menu dropdown-menu-right iq-sub-dropdown">
                 <div className="iq-card shadow-none m-0">

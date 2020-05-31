@@ -22,8 +22,12 @@ const ChatLeft = ({ showRight, conversations }) => {
                 </div>
                 <div className="chat-searchbar mt-4">
                     <div className="form-group chat-search-data m-0">
-                        <input type="text" className="form-control round" id="chat-search" placeholder="Search" />
-                        <i className="far fa-search" />
+                        <input
+                            type="text"
+                            className="form-control round"
+                            id="chat-search"
+                            placeholder="Tìm kiếm..." />
+                        <i className="far fa-search mt-1" />
                     </div>
                 </div>
             </div>

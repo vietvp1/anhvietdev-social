@@ -9,37 +9,94 @@ let groupSchema = new Schema({
             ref: 'user'
         }
     ],
-    members: [  
+    members: [
         {
             type: Schema.Types.ObjectId,
             ref: 'user'
         }
     ],
+    cover: {
+        type: Schema.Types.ObjectId,
+        ref: 'photo',
+    },
     description: String,
     icon: String,
-    privacy: String,
-}, {timestamps: true})
-
-const GROUP_PRIVACY = {
-    CLOSED: "CLOSED",
-    SECRET: "SECRET",
-}
+    privacy: {
+        type: Number,
+        min: 0,
+        max: 1,
+        default: 1  // 0: secret,  1: private
+    },
+}, { timestamps: true })
 
 groupSchema.statics = {
     getGroupManaging(userId) {
-        return this.find({"admins": userId});
+        return this.find({ "admins": userId }, { "members": { $slice: 5 } }).populate(
+            {
+                path: 'members',
+                select: ['firstName', 'lastName', 'address', 'avatar'],
+                populate: {
+                    path: "avatar",
+                }
+            }
+        );
     },
 
     getGroupJoined(userId) {
-        return this.find({"members": userId});
+        return this.find({ "members": userId }, { "members": { $slice: 5 } }).populate(
+            {
+                path: 'members',
+                select: ['firstName', 'lastName', 'address', 'avatar'],
+                populate: {
+                    path: "avatar",
+                }
+            }
+        );
     },
 
-    getGroup(groupId){
-        return this.findById(groupId);
+    getGroup(groupId) {
+        return this.findById(groupId, { "members": { $slice: 10 } }).populate(
+            {
+                path: 'members',
+                select: ['firstName', 'lastName', 'address', 'avatar'],
+                populate: {
+                    path: "avatar",
+                }
+            }
+        ).populate(
+            {
+                path: 'admins',
+                select: ['firstName', 'lastName', 'address', 'avatar'],
+                populate: {
+                    path: "avatar",
+                }
+            }
+        ).populate('cover');
+    },
+
+    updateCover(groupId, item) {
+        return this.findByIdAndUpdate(groupId, item,
+            {
+                "members": { $slice: 10 },
+                new: true
+            }).populate(
+                {
+                    path: 'members',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            ).populate(
+                {
+                    path: 'admins',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            ).populate('cover');
     }
 }
 
-module.exports = {
-    model: mongoose.model('group', groupSchema),
-    privacy: GROUP_PRIVACY,
-};
+module.exports = mongoose.model('group', groupSchema);

@@ -27,23 +27,23 @@ const forgotPassword = async (req, res) => {
     User.findOne({"email": email }, (err, user) => {
         if (err || !user) {
             return res.status(400).json({
-                error: 'User with that email does not exist'
+                error: 'Email không tồn tại'
             });
         }
 
-        const token = jwt.sign({ _id: user._id}, process.env.JWT_RESET_PASSWORD, {
+        const token = jwt.sign({ _id: user._id, name: `${user.firstName} ${user.lastName}`}, process.env.JWT_RESET_PASSWORD, {
             expiresIn: '10m'
         });
 
         const emailData = {
             from: process.env.EMAIL_FROM,
             to: email,
-            subject: `Password Reset link`,
+            subject: `Liên kết đặt lại mật khẩu`,
             html: `
-                <h1>Please use the following link to reset your password</h1>
-                <p>${process.env.CLIENT_URL}/auth/password/reset/${token}</p>
+                <h1>Vui lòng sử dụng liên kết sau để đặt lại mật khẩu của bạn</h1>
+                <p>${process.env.CLIENT_URL}/reset-password/${token}</p>
                 <hr />
-                <p>This email may contain sensetive information</p>
+                <p>Email này có thể chứa thông tin nhạy cảm</p>
                 <p>${process.env.CLIENT_URL}</p>
             `
         };
@@ -60,7 +60,7 @@ const forgotPassword = async (req, res) => {
                     .then(sent => {
                         //console.log('SIGNUP EMAIL SENT', sent)
                         return res.json({
-                            message: `Email has been sent to ${email}. Follow the instruction to activate your account`
+                            message: `Yêu cầu đã được gửi tới ${email}. Làm theo hướng dẫn để kích hoạt tài khoản của bạn`
                         });
                     })
                     .catch(err => {
@@ -81,14 +81,14 @@ const resetPassword = async (req, res) => {
         jwt.verify(resetPasswordLink, process.env.JWT_RESET_PASSWORD, function(err, decoded) {
             if (err) {
                 return res.status(400).json({
-                    error: 'Expired link. Try again'
+                    error: 'Liên kết hết hạn. Thử lại'
                 });
             }
 
             User.findOne({ resetPasswordLink }, (err, user) => {
                 if (err || !user) {
                     return res.status(400).json({
-                        error: 'Something went wrong. Try later'
+                        error: 'Đã xảy ra lỗi. Hãy thử lại sau'
                     });
                 }
 
@@ -100,11 +100,11 @@ const resetPassword = async (req, res) => {
                 user.save((err, result) => {
                     if (err) {
                         return res.status(400).json({
-                            error: 'Error resetting user password'
+                            error: 'Lỗi đặt lại mật khẩu người dùng'
                         });
                     }
                     res.json({
-                        message: `Great! Now you can login with your new password`
+                        message: `Cập nhập mật khẩu thành công, bây giờ bạn có thể đăng nhập bằng mật khẩu mới của bạn`
                     });
                 });
             });

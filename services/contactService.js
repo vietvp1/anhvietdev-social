@@ -15,7 +15,6 @@ let getContacts = (currentUserId) => {
                     return await UserModel.getNormalUserDataById(contact.contactId);
                 }
             })
-            
             resolve(await Promise.all(users));
             
         } catch (error) {

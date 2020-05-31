@@ -4,10 +4,10 @@ import Icon from './Icon';
 import Spinner from '../layout/spinner/ContentLoader';
 import MapLocation from './MapLocation';
 import bg2 from "../../images/page-img/profile-bg2.jpg"
-import PlacesAutocomplete, {
-    geocodeByAddress,
-    getLatLng
-} from "react-places-autocomplete";
+// import PlacesAutocomplete, {
+//     geocodeByAddress,
+//     getLatLng
+// } from "react-places-autocomplete";
 
 const Weather = () => {
     const [current, setCurrent] = useState(null)
@@ -19,18 +19,18 @@ const Weather = () => {
         lng: 105.5
     })
 
-    const [address, setAddress] = useState("");
-    const [coordinates, setCoordinates] = useState({
-        lat: null,
-        lng: null
-    });
+    // const [address, setAddress] = useState("");
+    // const [coordinates, setCoordinates] = useState({
+    //     lat: null,
+    //     lng: null
+    // });
 
-    const handleSelect = async value => {
-        const results = await geocodeByAddress(value);
-        const latLng = await getLatLng(results[0]);
-        setAddress(value);
-        setCoordinates(latLng);
-    };
+    // const handleSelect = async value => {
+    //     const results = await geocodeByAddress(value);
+    //     const latLng = await getLatLng(results[0]);
+    //     setAddress(value);
+    //     setCoordinates(latLng);
+    // };
 
     // const api = {
     //     key: "f5f6a60d129f4010aab7939e7688da1d",
@@ -49,6 +49,8 @@ const Weather = () => {
                     console.log(result);
                     setCurrent(result.current);
                     setTemp(result.daily);
+                    setCountry('Viet Nam');
+                    setCityName('Ha Noi');
                 });
         });
     }, [])

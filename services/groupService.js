@@ -1,10 +1,13 @@
 const groupModel = require('../models/groupModel');
+const photoModel = require('../models/photoModel');
+const postService = require('./postService');
+
 
 let newGroup = (item, currentUserId) => {
     return new Promise( async (resolve, reject) => {
         try {
             item.admins = [currentUserId];
-            let newGroup = await groupModel.model.create(item);
+            let newGroup = await groupModel.create(item);
             resolve(newGroup);
         } catch (error) {
             reject(error);   
@@ -15,7 +18,7 @@ let newGroup = (item, currentUserId) => {
 let getGroup = (groupId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let group = await groupModel.model.getGroup(groupId);
+            let group = await groupModel.getGroup(groupId);
             resolve(group);
         } catch (error) {
             reject(error)
@@ -26,7 +29,7 @@ let getGroup = (groupId) => {
 let getGroupManaging = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let groupManaging = await groupModel.model.getGroupManaging(userId);
+            let groupManaging = await groupModel.getGroupManaging(userId);
             resolve(groupManaging);
         } catch (error) {
             reject(error)
@@ -37,7 +40,7 @@ let getGroupManaging = (userId) => {
 let getGroupJoined = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let groupJoined = await groupModel.model.getGroupJoined(userId);
+            let groupJoined = await groupModel.getGroupJoined(userId);
             resolve(groupJoined);
         } catch (error) {
             reject(error)
@@ -45,9 +48,26 @@ let getGroupJoined = (userId) => {
     })
 }
 
+let updateGroupCover = (id, file, text, title, groupId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let post = await postService.addNew(id, [file], text, title, groupId);
+            let photo = await photoModel.photoInPost(post._id);
+            let item = {
+                cover: photo[0]._id
+            }
+            const group = await groupModel.updateCover(groupId, item);
+            resolve(group)
+        } catch (error) {
+            reject(error)
+        }
+    })
+};
+
 module.exports = {
     newGroup: newGroup,
     getGroupManaging: getGroupManaging,
     getGroupJoined: getGroupJoined,
-    getGroup: getGroup
+    getGroup: getGroup,
+    updateGroupCover: updateGroupCover
 }

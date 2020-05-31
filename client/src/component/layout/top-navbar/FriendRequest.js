@@ -9,6 +9,13 @@ const FriendRequest = () => {
         <li className="nav-item dropdown">
             <span className="dropdown-toggle iq-waves-effect" data-toggle="dropdown">
                 <i className="fal fa-user-friends"></i>
+                {
+                    ContactReceived.length > 0 ?
+                        <div className="dots">
+                            <span>{ContactReceived.length}</span>
+                        </div> : null
+                }
+
             </span>
             <div className="dropdown-menu dropdown-menu-right iq-sub-dropdown iq-sub-dropdown-large not-close-when-click ">
                 <div className="iq-card shadow-none m-0">

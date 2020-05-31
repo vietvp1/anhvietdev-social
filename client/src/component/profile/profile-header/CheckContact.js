@@ -65,7 +65,7 @@ const CheckContact = ({user}) => {
                         <span data-toggle="dropdown" className="dropdown-toggle" title="Chấp nhận kết bạn">
                             <i className="fal fa-handshake"/>
                         </span>
-                        <div className="dropdown-menu dropdown-menu-right">
+                        <div className="dropdown-menu dropdown-menu-top">
                             <div onClick={approveClick} className="dropdown-item"><i className="fal fa-user-check"/> Chấp nhận</div>
                             <div onClick={rejectClick} className="dropdown-item"><i className="fal fa-user-times"/> Từ chối</div>
                         </div>

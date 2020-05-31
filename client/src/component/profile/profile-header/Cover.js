@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import CheckContact from './CheckContact';
-import {checkFileSize, checkCoverImage, bufferToBase64 } from '../../../clientHelper/helperClient'
+import { checkCoverImage, bufferToBase64 } from '../../../clientHelper/helperClient'
 import axios from 'axios'
 import { updateUser } from '../../../actions/auth';
 import { useDispatch } from 'react-redux';

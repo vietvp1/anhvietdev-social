@@ -94,11 +94,13 @@ let initRoutes = (app) => {
     router.put("/message/mark-as-read", auth, messageController.markAsReadMess)
 
     router.post("/group-chat/add-new", auth, groupChat.addNewGroup)
+
     router.post("/group/new-group", auth, group.newGroup)
     router.get("/group/get-group-managing", auth, group.getGroupManaging)
     router.get("/group/get-group-joined", auth, group.getGroupJoined)
     router.get("/group/:id", auth, group.getGroup)
     router.get("/group/get-posts-in-group/:id", auth, postController.getPostInGroup)
+    router.put("/group/update-cover", auth, group.updateGroupCover)
 
     router.get("/photos/:id", auth, photo.getAllMyPhoto)
     router.post("/photo/get-photo-in-post", auth, photo.photoInPost)

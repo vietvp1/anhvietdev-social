@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../../actions/auth';
-import Particles from 'react-particles-js';
-// import Register from './Register';
-// import Facebook from './Facebook';
-// import Google from './Google'
-// import Forgot from './Forgot';
-import logo from '../../../images/logo-av.png'
-import login1 from '../../../images/login/1.png'
-import login2 from '../../../images/login/2.png'
-import login3 from '../../../images/login/3.png'
+import { login } from '../../actions/auth';
 import Google from './Google';
 import Facebook from './Facebook';
+import CarouselInAuthPage from './CarouselInAuthPage';
+import ParticlesPage from './ParticlesPage';
 
 const SignIn = () => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -39,18 +32,7 @@ const SignIn = () => {
 
     return (
         <section className="sign-in-page">
-            <Particles
-                params={{
-                    "particles": {
-                        "number": {
-                            "value": 120
-                        },
-                        "size": {
-                            "value": 3
-                        },
-                    },
-                }}
-            />
+            <ParticlesPage/>
             {/* <div id="container-inside">
                 <div id="circle-small" />
                 <div id="circle-medium" />
@@ -60,44 +42,7 @@ const SignIn = () => {
             </div> */}
             <div className="container p-0">
                 <div className="row no-gutters">
-                    <div className="col-md-6 text-center pt-5">
-                        <div className="sign-in-detail text-white">
-                            <span className="sign-in-logo mb-5"><img src={logo} className="img-fluid" alt="logo" /></span>
-
-                            <div id="carouselIndicators" className="carousel slide" data-ride="carousel">
-                                <ol className="carousel-indicators">
-                                    <li data-target="#carouselIndicators" data-slide-to="0" className="active"></li>
-                                    <li data-target="#carouselIndicators" data-slide-to="1"></li>
-                                    <li data-target="#carouselIndicators" data-slide-to="2"></li>
-                                </ol>
-                                <div className="carousel-inner">
-                                    <div className="carousel-item active">
-                                        <img src={login1} className="img-fluid mb-4" alt="logo" />
-                                        <h4 className="mb-1 text-white">Tìm bạn mới</h4>
-                                        <p>Đó là một thực tế lâu dài rằng một người đọc sẽ bị phân tâm bởi nội dung có thể đọc được.</p>
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img src={login2} className="img-fluid mb-4" alt="logo" />
-                                        <h4 className="mb-1 text-white">Connect with the world</h4>
-                                        <p>Đó là một thực tế lâu dài rằng một người đọc sẽ bị phân tâm bởi nội dung có thể đọc được.</p>
-                                    </div>
-                                    <div className="carousel-item">
-                                        <img src={login3} className="img-fluid mb-4" alt="logo" />
-                                        <h4 className="mb-1 text-white">Create new events</h4>
-                                        <p>Đó là một thực tế lâu dài rằng một người đọc sẽ bị phân tâm bởi nội dung có thể đọc được.</p>
-                                    </div>
-                                </div>
-                                <a className="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-                                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span className="sr-only">Previous</span>
-                                </a>
-                                <a className="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-                                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span className="sr-only">Next</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <CarouselInAuthPage/>
                     <div className="col-md-6 bg-white pt-5">
                         <div className="sign-in-from">
                             <h1 className="mb-0">Đăng nhập</h1>
@@ -116,10 +61,9 @@ const SignIn = () => {
                                         required
                                     />
                                 </div>
-
                                 <div className="form-group">
                                     <label htmlFor="exampleInputPassword1">Mật khẩu</label>
-                                    <a href="/#" className="float-right">Quên mật khẩu?</a>
+                                    <Link to="/forgot-password" className="float-right">Quên mật khẩu?</Link>
                                     <input
                                         type="password"
                                         name='password'

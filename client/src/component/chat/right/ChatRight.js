@@ -21,11 +21,13 @@ const ChatRight = ({ i, c, showRight }) => {
                         <span className="chat-icon-phone iq-bg-primary">
                             <i className="fal fa-phone"></i>
                         </span>
+
                         <span className="chat-icon-video iq-bg-primary">
                             <ChatVideoCall conversation={c} />
                         </span>
-                        <span className="dropdown iq-bg-primary">
-                            <i className="far fa-ellipsis-v cursor-pointer dropdown-toggle nav-hide-arrow cursor-pointer pr-0" id="dropdownMenuButton02" data-toggle="dropdown" />
+ 
+                        <span className="dropdown iq-bg-primary dropdown-toggle nav-hide-arrow cursor-pointer pr-0" id="dropdownMenuButton02" data-toggle="dropdown" >
+                            <i className="far fa-ellipsis-v"/>
                             <span className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton02">
                                 <span className="dropdown-item"><i className="fal fa-thumbtack"></i> Gim lên đầu</span>
                                 <span className="dropdown-item"><i className="fal fa-trash-alt"></i> Xóa cuộc trò chuyện</span>

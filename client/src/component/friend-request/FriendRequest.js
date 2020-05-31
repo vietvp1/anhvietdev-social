@@ -45,7 +45,7 @@ const FriendRequest = () => {
                                                 <li className="d-block text-center">
                                                     <a href="/#" className="btn btn-request">View More Request</a>
                                                 </li> :
-                                                <p className="text-center">Không có yêu cầu kết bạn nào!</p>
+                                                <p className="text-center text-white">Không có yêu cầu kết bạn nào!</p>
                                         }
                                     </ul>
                                 </div>

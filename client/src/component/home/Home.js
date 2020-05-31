@@ -1,6 +1,5 @@
 import React from 'react'
 import Stories from './right/Stories'
-import Events from './right/Events'
 import UpcomingBirthday from './right/UpcomingBirthday'
 import SuggestedPages from './right/SuggestedPages'
 import NewsFeed from './newsfeed/NewsFeed'
@@ -15,7 +14,6 @@ const Home = () => {
               </div>
               <div className="col-lg-4">
                 <Stories/>
-                <Events/>
                 <UpcomingBirthday/>
                 <SuggestedPages/>
               </div>

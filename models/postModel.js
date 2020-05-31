@@ -80,7 +80,15 @@ PostSchema.statics = {
 
     getPostInGroup(item) {
         return this.find(item)
-            .populate('writer', ['firstName', 'lastName', 'address', 'avatar'])
+            .populate(
+                {
+                    path: 'writer',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
+                    populate: {
+                        path: "avatar",
+                    }
+                }
+            )
             .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
             .sort({ "updatedAt": -1 });
     },

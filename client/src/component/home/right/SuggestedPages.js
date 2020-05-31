@@ -5,7 +5,7 @@ const SuggestedPages = () => {
         <div className="iq-card">
             <div className="iq-card-header d-flex justify-content-between">
             <div className="iq-header-title">
-                <h4 className="card-title">Trang được đề xuất</h4>
+                <h4 className="card-title">Nhóm được đề xuất</h4>
             </div>
             <div className="iq-card-header-toolbar d-flex align-items-center">
                 <div className="dropdown">
@@ -17,7 +17,6 @@ const SuggestedPages = () => {
                     <a className="dropdown-item" href="/"><i className="ri-delete-bin-6-fill mr-2" />Delete</a>
                     <a className="dropdown-item" href="/"><i className="ri-pencil-fill mr-2" />Edit</a>
                     <a className="dropdown-item" href="/"><i className="ri-printer-fill mr-2" />Print</a>
-                    <a className="dropdown-item" href="/"><i className="ri-file-download-fill mr-2" />Download</a>
                 </div>
                 </div>
             </div>
