@@ -11,7 +11,7 @@ const UserTabling = ({user}) => {
                 <Timeline user={user}/>
                 <About user={user}/>
                 <Friends user={user}/>
-                <Photos user={user}/>
+                <Photos user={user}/>   
             </div> 
         </Fragment>
     ):null

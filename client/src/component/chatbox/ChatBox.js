@@ -3,7 +3,7 @@ import ChatBoxInput from './ChatBoxInput'
 import { useDispatch, useSelector } from 'react-redux';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import MessageItem from '../chat/right/MessageItem';
-import {CSSTransition, TransitionGroup} from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import ChatVideoCall from '../chat/chatVideoCall/ChatVideoCall';
 
 const ChatBox = () => {
@@ -19,11 +19,11 @@ const ChatBox = () => {
         <Fragment>
             <TransitionGroup>
                 {
-                    conversations.map((c,i) => (
+                    conversations.map((c, i) => (
                         <CSSTransition
-                        key={i}
-                        timeout={400}
-                        classNames="slide"
+                            key={i}
+                            timeout={400}
+                            classNames="slide"
                         >
                             <div className="chat-friendz">
                                 <div className="chat-box">
@@ -31,7 +31,7 @@ const ChatBox = () => {
                                         <div className="status"><i className="fas fa-circle"></i></div>
                                         <div className="name-chat-box">{c.userChat.firstName}&nbsp;{c.userChat.lastName}</div>
                                         <div className="more">
-                                            <ChatVideoCall conversation={c}/>
+                                            <ChatVideoCall conversation={c} />
                                             <div className="more-optns"><i className="far fa-ellipsis-h"></i>
                                                 <ul>
                                                     <li><i className="fal fa-thumbtack"></i> Gim lên đầu</li>
@@ -39,20 +39,20 @@ const ChatBox = () => {
                                                     <li><i className="fal fa-ban"></i> Chặn trò chuyện</li>
                                                 </ul>
                                             </div>
-                                            <div onClick={e=> closeSingleChat(c._id)}><i className="fas fa-times"></i></div>
+                                            <div onClick={e => closeSingleChat(c._id)}><i className="fas fa-times"></i></div>
                                         </div>
                                     </div>
                                     <div className="chat-list">
                                         <ScrollToBottom className="chat-content scroller">
                                             {
-                                                c.messages.map((message,i) => (
-                                                    <MessageItem message={message} key={i} userChat={c.userChat}/>
+                                                c.messages.map((message, i) => (
+                                                    <MessageItem message={message} key={i} userChat={c.userChat} />
                                                 ))
                                             }
                                         </ScrollToBottom>
-                                    <div className="text-box">
-                                        <ChatBoxInput conversation={c}/>
-                                    </div>
+                                        <div className="text-box">
+                                            <ChatBoxInput conversation={c} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@ const ChatBox = () => {
                 }
             </TransitionGroup>
         </Fragment>
-        
+
     )
 }
 

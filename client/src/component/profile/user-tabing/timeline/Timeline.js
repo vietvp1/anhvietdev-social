@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import PostForm from '../../../home/newsfeed/PostForm';
 import PostItem from '../../../home/newsfeed/PostItem';
 import { bufferToBase64 } from '../../../../clientHelper/helperClient';
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const Timeline = ({ user }) => {
     const [Posts, setPosts] = useState([]);
@@ -11,17 +12,16 @@ const Timeline = ({ user }) => {
     const [list, setList] = useState([]);
     useEffect(() => {
         let isSubscribed = true;
-        if (isSubscribed) {
-            axios.get(`/post/getposts/${user._id}`).then(res => {
-                setPosts(res.data);
-            })
-            axios.get(`/photos/${user._id}`).then(res => {
-                setPhotos(res.data.photos);
-            });
-            axios.get(`/contact/get-contacts/${user._id}`).then(res => {
-                setList(res.data);
-            })
-        }
+
+        axios.get(`/post/getposts/${user._id}`).then(res => {
+            if (isSubscribed) setPosts(res.data);
+        })
+        axios.get(`/photos/${user._id}`).then(res => {
+            if (isSubscribed) setPhotos(res.data.photos);
+        });
+        axios.get(`/contact/get-contacts/${user._id}`).then(res => {
+            if (isSubscribed) setList(res.data);
+        })
         return () => isSubscribed = false;
     }, [user._id])
 
@@ -88,9 +88,15 @@ const Timeline = ({ user }) => {
                         <PostForm updatePost={updatePost} />
                         <div className="iq-card">
                             <div className="met-vl">
-                                {
-                                    Posts.map(post => <PostItem key={post._id} post={post} hidePost={hidePost} />)
-                                }
+                                <TransitionGroup>
+                                    {
+                                        Posts.map((post, i) =>
+                                            <CSSTransition key={i} timeout={1000} classNames="fade">
+                                                <PostItem key={post._id} post={post} hidePost={hidePost} />
+                                            </CSSTransition>
+                                        )
+                                    }
+                                </TransitionGroup>
                             </div>
                         </div>
                     </div>

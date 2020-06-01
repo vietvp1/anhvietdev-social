@@ -13,7 +13,7 @@ const Friends = ({user}) => {
         <div className="tab-pane fade" id="friends" role="tabpanel">
             <div className="iq-card">
                 <div className="iq-card-body">
-                    <h2>Friends</h2>
+                    <h2>Bạn bè</h2>
                     {
                         userauth._id === user._id?
                         <div className="friend-list-tab mt-2">

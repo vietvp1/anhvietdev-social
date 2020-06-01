@@ -51,7 +51,17 @@ photoSchema.statics = {
 
     photoInPost(postId) {
         return this.find({ "post": postId });
-    }
+    },
+
+    getPhotosInGroup(groupId, limit) {
+        return this.find({
+            from: {
+                managedBy: "GROUP",
+                idManager: groupId
+            }
+        }).limit(limit).sort({ "createdAt": -1 })
+    },
+    
 }
 
 module.exports = mongoose.model('photo', photoSchema);

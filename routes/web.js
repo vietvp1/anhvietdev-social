@@ -100,6 +100,7 @@ let initRoutes = (app) => {
     router.get("/group/get-group-joined", auth, group.getGroupJoined)
     router.get("/group/:id", auth, group.getGroup)
     router.get("/group/get-posts-in-group/:id", auth, postController.getPostInGroup)
+    router.get("/group/get-photos-in-group/:id", auth, photo.getPhotosInGroup)
     router.put("/group/update-cover", auth, group.updateGroupCover)
 
     router.get("/photos/:id", auth, photo.getAllMyPhoto)

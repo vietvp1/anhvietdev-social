@@ -421,7 +421,7 @@ input[type="checkbox"]:checked:after {
     display: none;
 }
 
-/* animation */
+/* animation---------------------------------------------------------------- */
 
 /* appear - on page load */
 
@@ -461,6 +461,20 @@ input[type="checkbox"]:checked:after {
     opacity: 0;
 }
 
+
+/* slide appear */
+.slide-appear {
+    opacity: 0;
+    transform: scale(0.5) translateX(5px);
+    z-index: 1;
+}
+
+.slide-appear.fade-appear-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 300ms linear, transform 400ms ease-in-out;
+}
+
 /* slide enter */
 
 .slide-enter {
@@ -492,7 +506,53 @@ input[type="checkbox"]:checked:after {
     opacity: 0;
 }
 
-/* chat video modal */
+
+/* slide-page appear ---------------------------------------*/
+.slide-page-appear {
+    opacity: 0;
+    transform: scale(0.5) translateX(5px);
+    z-index: 1;
+}
+
+.slide-page-appear.fade-appear-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 300ms linear, transform 400ms ease-in-out;
+}
+
+/* slide-page enter */
+
+.slide-page-enter {
+    opacity: 0;
+    transform: scale(0.5) translateY(5px);
+    z-index: 1;
+}
+
+.slide-page-enter.slide-page-enter-active {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    transition: opacity 300ms linear, transform 400ms ease-in-out;
+}
+
+/* slide-page exit */
+
+.slide-page-exit {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.slide-page-exit.slide-page-exit-active {
+    opacity: 0;
+    transform: scale(0.5) translateY(5px);
+    transition: opacity 300ms linear, transform 400ms ease-out;
+}
+
+.slide-page-exit-done {
+    opacity: 0;
+}
+
+
+/* chat video modal------------------------------------------------------------------- */
 
 .modal-videocall, .modal-videocall .modal-content, .modal-videocall .modal-body {
     top: 0;

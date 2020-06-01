@@ -1,8 +1,8 @@
 import React from 'react'
 import logo from '../../images/logo-av.png'
-import login1 from '../../images/login/1.png'
-import login2 from '../../images/login/2.png'
-import login3 from '../../images/login/3.png'
+import login1 from '../../images/login/people.png'
+import login2 from '../../images/login/contact_world.jpg'
+import login3 from '../../images/login/oke.jpg'
 
 const CarouselInAuthPage = () => {
     return (

@@ -7,7 +7,7 @@ import { newGroupChatCreate } from '../actions/conversation';
 import TopNavbar from './layout/top-navbar/TopNavbar';
 import Sidebar from './layout/sidebar/Sidebar';
 import RightSidebar from './layout/right-sidebar/RightSidebar';
-import { CSSTransition } from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import ChatVideoModal from './chat/chatVideoCall/ChatVideoModal';
 
 // import ChatVideoModal from './chat/chatVideoCall/ChatVideoModal';
@@ -187,7 +187,7 @@ const AllComponents = () => {
     }, [socket, user, dispatch])
     return (
         <Router>
-            <ChatVideoModal user={user}/>
+            <ChatVideoModal user={user} />
             <CSSTransition in={auth} timeout={1000} classNames="fade">
                 <TopNavbar />
             </CSSTransition>
@@ -197,9 +197,17 @@ const AllComponents = () => {
             <CSSTransition in={auth} timeout={1000} classNames="fade">
                 <RightSidebar />
             </CSSTransition>
-            <Switch>
-                <Route component={Routes} />
-            </Switch>
+
+        <Route render={({location}) =>(
+            <TransitionGroup>
+                <CSSTransition key={location.key} timeout={1000} classNames="slide">
+                    <Switch>
+                        <Route component={Routes} />
+                    </Switch>
+                </CSSTransition>
+            </TransitionGroup>
+        )} />
+
         </Router>
     )
 }

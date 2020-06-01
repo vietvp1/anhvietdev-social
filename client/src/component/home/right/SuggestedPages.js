@@ -34,17 +34,6 @@ const SuggestedPages = () => {
                 <img src={require("../../../images/small/img-1.jpg")} className="img-fluid rounded" alt="Responsive img" />
                 <div className="mt-3"><a href="/" className="btn d-block"><i className="ri-thumb-up-line mr-2" /> Thích </a></div>
                 </li>
-                <li>
-                <div className="d-flex align-items-center mb-3">
-                    <img src={require("../../../images/page-img/42.png")} alt="story-img" className="rounded-circle img-fluid avatar-50" />
-                    <div className="stories-data ml-3">
-                    <h5>Learn Nodejs </h5>
-                    <p className="mb-0">Word hard</p>
-                    </div>
-                </div>
-                <img src={require("../../../images/small/img-2.jpg")} className="img-fluid rounded" alt="Responsive img" />
-                <div className="mt-3"><a href="/" className="btn d-block"><i className="ri-thumb-up-line mr-2" /> Thích </a></div>
-                </li>
             </ul>
             </div>
         </div>

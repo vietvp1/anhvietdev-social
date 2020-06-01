@@ -20,7 +20,18 @@ let photoInPost = async (req, res) => {
     }
 }
 
+let getPhotosInGroup = async (req, res) => {
+    try {
+        const groupId = req.params.id;
+        const photos = await photo.getPhotosInGroup(groupId);
+        return res.status(200).send({photos});
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+}
+
 module.exports = {
     getAllMyPhoto: getAllMyPhoto,
-    photoInPost: photoInPost
+    photoInPost: photoInPost,
+    getPhotosInGroup: getPhotosInGroup,
 }

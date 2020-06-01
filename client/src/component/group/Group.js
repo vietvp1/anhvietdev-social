@@ -45,15 +45,7 @@ const Group = () => {
                                                         {group.name}
                                                     </Link>
                                                 </h4>
-                                                <p>{group.description}</p>
-                                            </div>
-                                            <div className="group-details d-inline-block pb-3">
-                                                <ul className="d-flex align-items-center justify-content-between list-inline m-0 p-0">
-                                                    <li className="pl-3 pr-3">
-                                                        <p className="mb-0">Thành viên</p>
-                                                        <h6>{group.members.length + group.admins.length}</h6>
-                                                    </li>
-                                                </ul>
+                                                <p>{group.members.length + group.admins.length} thành viên</p>
                                             </div>
                                             <div className="group-member mb-3">
                                                 <div className="iq-media-group">

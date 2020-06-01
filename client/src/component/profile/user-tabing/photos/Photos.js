@@ -23,14 +23,11 @@ const Photos = ({user}) => {
         <div className="tab-pane fade" id="photos" role="tabpanel">
             <div className="iq-card">
                 <div className="iq-card-body">
-                <h2>Photos</h2>
+                <h2>Hình ảnh</h2>
                 <div className="friend-list-tab mt-2">
                     <ul className="nav nav-pills d-flex align-items-center justify-content-left friend-list-items p-0 mb-2">
                     <li>
-                        <a className="nav-link active" data-toggle="pill" href="#photosofyou">Photos of You</a>
-                    </li>
-                    <li>
-                        <a className="nav-link" data-toggle="pill" href="#your-photos">Your Photos</a>
+                        <a className="nav-link active" data-toggle="pill" href="#photosofyou">Ảnh của bạn</a>
                     </li>
                     </ul>
                     <div className="tab-content">

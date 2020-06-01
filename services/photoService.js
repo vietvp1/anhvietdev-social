@@ -22,8 +22,21 @@ let photoInPost = (postId) => {
     })
 }
 
+let getPhotosInGroup = (groupId) => {
+    return new Promise( async (resolve, reject) => {
+        try {
+            let limit = 9;
+            let photos = await photoModel.getPhotosInGroup(groupId, limit);
+            resolve(photos);
+        } catch (error) {
+            reject(error)
+        }
+    })
+}
+
 
 module.exports = {
-    getAllMyPhoto: getAllMyPhoto,
-    photoInPost: photoInPost
+    getAllMyPhoto,
+    photoInPost,
+    getPhotosInGroup,
 }

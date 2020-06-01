@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import PostForm from '../../../home/newsfeed/PostForm';
 import PostItem from '../../../home/newsfeed/PostItem';
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { bufferToBase64 } from '../../../../clientHelper/helperClient';
 
 const Discussion = ({ group }) => {
@@ -14,9 +15,9 @@ const Discussion = ({ group }) => {
             axios.get(`/group/get-posts-in-group/${group._id}`).then(res => {
                 setPosts(res.data);
             })
-            // axios.get(`/group/get-photos-in-group/${group._id}`).then(res => {
-            //     setPhotos(res.data.photos);
-            // });
+            axios.get(`/group/get-photos-in-group/${group._id}`).then(res => {
+                setPhotos(res.data.photos);
+            });
         }
         return () => isSubscribed = false;
     }, [group._id])
@@ -26,7 +27,7 @@ const Discussion = ({ group }) => {
     }
 
     const hidePost = (postId) => {
-        setPosts(Posts.filter(p => p._id!== postId));
+        setPosts(Posts.filter(p => p._id !== postId));
     }
 
 
@@ -44,7 +45,7 @@ const Discussion = ({ group }) => {
                             <div className="iq-card-body">
                                 <ul className="profile-img-gallary d-flex flex-wrap p-0 m-0">
                                     {
-                                        photos.length>0? photos.map((p, i) =>
+                                        photos.length > 0 ? photos.map((p, i) =>
                                             <li key={i} className="col-md-4 col-6 pl-2 pr-0 pb-3">
                                                 <span>
                                                     <img src={`data:${p.contentType};base64,${bufferToBase64(p.data.data)}`}
@@ -52,7 +53,7 @@ const Discussion = ({ group }) => {
                                                         alt="gallary-img" className="img-fluid" />
                                                 </span>
                                             </li>
-                                        ): <div className="text-center">Trong nhóm chưa có hình ảnh nào</div>
+                                        ) : <div className="text-center">Trong nhóm chưa có hình ảnh nào</div>
                                     }
                                 </ul>
                             </div>
@@ -62,9 +63,15 @@ const Discussion = ({ group }) => {
                         <PostForm updatePost={updatePost} />
                         <div className="iq-card">
                             <div className="met-vl">
-                                {
-                                    Posts.map(post => <PostItem key={post._id} post={post} hidePost={hidePost} />)
-                                }
+                                <TransitionGroup>
+                                    {
+                                        Posts.map((post,i) =>
+                                            <CSSTransition key={i} timeout={1000} classNames="fade">
+                                                <PostItem key={post._id} post={post} hidePost={hidePost} />
+                                            </CSSTransition>
+                                        )
+                                    }
+                                </TransitionGroup>
                             </div>
                         </div>
                     </div>
