@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import PostReaction from './PostReaction';
 import { useSelector } from 'react-redux';
 import PostOption from './PostOption';
-import { bufferToBase64 } from '../../../clientHelper/helperClient';
 
 const PostItem = ({ post, hidePost }) => {
     const user = useSelector(state => state.auth.user);
@@ -25,13 +24,13 @@ const PostItem = ({ post, hidePost }) => {
                 setAttachment([]);
                 setVideo([]);
                 data.photos.forEach(p => {
-                    setImg(i => [...i, `data:${p.contentType};base64,${bufferToBase64(p.data.data)}`])
+                    setImg(i => [...i, `${process.env.REACT_APP_UPLOADS_IMG}/${p.fileName}`])
                 })
                 data.attachments.forEach(f => {
-                    setAttachment(i => [...i, { url: `data:${f.contentType}; base64, ${bufferToBase64(f.data.data)}`, fileName: f.fileName }])
+                    setAttachment(i => [...i, { url: `${process.env.REACT_APP_UPLOADS_IMG}/${f.fileName}`, fileName: f.fileName }])
                 })
                 data.videos.forEach(p => {
-                    setVideo(i => [...i, `${process.env.REACT_APP_API}/${p.url}`])
+                    setVideo(i => [...i, `${process.env.REACT_APP_UPLOADS_IMG}/${p.fileName}`])
                 })
             }
         })
@@ -78,7 +77,7 @@ const PostItem = ({ post, hidePost }) => {
                         <div className="d-flex flex-wrap">
                             <div className="media-support-user-img mr-3">
                                 <Link to={`/profile/${post.writer._id}`}>
-                                    <img src={`data:${post.writer.avatar.contentType};base64,${bufferToBase64(post.writer.avatar.data.data)}`} className="rounded-circle img-fluid" alt="" />
+                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${post.writer.avatar}`} className="rounded-circle img-fluid" alt="" />
                                 </Link>
                             </div>
                             <div className="media-support-info mt-2">

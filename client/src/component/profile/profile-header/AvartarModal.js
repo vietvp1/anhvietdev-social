@@ -23,7 +23,6 @@ const AvatarModal = ({ picture, file, toggle, setToggle, remove }) => {
         setToggle(!toggle)
     }
 
-    console.log(userProfilePic);
     const onSave = async (e) => {
         e.preventDefault();
         if (editor !== null) {

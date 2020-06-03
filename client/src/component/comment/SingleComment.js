@@ -7,7 +7,6 @@ import CommentOptions from './CommentOptions';
 import CommentReaction from './CommentReaction';
 import { Link } from 'react-router-dom';
 import ReactAction from '../home/newsfeed/ReactAction';
-import { bufferToBase64 } from '../../clientHelper/helperClient';
 
 const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep }) => {
     let user = useSelector(state => state.auth.user);
@@ -80,7 +79,7 @@ const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep }) => {
             <div className="post-comments-single">
                 <div className="post-comment-avatar">
                     <Link to={`/profile/${comment.writer._id}`}>
-                        <img src={`data:${comment.writer.avatar.contentType};base64,${bufferToBase64(comment.writer.avatar.data.data)}`} alt="userimg" className="avatar-35 rounded-circle img-fluid" />
+                        <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${comment.writer.avatar}`} alt="userimg" className="avatar-35 rounded-circle img-fluid" />
                     </Link>
                 </div>
                 <div className="post-comment-text">

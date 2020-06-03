@@ -1,7 +1,6 @@
 import React, { useRef, useState, Fragment } from 'react'
 import axios from "axios"
 import { Link } from 'react-router-dom';
-import { bufferToBase64 } from '../../../clientHelper/helperClient';
 
 const Search = () => {
     const [text, setText] = useState('');
@@ -72,7 +71,7 @@ const Search = () => {
                                                 <Link key={i} to={`/profile/${user._id}`} onClick={e => setShowContent(false)}>
                                                     <div className="user-finded">
                                                         <img
-                                                            src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`}
+                                                            src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`}
                                                             alt=''
                                                             className="avatar-40 rounded mr-2 ml-2"
                                                         />

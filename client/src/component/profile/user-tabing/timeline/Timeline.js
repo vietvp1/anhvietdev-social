@@ -3,7 +3,6 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import PostForm from '../../../home/newsfeed/PostForm';
 import PostItem from '../../../home/newsfeed/PostItem';
-import { bufferToBase64 } from '../../../../clientHelper/helperClient';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 const Timeline = ({ user }) => {
@@ -50,7 +49,7 @@ const Timeline = ({ user }) => {
                                         photos.map((p, i) =>
                                             <li key={i} className="col-md-4 col-6 pl-2 pr-0 pb-3">
                                                 <span>
-                                                    <img src={`data:${p.contentType};base64,${bufferToBase64(p.data.data)}`}
+                                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${p.fileName}`}
                                                         style={{ width: "83px", height: "83px" }}
                                                         alt="gallary-img" className="img-fluid" />
                                                 </span>
@@ -72,7 +71,7 @@ const Timeline = ({ user }) => {
                                         list.map((user, i) =>
                                             <li key={i} className="col-md-4 col-6 pl-2 pr-0 pb-3">
                                                 <Link to={`/profile/${user._id}`}>
-                                                    <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`}
+                                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} 
                                                         style={{ width: "83px", height: "83px" }}
                                                         alt="gallary-img" className="img-fluid" />
                                                 </Link>

@@ -3,7 +3,6 @@ import axios from 'axios';
 import PostForm from '../../../home/newsfeed/PostForm';
 import PostItem from '../../../home/newsfeed/PostItem';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { bufferToBase64 } from '../../../../clientHelper/helperClient';
 
 const Discussion = ({ group }) => {
     const [Posts, setPosts] = useState([]);
@@ -48,7 +47,7 @@ const Discussion = ({ group }) => {
                                         photos.length > 0 ? photos.map((p, i) =>
                                             <li key={i} className="col-md-4 col-6 pl-2 pr-0 pb-3">
                                                 <span>
-                                                    <img src={`data:${p.contentType};base64,${bufferToBase64(p.data.data)}`}
+                                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${p.fileName}`}
                                                         style={{ width: "83px", height: "83px" }}
                                                         alt="gallary-img" className="img-fluid" />
                                                 </span>
@@ -65,7 +64,7 @@ const Discussion = ({ group }) => {
                             <div className="met-vl">
                                 <TransitionGroup>
                                     {
-                                        Posts.map((post,i) =>
+                                        Posts.map((post, i) =>
                                             <CSSTransition key={i} timeout={1000} classNames="fade">
                                                 <PostItem key={post._id} post={post} hidePost={hidePost} />
                                             </CSSTransition>

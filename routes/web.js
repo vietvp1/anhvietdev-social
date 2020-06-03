@@ -105,6 +105,7 @@ let initRoutes = (app) => {
 
     router.get("/photos/:id", auth, photo.getAllMyPhoto)
     router.post("/photo/get-photo-in-post", auth, photo.photoInPost)
+    router.get('/uploads/image/:filename', photo.disPlayImage);
 
     return app.use("/", router)
 }

@@ -25,9 +25,6 @@ ChatGroupSchema.statics = {
                 {
                     path: 'members',
                     select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
                 }
             )
             .sort({ "updatedAt": -1 })
@@ -40,9 +37,6 @@ ChatGroupSchema.statics = {
                 {
                     path: 'members',
                     select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
                 }
             )
             .select('-__v');

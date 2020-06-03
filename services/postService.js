@@ -6,8 +6,8 @@ const photoModel = require('../models/photoModel')
 const attachmentModel = require('../models/attachmentModel')
 const userModel = require('../models/userModel')
 const _ = require('lodash');
-const fsExtra = require('fs-extra')
 const { videoType, imgType } = require('../config/mimeType')
+const { deleteFileInDb } = require('../services/photoService')
 
 /**
  * 
@@ -33,32 +33,20 @@ const addNew = (writerId, filesVal, text, title, groupId) => {
                 writer: writerId,
                 title: title
             };
-            let newPost = await (await PostModel.model.create(newPostItem))
-                .populate(
-                    {
-                        path: 'writer',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
-                    }
-                )
-                .execPopulate();
+            let newPost = await (await PostModel.model.create(newPostItem)).execPopulate();
             if (filesVal.length > 0) {
                 let arrayFilesPromise = filesVal.map(async fileVal => {
                     let checkImg = 0;
-                    let BufferFile = await fsExtra.readFile(fileVal.path);
-                    // let url = fileVal.path.replace(/\\/g, '/');
                     let ContentType = fileVal.mimetype;
-                    let Name = fileVal.filename;
+                    let item = {
+                        post: newPost._id,
+                        from: from,
+                        files_id: fileVal.id,
+                        fileName: fileVal.filename
+                    }
 
                     if (ContentType === videoType[0]) {
-                        await videoModel.create({
-                            post: newPost._id,
-                            from: from,
-                            contentType: ContentType,
-                            fileName: Name
-                        })
+                        await videoModel.create(item)
                         return;
                     }
                     imgType.map(type => {
@@ -68,21 +56,9 @@ const addNew = (writerId, filesVal, text, title, groupId) => {
                         }
                     })
                     if (checkImg) {
-                        await photoModel.create({
-                            post: newPost._id,
-                            from: from,
-                            data: BufferFile,
-                            contentType: ContentType,
-                            fileName: Name
-                        })
+                        await photoModel.create(item)
                     } else {
-                        await attachmentModel.create({
-                            post: newPost._id,
-                            from: from,
-                            data: BufferFile,
-                            contentType: ContentType,
-                            fileName: Name
-                        })
+                        await attachmentModel.create(item)
                     }
                 });
                 await Promise.all(arrayFilesPromise);
@@ -156,18 +132,19 @@ const removePost = (postId, userId) => {
         try {
             const removeReq = await PostModel.model.findOneAndDelete({ "_id": postId });
             if (removeReq) {
-                let photoOfAvatar = await photoModel.findOne({ "post": postId });
-                let avatarUser = await userModel.findById(userId, {"avatar": 1, "cover" : 1});
+                let photo = await photoModel.findOne({ "post": postId });
+                let avatarUser = await userModel.findById(userId, { "avatar": 1, "cover": 1 });
 
-                if (avatarUser.avatar.toString() === photoOfAvatar._id.toString()) {
-                    await userModel.findByIdAndUpdate(userId , {"avatar" : process.env.AVATAR_DEFAULT})
-                }if (avatarUser.cover.toString() === photoOfAvatar._id.toString()) {
-                    await userModel.findByIdAndUpdate(userId , {"cover" : process.env.COVER_DEFAULT})
+                if (avatarUser.avatar.toString() === photo.fileName.toString()) {
+                    await userModel.findByIdAndUpdate(userId, { "avatar": process.env.AVATAR_DEFAULT })
+                } else if (avatarUser.cover.toString() === photo.fileName.toString()) {
+                    await userModel.findByIdAndUpdate(userId, { "cover": process.env.COVER_DEFAULT })
                 }
 
                 await photoModel.deletePhotoInPost(postId);
                 await attachmentModel.deleteAttachmentInPost(postId);
                 await videoModel.deleteVideoInPost(postId);
+                await deleteFileInDb(photo.files_id);
                 await CommentModel.deleteCmtInPost(postId);
             }
             resolve(true);

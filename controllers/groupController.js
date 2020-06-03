@@ -3,26 +3,7 @@ const multer = require('multer')
 const fsExtra = require('fs-extra')
 const { app } = require("../config/app")
 const { transErrors, transSuccess } = require('../lang/vi')
-
-let storageCoverGroup = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, app.group_directory);
-    },
-    filename: (req, file, callback) => {
-        let math = app.avatar_type;
-        if (math.indexOf(file.mimetype) === -1) {
-            return callback("wrong typeof image", null);
-        }
-
-        let avatarName = `${Date.now()}-${file.originalname}`;
-        callback(null, avatarName);
-    },
-})
-
-let imgUploadFile = multer({
-    storage: storageCoverGroup,
-    limits: { fileSize: app.avatar_limit_size }
-}).single("file")
+const {uploadFileToDB} = require('../config/db')
 
 const newGroup = async (req, res) => {
     try {
@@ -32,7 +13,6 @@ const newGroup = async (req, res) => {
         return res.status(500).send(error);
     }
 }
-
 
 const getGroup = async (req, res) => {
     try {
@@ -62,7 +42,7 @@ const getGroupJoined = async(req,res) => {
 }
 
 const updateGroupCover = async (req, res) => {
-    imgUploadFile(req, res, async (error) => {
+    uploadFileToDB(req, res, async (error) => {
         if (error) {
             return res.json({ success: false, error })
         }

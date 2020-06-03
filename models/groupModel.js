@@ -35,9 +35,9 @@ groupSchema.statics = {
             {
                 path: 'members',
                 select: ['firstName', 'lastName', 'address', 'avatar'],
-                populate: {
-                    path: "avatar",
-                }
+                // populate: {
+                //     path: "avatar",
+                // }
             }
         );
     },
@@ -46,32 +46,24 @@ groupSchema.statics = {
         return this.find({ "members": userId }, { "members": { $slice: 5 } }).populate(
             {
                 path: 'members',
-                select: ['firstName', 'lastName', 'address', 'avatar'],
-                populate: {
-                    path: "avatar",
-                }
+                select: ['firstName', 'lastName', 'address', 'avatar']
             }
         );
     },
 
     getGroup(groupId) {
-        return this.findById(groupId, { "members": { $slice: 10 } }).populate(
-            {
-                path: 'members',
-                select: ['firstName', 'lastName', 'address', 'avatar'],
-                populate: {
-                    path: "avatar",
+        return this.findById(groupId, { "members": { $slice: 10 } })
+            .populate(
+                {
+                    path: 'members',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
                 }
-            }
-        ).populate(
-            {
-                path: 'admins',
-                select: ['firstName', 'lastName', 'address', 'avatar'],
-                populate: {
-                    path: "avatar",
+            ).populate(
+                {
+                    path: 'admins',
+                    select: ['firstName', 'lastName', 'address', 'avatar'],
                 }
-            }
-        ).populate('cover');
+            );
     },
 
     updateCover(groupId, item) {
@@ -83,19 +75,13 @@ groupSchema.statics = {
                 {
                     path: 'members',
                     select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
                 }
             ).populate(
                 {
                     path: 'admins',
                     select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
                 }
-            ).populate('cover');
+            );
     }
 }
 

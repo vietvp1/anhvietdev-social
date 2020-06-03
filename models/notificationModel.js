@@ -37,10 +37,7 @@ NotificationeSchema.statics = {
             .populate(
                 {
                     path: 'sender',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .populate('post')

@@ -1,5 +1,5 @@
 import React from 'react'
-import { lastItemOfArray, bufferToBase64 } from "../../../clientHelper/helperClient"
+import { lastItemOfArray } from "../../../clientHelper/helperClient"
 import { useSelector } from 'react-redux';
 // import GroupChatModal from './groupChat/GroupChatModal';
 import moment from 'moment';
@@ -12,7 +12,7 @@ const ChatLeft = ({ showRight, conversations }) => {
             <div className="chat-search pt-3 pl-3">
                 <div className="d-flex align-items-center">
                     <div className="chat-profile mr-3">
-                        <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="chat-user" className="avatar-60 " />
+                        <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="chat-user" className="avatar-60 " />
                     </div>
                     <div className="chat-caption">
                         <h5 className="mb-0">{user.firstName} {user.lastName}</h5>
@@ -43,7 +43,7 @@ const ChatLeft = ({ showRight, conversations }) => {
                                     href={`#chatbox_${c._id}`}>
                                     <div className="d-flex align-items-center">
                                         <div className="avatar mr-2">
-                                            <img src={`data:${c.userChat.avatar.contentType};base64,${bufferToBase64(c.userChat.avatar.data.data)}`} alt="chatuserimage" className="avatar-50 " />
+                                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${c.userChat.avatar}`} alt="chatuserimage" className="avatar-50 " />
                                             <span className="avatar-status"><i className="ri-checkbox-blank-circle-fill text-success" /></span>
                                         </div>
                                         <div className="chat-sidebar-name">

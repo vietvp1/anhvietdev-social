@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { checkCoverImage, bufferToBase64 } from '../../../clientHelper/helperClient'
+import { checkCoverImage } from '../../../clientHelper/helperClient'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 
@@ -10,7 +10,7 @@ const GroupCover = ({ group, userauth, setGroup }) => {
 
     const onDropFile = async (e) => {
         const file = e.target.files[0];
-        let checkRate = await checkCoverImage(file); 
+        let checkRate = await checkCoverImage(file);
         if (checkRate) {
             setPicture(window.URL.createObjectURL(file))
             setFile(file);
@@ -55,7 +55,7 @@ const GroupCover = ({ group, userauth, setGroup }) => {
                 preview ? <img src={picture} alt="profile-bg" className="rounded" /> :
                     group.cover && group.cover.data ?
                         <img
-                            src={`data:${group.cover.contentType};base64,${bufferToBase64(group.cover.data.data)}`}
+                            src={`${process.env.REACT_APP_UPLOADS_IMG}/${group.cover}`}
                             alt="group-bg"
                             className="rounded"
                         />

@@ -5,15 +5,13 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
     firstName: { type: String, maxlength: 20, required: true },
     lastName: { type: String, maxlength: 20, required: true },
-    avatar: { 
-        type: Schema.Types.ObjectId,
-        ref: 'photo',
-        default: "5ecfb67f908b830c20adc7f7",
+    avatar: {
+        type: String,
+        default: 'avatar-default.jpg'
     },
     cover: {
-        type: Schema.Types.ObjectId,
-        ref: 'photo',
-        default: "5ecfeef71457180d884f1181"
+        type: String,
+        default: 'cover-default.jpg'
     },
     email: {
         type: String,
@@ -215,7 +213,7 @@ UserSchema.virtual('password')
 UserSchema.methods = {
     comparePassword(password) {
         console.log(password);
-        
+
         return bcrypt.compare(password, this.local.password); // return promise true or false
     }
 }
@@ -226,16 +224,12 @@ UserSchema.statics = {
     },
     findUserByIdForClientToUse(id) {
         return this.findById(id, { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 })
-        .populate('avatar')
-        .populate('cover');
     },
     findUserByIdForServerToUse(id) {
         return this.findById(id, { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 });
     },
     getNormalUserDataById(id) {
         return this.findById(id, { "local.password": 0, facebook: 0, google: 0, resetPasswordLink: 0 })
-        .populate('cover')
-        .populate('avatar')
     },
     getNormalUserDataByIdAndKeyword(friendIds, keyword) {
         return this.find({

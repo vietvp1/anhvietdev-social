@@ -1,14 +1,13 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import ChatBox from '../../chatbox/ChatBox'
 import { useSelector, useDispatch } from 'react-redux';
-import { bufferToBase64 } from '../../../clientHelper/helperClient';
 
 const RightSidebar = () => {
     const [groupsChat, setGroupsChat] = useState([]);
     const user = useSelector(state => state.auth.user);
     const usersOnline = useSelector(state => state.online.usersOnline);
     const conversations = useSelector(state => state.conversation.conversations);
-    const toggle  = useSelector(state => state.master_data.right_sidebarOpen);
+    const toggle = useSelector(state => state.master_data.right_sidebarOpen);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -76,13 +75,13 @@ const RightSidebar = () => {
 
     const toggleSidebar = () => {
         console.log("vaooo");
-        
+
         dispatch({ type: 'TOGGLE_RIGHT_SIDEBAR' });
-      }
+    }
 
     return user ? (
         <Fragment>
-            <div className={toggle? "right-sidebar-mini toggle-right-sidebar" : "right-sidebar-mini"}>
+            <div className={toggle ? "right-sidebar-mini toggle-right-sidebar" : "right-sidebar-mini"}>
                 <div className="right-sidebar-panel p-0">
                     <div className="iq-card shadow-none">
                         <div className="iq-card-body p-0">
@@ -92,7 +91,7 @@ const RightSidebar = () => {
                                         <div className="user-online" key={i} onClick={e => openConversation(user)}>
                                             <div className="media align-items-center mb-4">
                                                 <div className="iq-profile-avatar status-online">
-                                                    <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} className="rounded-circle avatar-50" alt="" />
+                                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} className="rounded-circle avatar-50" alt="" />
                                                 </div>
                                                 <div className="media-body ml-3">
                                                     <h6 className="mb-0"><span>{user.firstName}&nbsp;{user.lastName}</span></h6>
@@ -131,9 +130,9 @@ const RightSidebar = () => {
                             </div>
                             <div className="right-sidebar-toggle bg-primary mt-3" onClick={toggleSidebar}>
                                 {
-                                    toggle ? 
-                                    <i className="fal fa-arrow-right side-right-icon"><span className="ml-3 d-inline-block">Close Menu</span></i> :
-                                    <i className="fal fa-arrow-left side-left-icon" />
+                                    toggle ?
+                                        <i className="fal fa-arrow-right side-right-icon"><span className="ml-3 d-inline-block">Close Menu</span></i> :
+                                        <i className="fal fa-arrow-left side-left-icon" />
                                 }
                             </div>
                         </div>

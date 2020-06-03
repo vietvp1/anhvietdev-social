@@ -64,7 +64,7 @@ const MessageItem = ({ message, userChat }) => {
                         <div className="chat">
                             <div className="chat-user">
                                 <Link to={`/profile/${user._id}`} className="avatar m-0">
-                                    <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="avatar" className="avatar-35 " />
+                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="avatar" className="avatar-35 " />
                                 </Link>
                                 <span className="chat-time mt-1"><Moment format='HH:mm'>{message.createdAt}</Moment></span>
                             </div>
@@ -79,7 +79,7 @@ const MessageItem = ({ message, userChat }) => {
                                 <div className="chat">
                                     <div className="chat-user">
                                         <Link to={`/profile/${user._id}`} className="avatar m-0">
-                                            <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="avatar" className="avatar-35 " />
+                                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="avatar" className="avatar-35 " />
                                         </Link>
                                         <span className="chat-time mt-1"><Moment format='HH:mm'>{message.createdAt}</Moment></span>
                                     </div>
@@ -93,7 +93,7 @@ const MessageItem = ({ message, userChat }) => {
                                 <div className="chat">
                                     <div className="chat-user">
                                         <Link to={`/profile/${user._id}`} className="avatar m-0">
-                                            <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="avatar" className="avatar-35 " />
+                                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="avatar" className="avatar-35 " />
                                         </Link>
                                         <span className="chat-time mt-1"><Moment format='HH:mm'>{message.createdAt}</Moment></span>
                                     </div>
@@ -109,7 +109,7 @@ const MessageItem = ({ message, userChat }) => {
                         <div className="chat chat-left">
                             <div className="chat-user">
                                 <Link to={`/profile/${message.sender._id}`} className="avatar m-0">
-                                    <img src={`data:${message.sender.avatar.contentType};base64,${bufferToBase64(message.sender.avatar.data.data)}`} alt="avatar" className="avatar-35 " />
+                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${message.sender.avatar}`} alt="avatar" className="avatar-35 " />
                                 </Link>
                                 <span className="chat-time mt-1"><Moment format='HH:mm'>{message.createdAt}</Moment></span>
                             </div>
@@ -124,7 +124,7 @@ const MessageItem = ({ message, userChat }) => {
                                 <div className="chat chat-left">
                                     <div className="chat-user">
                                         <Link to={`/profile/${message.sender._id}`} className="avatar m-0">
-                                            <img src={`data:${message.sender.avatar.contentType};base64,${bufferToBase64(message.sender.avatar.data.data)}`} alt="avatar" className="avatar-35 " />
+                                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${message.sender.avatar}`} alt="avatar" className="avatar-35 " />
                                         </Link>
                                         <span className="chat-time mt-1"><Moment format='HH:mm'>{message.createdAt}</Moment></span>
                                     </div>
@@ -138,7 +138,7 @@ const MessageItem = ({ message, userChat }) => {
                                 <div className="chat chat-left">
                                     <div className="chat-user">
                                         <Link to={`/profile/${message.sender._id}`} className="avatar m-0">
-                                            <img src={`data:${message.sender.avatar.contentType};base64,${bufferToBase64(message.sender.avatar.data.data)}`} alt="avatar" className="avatar-35 " />
+                                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${message.sender.avatar}`} alt="avatar" className="avatar-35 " />
                                         </Link>
                                         <span className="chat-time mt-1"><Moment format='HH:mm'>{message.createdAt}</Moment></span>
                                     </div>

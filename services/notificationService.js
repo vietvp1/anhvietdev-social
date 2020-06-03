@@ -47,10 +47,7 @@ let addNotifComment = (variable, writerPost) => {
                     .populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                     .populate('post')
@@ -80,10 +77,7 @@ let addNotifComment = (variable, writerPost) => {
                     .populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                     .populate('post')
@@ -118,10 +112,7 @@ let addNotifUpReaction = (postId, userId, writerPost) => {
                     .populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                     .populate('post')
@@ -131,10 +122,7 @@ let addNotifUpReaction = (postId, userId, writerPost) => {
                     .populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                     .populate('post')
@@ -170,10 +158,7 @@ let addNotifUpReactionCmt = (postId, commentId, userId, writerComment) => {
                     .populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                     .populate('post').populate('comment')
@@ -183,10 +168,7 @@ let addNotifUpReactionCmt = (postId, commentId, userId, writerComment) => {
                     .populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                     .populate('post').populate('comment')

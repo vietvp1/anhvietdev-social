@@ -11,10 +11,12 @@ let attachmentSchema = new Schema({
         ref: 'post'
     },
     album: String,
-    description: String,
-    data: Buffer, 
-    contentType: String,
+    files_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'album'
+    },
     fileName: String,
+    description: String,
     tags: [
         {
             type: Schema.Types.ObjectId,

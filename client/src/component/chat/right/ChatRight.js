@@ -3,7 +3,6 @@ import MessageItem from './MessageItem'
 import ScrollToBottom from 'react-scroll-to-bottom';
 import ChatBoxInput from '../../chatbox/ChatBoxInput';
 import ChatVideoCall from '../chatVideoCall/ChatVideoCall';
-import { bufferToBase64 } from '../../../clientHelper/helperClient';
 
 const ChatRight = ({ i, c, showRight }) => {
     return (
@@ -12,7 +11,7 @@ const ChatRight = ({ i, c, showRight }) => {
                 <header className="d-flex justify-content-between align-items-center bg-white pt-3 pr-3 pb-3">
                     <div className="d-flex align-items-center">
                         <div className="avatar chat-user-profile m-0 mr-3">
-                            <img src={`data:${c.userChat.avatar.contentType};base64,${bufferToBase64(c.userChat.avatar.data.data)}`} alt="avatar" className="avatar-50 " />
+                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${c.userChat.avatar}`} alt="avatar" className="avatar-50 " />
                             <span className="avatar-status"><i className="ri-checkbox-blank-circle-fill text-success" /></span>
                         </div>
                         <h5 className="mb-0">{c.userChat.firstName} {c.userChat.lastName}</h5>

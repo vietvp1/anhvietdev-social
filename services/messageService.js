@@ -84,10 +84,7 @@ let addNewTextEmoji = (senderId, receivedId, messageVal, isChatGroup, isCurrent)
                 let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 ).execPopulate();
 
@@ -121,10 +118,7 @@ let addNewTextEmoji = (senderId, receivedId, messageVal, isChatGroup, isCurrent)
                 let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 ).execPopulate();
                 //update
@@ -191,10 +185,7 @@ let addNewFile = (senderId, receivedId, messageVal, isChatGroup, isCurrent) => {
                 let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 ).execPopulate();
         
@@ -258,10 +249,7 @@ let addNewFile = (senderId, receivedId, messageVal, isChatGroup, isCurrent) => {
                 let newMessage = await (await MessageModel.model.create(newMessageItem)).populate(
                     {
                         path: 'sender',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 ).execPopulate();;
  

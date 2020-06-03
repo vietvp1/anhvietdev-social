@@ -1,7 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { bufferToBase64 } from '../../../../../clientHelper/helperClient';
 
 const RecentlyAdd = () => {
     const ContactSent = useSelector(state => state.contact.contactsSent);
@@ -16,7 +15,7 @@ const RecentlyAdd = () => {
                                     <div className="d-flex align-items-center justify-content-between">
                                         <div className="d-flex align-items-center">
                                             <Link to={`/profile/${user._id}`}>
-                                                <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="profile-img" className="img-fluid avatar-150" />
+                                                <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="profile-img" className="img-fluid avatar-150" />
                                             </Link>
                                             <div className="friend-info ml-3">
                                                 <Link to={`/profile/${user._id}`}>

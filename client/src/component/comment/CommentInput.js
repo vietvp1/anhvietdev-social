@@ -3,7 +3,6 @@ import { Picker } from 'emoji-mart'
 import { useSelector } from 'react-redux'
 import TextareaAutosize from 'react-autosize-textarea';
 import axios from 'axios'
-import { bufferToBase64 } from '../../clientHelper/helperClient';
 
 const CommentInput = ({ post, updateComment, comment }) => {
     const user = useSelector(state => state.auth.user)
@@ -41,7 +40,7 @@ const CommentInput = ({ post, updateComment, comment }) => {
     return (
         <div className="post-add-comment">
             <div className="post-comment-avatar">
-                <img src={`data:${post.writer.avatar.contentType};base64,${bufferToBase64(post.writer.avatar.data.data)}`} alt="" />
+                <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${post.writer.avatar}`} alt="" />
             </div>
             <div className="post-add-comment-text-area">
                 <TextareaAutosize

@@ -15,10 +15,12 @@ let videoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'album'
     },
-    description: String,
-    url: String,
-    contentType: String, 
+    files_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'album'
+    },
     fileName: String,
+    description: String,
     views: Number,
     tags: [
         {

@@ -14,7 +14,7 @@ const server = http.createServer(app)
 const io = socketio(server);
 const {socketAuth} = require('./config/socketAuth')
 
-const connectDB = require('./config/db');
+const {connectDB} = require('./config/db');
 const initRoutes = require('./routes/web');
 const initSockets = require('./sockets/index')
 

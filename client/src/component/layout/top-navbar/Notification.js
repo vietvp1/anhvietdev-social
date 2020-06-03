@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 import moment from 'moment';
 import 'moment/locale/vi';
-import { bufferToBase64 } from '../../../clientHelper/helperClient';
 
 const Notification = ({ user }) => {
     const notifications = useSelector(state => state.notification.notifications);
@@ -82,7 +81,7 @@ const Notification = ({ user }) => {
                             <span key={i} className={!n.isRead ? "iq-sub-card readed-false" : "iq-sub-card"}>
                                 <div className="media align-items-center">
                                     <div>
-                                        <img src={`data:${n.sender.avatar.contentType};base64,${bufferToBase64(n.sender.avatar.data.data)}`} className="avatar-40 rounded" alt="" />
+                                        <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${n.sender.avatar}`} className="avatar-40 rounded" alt="" />
                                     </div>
                                     {
                                         (n.object.entityType === 'ADD_CONTACT') ? (

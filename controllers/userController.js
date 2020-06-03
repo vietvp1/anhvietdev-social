@@ -1,42 +1,20 @@
-const multer = require('multer')
-const { userService, postService } = require('../services/index')
+const { userService } = require('../services/index')
 const UserModel = require('../models/userModel')
 const fsExtra = require('fs-extra')
 const { app } = require("../config/app")
 const { transErrors, transSuccess } = require('../lang/vi')
-
-let storageAvatar = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, app.avatar_directory);
-    },
-    filename: (req, file, callback) => {
-        let math = app.avatar_type;
-        if (math.indexOf(file.mimetype) === -1) {
-            return callback("wrong typeof image", null);
-        }
-
-        let avatarName = `${Date.now()}-${file.originalname}`;
-        callback(null, avatarName);
-    },
-})
-
-let avatarUploadFile = multer({
-    storage: storageAvatar,
-    limits: { fileSize: app.avatar_limit_size }
-}).single("file")
+const {uploadFileToDB} = require('../config/db')
 
 let updateAvatar = (req, res) => {
-    avatarUploadFile(req, res, async (error) => {
+    uploadFileToDB(req, res, async (error) => {
         if (error) {
             return res.json({ success: false, error })
         }
         try {
-            // let url = req.file.path.replace(/\\/g, '/');
             let text = req.body.text;
             let file = req.file;
             let title = "đã cập nhập ảnh đại diện mới"
             let user = await userService.update_Avatar_Cover(req.user._id, file, text, title, "avatar");
-            await fsExtra.remove(`${app.avatar_directory}/${file.filename}`);
             return res.status(200).json({ success: true, user: user, message: transSuccess.user_info_updated })
         } catch (error) {
             return res.status(500).send({ error: transErrors.server_error });
@@ -45,7 +23,7 @@ let updateAvatar = (req, res) => {
 }
 
 let updateCover = (req, res) => {
-    avatarUploadFile(req, res, async (error) => {
+    uploadFileToDB(req, res, async (error) => {
         if (error) {
             return res.json({ success: false, error })
         }
@@ -53,7 +31,6 @@ let updateCover = (req, res) => {
             let file = req.file;
             let title = "đã cập nhập ảnh bìa mới";
             const user = await userService.update_Avatar_Cover(req.user._id, file, "", title, "cover");
-            await fsExtra.remove(`${app.avatar_directory}/${file.filename}`);
             return res.status(200).json({ success: true, user: user, message: transSuccess.user_info_updated })
         } catch (error) {
             return res.status(500).send({ error: transErrors.server_error });
@@ -239,5 +216,5 @@ module.exports = {
     updatePlaceLived,
     deleteWork,
     deleteEducation,
-    deletePlaceLived
+    deletePlaceLived,
 }

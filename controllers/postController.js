@@ -1,27 +1,9 @@
 const {postService} = require('../services/index')
-const {app} = require("../config/app")
-const multer = require('multer')
-const fsExtra = require('fs-extra')
+const {uploadFilesToDB} = require('../config/db')
 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, app.post_directory)
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}_${file.originalname}`)
-    },
-    fileFilter: (req, file, cb) => {
-        const ext = path.extname(file.originalname)
-        if (ext !== '.mp4') {
-            return cb(res.status(400).end('only jpg, png, mp4 is allowed'), false);
-        }
-        cb(null, true)
-    }
-})
-var upload = multer({ storage: storage }).array("file")
 
 const addNew = async (req, res) => {
-    upload(req, res, async err => {
+    uploadFilesToDB(req, res, async err => {
         if (err) {
             return res.json({ success: false, err })
         }
@@ -32,9 +14,6 @@ const addNew = async (req, res) => {
             let groupId = req.body.groupId? req.body.groupId : false;
             let title = req.body.title? req.body.title : "";
             let newPost = await postService.addNew(writerId, filesVal, text, title, groupId);
-            for(var x = 0; x < filesVal.length; x++) {
-                await fsExtra.remove(`${app.post_directory}/${filesVal[x].filename}`)
-            };
             return res.status(200).send({newPost , success: true})
 
         } catch (error) {

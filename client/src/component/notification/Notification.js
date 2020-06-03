@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import { useSelector } from 'react-redux'
 import moment from 'moment';
 import 'moment/locale/vi';
-import { bufferToBase64 } from '../../clientHelper/helperClient';
 
 const Notification = () => {
     const notifications = useSelector(state => state.notification.notifications);
@@ -26,7 +25,7 @@ const Notification = () => {
                                         <ul className="notification-list m-0 p-0">
                                             <li className="d-flex align-items-center">
                                                 <div className="user-img img-fluid">
-                                                    <img src={`data:${n.sender.avatar.contentType};base64,${bufferToBase64(n.sender.avatar.data.data)}`} alt="story-img" className="rounded-circle avatar-40" />
+                                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${n.sender.avatar}`} alt="story-img" className="rounded-circle avatar-40" />
                                                 </div>
 
                                                 {

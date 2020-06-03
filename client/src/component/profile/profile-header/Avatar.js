@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react'
 import AvatarModal from './AvartarModal'
-import { bufferToBase64 } from '../../../clientHelper/helperClient';
 
 export const Avatar = ({ user, userauth }) => {
     const [toggle, setToggle] = useState(true)
@@ -26,7 +25,11 @@ export const Avatar = ({ user, userauth }) => {
     }
 
     const onDropFile = async (e) => {
-        const newFileData = await readFile(e.target.files[0]);
+        let file = e.target.files[0];
+        if (!file) {
+            return;
+        }
+        const newFileData = await readFile(file);
         setPicture(newFileData.dataURL)
         setFile(newFileData.file)
         setPreview(true);
@@ -41,8 +44,8 @@ export const Avatar = ({ user, userauth }) => {
     return (
         <Fragment>
             <div className="profile-img">
-                {/* <img src={`${process.env.REACT_APP_API}/${user.avatar}`} /> */}
-                <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="profile-img" className="avatar-130 img-fluid" />
+                {/* <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} /> */}
+                <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="profile-img" className="avatar-130 img-fluid" />
 
                 {
                     (user._id === userauth._id) ? (

@@ -25,10 +25,7 @@ let approveRequestContactReceived = (io) => {
             notif = await notif.populate(
                 {
                     path: 'sender',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             ).execPopulate();
 

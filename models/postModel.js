@@ -53,10 +53,7 @@ PostSchema.statics = {
             .populate(
                 {
                     path: 'writer',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
@@ -68,10 +65,7 @@ PostSchema.statics = {
             .populate(
                 {
                     path: 'writer',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
@@ -83,10 +77,7 @@ PostSchema.statics = {
             .populate(
                 {
                     path: 'writer',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])

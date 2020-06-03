@@ -54,7 +54,7 @@ let updateGroupCover = (id, file, text, title, groupId) => {
             let post = await postService.addNew(id, [file], text, title, groupId);
             let photo = await photoModel.photoInPost(post._id);
             let item = {
-                cover: photo[0]._id
+                cover: file.filename
             }
             const group = await groupModel.updateCover(groupId, item);
             resolve(group)

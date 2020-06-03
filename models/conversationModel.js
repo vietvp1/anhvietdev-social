@@ -23,19 +23,13 @@ conversationSchema.statics = {
             .populate(
                 {
                     path: 'firstOne',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .populate(
                 {
                     path: 'secondOne',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .sort({ "updatedAt": -1 })

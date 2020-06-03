@@ -14,10 +14,12 @@ let photoSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'album'
     },
-    data: Buffer,
-    description: String,
-    contentType: String,
+    files_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'album'
+    },
     fileName: String,
+    description: String,
     tags: [
         {
             type: Schema.Types.ObjectId,
@@ -61,7 +63,7 @@ photoSchema.statics = {
             }
         }).limit(limit).sort({ "createdAt": -1 })
     },
-    
+
 }
 
 module.exports = mongoose.model('photo', photoSchema);

@@ -2,7 +2,6 @@ import React, { useEffect, useState, Fragment }  from 'react'
 import axios from "axios"
 import { useSelector } from 'react-redux';
 import ImageLibrary from '../grid-images';
-import { bufferToBase64 } from '../../clientHelper/helperClient';
 import bg from '../../images/page-img/profile-bg5.jpg';
 
 const ProfileImage = () => {
@@ -13,7 +12,7 @@ const ProfileImage = () => {
         user && axios.get(`/photos/${user._id}`).then(res => {
             if(isSubscribed) 
                 res.data.photos.forEach(item => {
-                    setPhotos(p => [...p, `data:${item.contentType};base64,${bufferToBase64(item.data.data)}`])
+                    setPhotos(p => [...p, `${process.env.REACT_APP_UPLOADS_IMG}/${item.fileName}`])
                 })
         });
         return () => isSubscribed = false

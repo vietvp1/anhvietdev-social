@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
 import { useSelector } from "react-redux"
 import { Link } from 'react-router-dom'
-import { bufferToBase64 } from '../../clientHelper/helperClient';
 
 const FriendRequest = () => {
     const ContactReceived = useSelector(state => state.contact.contactsReceived);
@@ -24,7 +23,7 @@ const FriendRequest = () => {
                                                 <li key={i} className="d-flex align-items-center">
                                                     <div className="user-img img-fluid">
                                                         <Link to={`/profile/${user._id}`}>
-                                                            <img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="story-img" className="rounded-circle avatar-40" />
+                                                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="story-img" className="rounded-circle avatar-40" />
                                                         </Link>
                                                     </div>
                                                     <div className="media-support-info ml-3">

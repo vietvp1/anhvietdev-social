@@ -64,10 +64,7 @@ MessageSchema.statics = {
             .populate(
                 {
                     path: 'sender',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .sort({ "createdAt": -1 }).limit(limit);
@@ -132,10 +129,7 @@ MessageSchema.statics = {
             .populate(
                 {
                     path: 'sender',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
             .sort({ "createdAt": -1 }).limit(limit);

@@ -3,7 +3,6 @@ import { ModalBody, Modal, ModalHeader } from 'reactstrap';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
 import axios from "axios"
-import { bufferToBase64 } from '../../clientHelper/helperClient';
 
 const CreateGroup = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -143,7 +142,7 @@ const CreateGroup = () => {
                                                 <span key={i}>
                                                     <img
                                                         className="image-user-added-more avatar-30 rounded"
-                                                        src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`}
+                                                        src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`}
                                                         alt=""
                                                     />
                                                 </span>
@@ -163,7 +162,7 @@ const CreateGroup = () => {
                                                             <div className="find-more-user-avatar">
                                                                 <img
                                                                     className="avatar-30 bdr-100 mr-2"
-                                                                    src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`}
+                                                                    src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`}
                                                                     alt=""
                                                                 />
                                                                 {user.firstName}&nbsp;{user.lastName}

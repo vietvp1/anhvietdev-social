@@ -3,7 +3,6 @@ import Select from 'react-select';
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { updateUser } from '../../../../../actions/auth';
-import { bufferToBase64 } from '../../../../../clientHelper/helperClient';
 
 const Family = ({ user }) => {
     const [addRel, setAddRel] = useState(false);
@@ -131,7 +130,7 @@ const Family = ({ user }) => {
                     </div>
                 </li>
                 <li className="d-flex mb-4 align-items-center">
-                    <div className="user-img img-fluid"><img src={`data:${user.avatar.contentType};base64,${bufferToBase64(user.avatar.data.data)}`} alt="story-img" className="rounded-circle avatar-40" /></div>
+                    <div className="user-img img-fluid"><img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="story-img" className="rounded-circle avatar-40" /></div>
                     <div className="media-support-info ml-3">
                         <h6>Paul Molive</h6>
                         <p className="mb-0">Brothe</p>

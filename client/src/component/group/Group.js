@@ -3,7 +3,6 @@ import axios from "axios"
 import { Link } from 'react-router-dom'
 import bg from "../../images/page-img/profile-bg7.jpg"
 import CreateGroup from './CreateGroup';
-import { bufferToBase64 } from '../../clientHelper/helperClient';
 
 const Group = () => {
     const [mygroups, setMyGroups] = useState([]);
@@ -54,7 +53,7 @@ const Group = () => {
                                                             <Link to={`profile/${m._id}`} key={i} className="iq-media">
                                                                 <img
                                                                     className="img-fluid avatar-40 rounded-circle"
-                                                                    src={`data:${m.avatar.contentType};base64,${bufferToBase64(m.avatar.data.data)}`}
+                                                                    src={`${process.env.REACT_APP_UPLOADS_IMG}/${m.avatar}`}
                                                                     title={m.firstName + " " + m.lastName}
                                                                     alt={m.firstName + " " + m.lastName} />
                                                             </Link>

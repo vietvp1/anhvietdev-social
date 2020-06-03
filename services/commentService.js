@@ -6,10 +6,7 @@ let saveComment = (variable) => {
             let comment = await (await CommentModel.create(variable)).populate(
                 {
                     path: 'writer',
-                    select: ['firstName', 'lastName', 'address', 'avatar'],
-                    populate: {
-                        path: "avatar",
-                    }
+                    select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             ).execPopulate();
             resolve(comment)
@@ -26,28 +23,19 @@ let getComments = (variable) => {
                 .populate(
                     {
                         path: 'writer',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                 .populate(
                     {
                         path: 'likes.user',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
                 .populate(
                     {
                         path: 'reactions.user',
-                        select: ['firstName', 'lastName', 'address', 'avatar'],
-                        populate: {
-                            path: "avatar",
-                        }
+                        select: ['firstName', 'lastName', 'address', 'avatar']
                     }
                 )
             resolve(await Promise.all(comments))
