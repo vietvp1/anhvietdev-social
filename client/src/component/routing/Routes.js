@@ -13,7 +13,6 @@ import Chat from '../chat/Chat';
 import BirthDay from '../birth-day/BirthDay';
 import Calendar from '../calendar/Calendar';
 import Weather from '../weather/Weather';
-import Music from '../music/Music';
 import EmailCompose from '../email/EmailCompose';
 import SignIn from '../authentication/SignIn';
 import SignUp from '../authentication/SignUp';
@@ -47,7 +46,6 @@ const Root = () => (
     <PrivateRoute exact path='/birthday' component={BirthDay} />
     <PrivateRoute exact path='/calendar' component={Calendar} />
     <PrivateRoute exact path='/weather' component={Weather} />
-    <PrivateRoute exact path='/music' component={Music} />
     <PrivateRoute exact path='/email-compose' component={EmailCompose} />
     <Route exact path='/sign-in' component={SignIn} />
     <Route exact path='/sign-up' component={SignUp} />

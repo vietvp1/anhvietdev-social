@@ -1,14 +1,14 @@
-const {groupService} = require('../services/index')
+const { groupService } = require('../services/index')
 const multer = require('multer')
 const fsExtra = require('fs-extra')
 const { app } = require("../config/app")
 const { transErrors, transSuccess } = require('../lang/vi')
-const {uploadFileToDB} = require('../config/db')
+const { uploadFileToDB } = require('../config/db')
 
 const newGroup = async (req, res) => {
     try {
         let newGroup = await groupService.newGroup(req.body, req.user._id);
-        return res.status(200).send({newGroup, success: true});
+        return res.status(200).send({ newGroup, success: true });
     } catch (error) {
         return res.status(500).send(error);
     }
@@ -16,26 +16,35 @@ const newGroup = async (req, res) => {
 
 const getGroup = async (req, res) => {
     try {
-        let group = await groupService.getGroup(req.params.id);
-        return res.status(200).send({group});
+        let group = await groupService.getGroup(req.params.id, req.user._id);
+        return res.status(200).send({ group });
     } catch (error) {
         return res.status(500).send(error);
     }
 }
 
-const getGroupManaging = async(req,res) => {
+const getGroupManaging = async (req, res) => {
     try {
         let groupManaging = await groupService.getGroupManaging(req.user._id);
-        return res.status(200).send({groupManaging})
+        return res.status(200).send({ groupManaging })
     } catch (error) {
         return res.status(500).send(error);
     }
 }
 
-const getGroupJoined = async(req,res) => {
+const getGroupJoined = async (req, res) => {
     try {
         let groupJoined = await groupService.getGroupJoined(req.user._id);
-        return res.status(200).send({groupJoined})
+        return res.status(200).send({ groupJoined })
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+const getGroupSuggestions = async (req, res) => {
+    try {
+        let groupSuggestions = await groupService.getGroupSuggestions(req.user._id);
+        return res.status(200).send({ groupSuggestions })
     } catch (error) {
         return res.status(500).send(error);
     }
@@ -58,10 +67,71 @@ const updateGroupCover = async (req, res) => {
     })
 }
 
+const leaveGroup = async (req, res) => {
+    try {
+        await groupService.leaveGroup(req.body.groupId, req.user._id);
+        return res.status(200).send({ success: true })
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+const joinGroup = async (req, res) => {
+    try {
+        await groupService.joinGroup(req.body.groupId, req.user._id);
+        return res.status(200).send({ success: true })
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+const removeRequestJoinGroup = async (req, res) => {
+    try {
+        await groupService.removeRequestJoinGroup(req.body.groupId, req.user._id);
+        return res.status(200).send({ success: true })
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+const acceptJoinGroup = async (req, res) => {
+    try {
+        await groupService.acceptJoinGroup(req.body.groupId, req.user._id);
+        return res.status(200).send({ success: true })
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+const kickedOutGroup = async (req, res) => {
+    try {
+        await groupService.kickedOutGroup(req.body.groupId, req.user._id, req.body.memberId);
+        return res.status(200).send({ success: true })
+    } catch (error) {
+        return res.status(500).send(error);
+    }
+}
+
+const updateGroupInfo = async (req, res) => {
+    try {
+        const group = await groupService.updateGroupInfo(req.body.groupId, req.body);
+        return res.status(200).json({ success: true, group })
+    } catch (error) {
+        return res.status(500).send({ error: transErrors.server_error });
+    }
+}
+
 module.exports = {
     newGroup: newGroup,
     getGroupManaging: getGroupManaging,
     getGroupJoined: getGroupJoined,
     getGroup: getGroup,
-    updateGroupCover: updateGroupCover
+    updateGroupCover: updateGroupCover,
+    getGroupSuggestions: getGroupSuggestions,
+    leaveGroup: leaveGroup,
+    joinGroup: joinGroup,
+    acceptJoinGroup: acceptJoinGroup,
+    removeRequestJoinGroup: removeRequestJoinGroup,
+    kickedOutGroup: kickedOutGroup,
+    updateGroupInfo: updateGroupInfo
 }

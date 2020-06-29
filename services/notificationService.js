@@ -233,12 +233,24 @@ let markAllAsRead = (currentUserId) => {
     })
 }
 
+let removeNotification = (idNotif) => {
+    return new Promise( async (resolve, reject) => {
+        try {
+            await NotificationModel.model.deleteOne({_id: idNotif});
+            resolve(true);         
+        } catch (error) {
+            reject(false);
+        }
+    })
+}
+
 module.exports = {
-    getNotifications: getNotifications,
-    countNotifUnread: countNotifUnread,
-    readMore: readMore,
-    markAllAsRead: markAllAsRead,
-    addNotifComment: addNotifComment,
-    addNotifUpReaction: addNotifUpReaction,
-    addNotifUpReactionCmt: addNotifUpReactionCmt
+    getNotifications,
+    countNotifUnread,
+    readMore,
+    markAllAsRead,
+    addNotifComment,
+    addNotifUpReaction,
+    addNotifUpReactionCmt ,
+    removeNotification
 }

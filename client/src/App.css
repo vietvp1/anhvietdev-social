@@ -828,7 +828,7 @@ input[type="checkbox"]:checked:after {
 
 .btn:hover {
     background-color: var(--iq-primary) !important;
-    color: #333333 !important;
+    color: var(--iq-dark-body-text) !important;
     cursor: pointer;
 }
 

@@ -10,7 +10,7 @@ const GroupTabing = ({group, setGroup}) => {
             <div className="tab-content">
                 <Discussion group={group}/>
                 <AboutGroup group={group}/>
-                <Members group={group}/>
+                <Members group={group} setGroup={setGroup}/>
                 <PhotosGroup group={group}/>
             </div> 
         </Fragment>

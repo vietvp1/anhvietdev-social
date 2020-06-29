@@ -1,6 +1,6 @@
-const {notification} = require('../services/index')
+const { notification } = require('../services/index')
 
-let getNotifications = async (req,res) => {
+let getNotifications = async (req, res) => {
     try {
         let notifications = await notification.getNotifications(req.user._id);
         return res.status(200).send(notifications);
@@ -23,16 +23,28 @@ let readMore = async (req, res) => {
 
 let markAllAsRead = async (req, res) => {
     try {
-       let mark = await notification.markAllAsRead(req.user._id);
-       return res.status(200).send({success: true});
+        let mark = await notification.markAllAsRead(req.user._id);
+        return res.status(200).send({ success: true });
     } catch (error) {
         return res.status(500).send("Server error :(");
     }
 };
 
+let removeNotification = async (req, res) => {
+    try {
+        const idNotif =  req.params.id;
+        await notification.removeNotification(idNotif);
+        return res.status(200).send({success: true});
+    } catch (error) {
+        return res.status(500).send({success: false});
+    }
+}
+
+
 
 module.exports = {
-    getNotifications: getNotifications,
-    readMore: readMore,
-    markAllAsRead: markAllAsRead,
+    getNotifications,
+    readMore,
+    markAllAsRead,
+    removeNotification
 }

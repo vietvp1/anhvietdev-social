@@ -21,6 +21,9 @@ const Discussion = ({ group }) => {
         return () => isSubscribed = false;
     }, [group._id])
 
+    console.log(Posts);
+    
+
     const updatePost = (newPost) => {
         setPosts([newPost, ...Posts]);
     }
@@ -59,7 +62,7 @@ const Discussion = ({ group }) => {
                         </div>
                     </div>
                     <div className="col-lg-8">
-                        <PostForm updatePost={updatePost} />
+                        <PostForm updatePost={updatePost} groupId={group._id}/>
                         <div className="iq-card">
                             <div className="met-vl">
                                 <TransitionGroup>

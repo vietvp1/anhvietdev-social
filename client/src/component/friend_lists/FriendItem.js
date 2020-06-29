@@ -9,7 +9,7 @@ const FriendItem = ({ user }) => {
                 <div className="iq-card-body profile-page p-0">
                     <div className="profile-header-image">
                         <div className="friend-item-cover-container">
-                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.conver.avatar}`} alt="profile-bg" className="rounded img-fluid w-100" />
+                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.cover}`} alt="profile-bg" className="rounded img-fluid w-100" />
                         </div>
                         <div className="profile-info p-4">
                             <div className="user-detail">
@@ -20,7 +20,6 @@ const FriendItem = ({ user }) => {
                                         </div>
                                         <div className="user-data-block">
                                             <h4>{user.firstName} {user.lastName}</h4>
-                                            <h6>@designer</h6>
                                             {
                                                 user.description ? <p>{user.description}</p> : null
                                             }

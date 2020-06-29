@@ -53,7 +53,7 @@ const GroupCover = ({ group, userauth, setGroup }) => {
 
             {
                 preview ? <img src={picture} alt="profile-bg" className="rounded" /> :
-                    group.cover && group.cover.data ?
+                    group.cover?
                         <img
                             src={`${process.env.REACT_APP_UPLOADS_IMG}/${group.cover}`}
                             alt="group-bg"
@@ -64,7 +64,7 @@ const GroupCover = ({ group, userauth, setGroup }) => {
             }
 
             {
-                group.admins[0]._id === userauth._id ?
+                group.admins && group.admins[0]._id === userauth._id ?
                     <ul className="header-nav d-flex flex-wrap justify-end p-0 m-0">
                         <li>
                             <label className="mb-0 full-width">

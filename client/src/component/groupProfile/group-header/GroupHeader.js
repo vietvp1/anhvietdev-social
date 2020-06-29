@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import GroupConver from './GroupConver';
+import axios from 'axios'
 
 
 const GroupHeader = ({ group, setGroup }) => {
     const userauth = useSelector(state => state.auth.user);
+    const [btnText, setBtnText] = useState('Tham gia nhóm')
+
+    useEffect(() => {
+        if (userauth && group.joined) {
+            setBtnText('Hủy yêu cầu');
+        }
+    }, [userauth, group])
+
+    const handleJoinGroupBtn = async () => {
+        if (btnText === 'Tham gia nhóm') {
+            const res = await axios.put('/group/join-group', { groupId: group._id });
+            if (res.data.success) {
+                setBtnText('Hủy yêu cầu');
+            }
+        } else {
+            const res = await axios.put('/group/remove-request-join-group', { groupId: group._id });
+            if (res.data.success) {
+                setBtnText('Tham gia nhóm');
+            }
+        }
+    }
 
     return userauth ? (
         <div className="iq-card">
             <div className="iq-card-body profile-page p-0">
                 <div className="profile-header">
                     <div className="cover-container">
-                        <GroupConver group={group} userauth={userauth} setGroup={setGroup}/>
+                        <GroupConver group={group} userauth={userauth} setGroup={setGroup} />
                     </div>
                     <div className="profile-info p-4 d-flex align-items-center justify-content-between position-relative">
                         <div className="social-links">
@@ -31,6 +53,16 @@ const GroupHeader = ({ group, setGroup }) => {
                                 </h5>
                             </div>
                         </div>
+
+                        {
+                            !group.yourRole ?
+                                <div
+                                    onClick={handleJoinGroupBtn}
+                                    className="btn iq-bg-warning iq-bg-warning-hover"
+                                >
+                                    {btnText}
+                                </div> : null
+                        }
 
                         <div className="social-info">
                             <ul className="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">

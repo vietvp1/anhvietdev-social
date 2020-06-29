@@ -33,7 +33,12 @@ const addNew = (writerId, filesVal, text, title, groupId) => {
                 writer: writerId,
                 title: title
             };
-            let newPost = await (await PostModel.model.create(newPostItem)).execPopulate();
+            let newPost = await (await PostModel.model.create(newPostItem)).populate(
+                {
+                    path: 'writer',
+                    select: ['firstName', 'lastName', 'address', 'avatar']
+                }
+            ).execPopulate();
             if (filesVal.length > 0) {
                 let arrayFilesPromise = filesVal.map(async fileVal => {
                     let checkImg = 0;
@@ -133,6 +138,9 @@ const removePost = (postId, userId) => {
             const removeReq = await PostModel.model.findOneAndDelete({ "_id": postId });
             if (removeReq) {
                 let photo = await photoModel.findOne({ "post": postId });
+                if (!photo) {
+                    resolve(true);
+                }
                 let avatarUser = await userModel.findById(userId, { "avatar": 1, "cover": 1 });
 
                 if (avatarUser.avatar.toString() === photo.fileName.toString()) {
@@ -164,6 +172,8 @@ const getPostInGroup = (groupId) => {
                 }
             }
             let posts = await PostModel.model.getPostInGroup(item);
+            console.log(posts);
+            
             resolve(posts)
         } catch (error) {
             return reject(error);

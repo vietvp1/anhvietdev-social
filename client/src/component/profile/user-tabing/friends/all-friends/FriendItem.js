@@ -21,7 +21,7 @@ const FriendItem = ({ user }) => {
                         <div className="dropdown">
                             <span className="dropdown-toggle btn btn-secondary mr-2" id="dropdownMenuButton01" data-toggle="dropdown" aria-expanded="true" role="button">
                                 <i className="ri-check-line mr-1 text-white font-size-16" /> Bạn bè
-                    </span>
+                            </span>
                             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton01">
                                 <span className="dropdown-item" >Bật thông báo</span>
                                 <span className="dropdown-item" >Bạn thân</span>

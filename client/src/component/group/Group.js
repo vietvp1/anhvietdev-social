@@ -1,23 +1,33 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import axios from "axios"
-import { Link } from 'react-router-dom'
 import bg from "../../images/page-img/profile-bg7.jpg"
 import CreateGroup from './CreateGroup';
+import GroupItem from './GroupItem';
+import GroupSuggestionItem from './GroupSuggestionItem';
+import { useSelector } from 'react-redux';
+import PageLoader from '../layout/spinner/PageLoader';
 
 const Group = () => {
-    const [mygroups, setMyGroups] = useState([]);
+    let user = useSelector(state => state.auth.user);
+    const [groupManaging, setGroupManaging] = useState([]);
+    const [groupJoined, setGroupJoined] = useState([]);
+    const [groupSuggestions, serGroupSuggestions] = useState([]);
+
     useEffect(() => {
         let isSubscribed = true;
         axios.get('/group/get-group-managing').then(res => {
-            if (isSubscribed) setMyGroups(g => g.concat(res.data.groupManaging))
+            if (isSubscribed) setGroupManaging(res.data.groupManaging)
         });
         axios.get('/group/get-group-joined').then(res => {
-            if (isSubscribed) setMyGroups(g => g.concat(res.data.groupJoined))
+            if (isSubscribed) setGroupJoined(res.data.groupJoined)
+        });
+        axios.get('/group/get-group-suggestions').then(res => {
+            if (isSubscribed) serGroupSuggestions(res.data.groupSuggestions)
         });
         return () => isSubscribed = false
     }, [])
 
-    return (
+    return user ? (
         <Fragment>
             <div className="header-for-bg">
                 <div className="background-header position-relative">
@@ -29,53 +39,37 @@ const Group = () => {
             </div>
             <div id="content-page" className="content-page">
                 <div className="container">
+                    {groupManaging.length > 0 ? <div className="font-size-20 mb-3">Nhóm bạn đang quản lý</div> : null}
                     <div className="row">
                         {
-                            mygroups.map((group, i) =>
-                                <div key={i} className="col-md-6 col-lg-4">
-                                    <div className="iq-card">
-                                        <div className="top-bg-image">
-                                            <img src={bg} alt="group-bg" />
-                                        </div>
-                                        <div className="iq-card-body text-center">
-                                            <div className="group-info">
-                                                <h4>
-                                                    <Link to={`group/${group._id}`}>
-                                                        {group.name}
-                                                    </Link>
-                                                </h4>
-                                                <p>{group.members.length + group.admins.length} thành viên</p>
-                                            </div>
-                                            <div className="group-member mb-3">
-                                                <div className="iq-media-group">
-                                                    {
-                                                        group.members.map((m, i) =>
-                                                            <Link to={`profile/${m._id}`} key={i} className="iq-media">
-                                                                <img
-                                                                    className="img-fluid avatar-40 rounded-circle"
-                                                                    src={`${process.env.REACT_APP_UPLOADS_IMG}/${m.avatar}`}
-                                                                    title={m.firstName + " " + m.lastName}
-                                                                    alt={m.firstName + " " + m.lastName} />
-                                                            </Link>
-                                                        )
-                                                    }
-
-                                                </div>
-                                            </div>
-                                            <button type="submit" className="btn btn-primary d-block w-100">Xin vào nhóm</button>
-                                        </div>
-                                    </div>
-                                </div>
+                            groupManaging.map((group, i) =>
+                                <GroupItem group={group} key={i} admin={1}/>
                             )
                         }
+                    </div>
 
+                    {groupJoined.length > 0 ? <div className="font-size-20 mb-3 mt-4">Nhóm bạn đã tham gia</div> : null}
+                    <div className="row">
+                        {
+                            groupJoined.map((group, i) =>
+                                <GroupItem group={group} key={i} setGroupJoined={setGroupJoined}/>
+                            )
+                        }
+                    </div>
 
+                    {groupSuggestions.length > 0 ? <div className="font-size-20 mb-3 mt-4">Nhóm gợi ý</div> : null}
+                    <div className="row">
+                        {
+                            groupSuggestions.map((group, i) =>
+                                <GroupSuggestionItem group={group} key={i} user={user} />
+                            )
+                        }
                     </div>
                 </div>
             </div>
 
         </Fragment>
-    )
+    ) : <PageLoader />
 }
 
 export default Group

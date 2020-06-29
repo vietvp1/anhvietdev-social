@@ -101,7 +101,8 @@ const Weather = () => {
                                         </div>
                                     </form>
                                 </div>
-                                {/* <PlacesAutocomplete
+                                <div>
+                                    {/* <PlacesAutocomplete
                                     value={address}
                                     onChange={setAddress}
                                     onSelect={handleSelect}
@@ -154,6 +155,7 @@ const Weather = () => {
                                         </div>
                                     )}
                                 </PlacesAutocomplete> */}
+                                </div>
                             </div>
 
                         </div>

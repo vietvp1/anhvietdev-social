@@ -5,18 +5,18 @@ const _ = require("lodash");
 const LIMIT = 15;
 
 let getContacts = (currentUserId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let contacts = await ContactModel.getFriends(currentUserId, LIMIT);
             let users = contacts.map(async (contact) => {
                 if (contact.contactId == currentUserId) {
                     return await UserModel.getNormalUserDataById(contact.userId);
-                }else{
+                } else {
                     return await UserModel.getNormalUserDataById(contact.contactId);
                 }
             })
             resolve(await Promise.all(users));
-            
+
         } catch (error) {
             reject(error);
         }
@@ -24,20 +24,20 @@ let getContacts = (currentUserId) => {
 }
 
 let getContactsSent = (currentUserId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let contacts = await ContactModel.find({
-                $and: [   
-                    {"userId": currentUserId},
-                    {"status": false}
+                $and: [
+                    { "userId": currentUserId },
+                    { "status": false }
                 ]
-            }).sort({"createdAt": -1}).limit(LIMIT);
+            }).sort({ "createdAt": -1 }).limit(LIMIT);
             let users = contacts.map(async (contact) => {
                 return await UserModel.getNormalUserDataById(contact.contactId);
             })
-            
+
             resolve(await Promise.all(users));
-            
+
         } catch (error) {
             reject(error);
         }
@@ -45,20 +45,20 @@ let getContactsSent = (currentUserId) => {
 }
 
 let getContactsReceived = (currentUserId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try {
             let contacts = await ContactModel.find({
-                $and: [   
-                    {"contactId": currentUserId },
-                    {"status": false}
+                $and: [
+                    { "contactId": currentUserId },
+                    { "status": false }
                 ]
-            }).sort({"createdAt": -1}).limit(LIMIT);
+            }).sort({ "createdAt": -1 }).limit(LIMIT);
             let users = contacts.map(async (contact) => {
                 return await UserModel.getNormalUserDataById(contact.userId);
             })
-            
+
             resolve(await Promise.all(users));
-            
+
         } catch (error) {
             reject(error);
         }
@@ -66,7 +66,7 @@ let getContactsReceived = (currentUserId) => {
 }
 
 let addNew = (currentUserId, contactId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let contactExists = await ContactModel.checkContact(currentUserId, contactId);
         if (contactExists) {
             return reject(false);
@@ -78,60 +78,64 @@ let addNew = (currentUserId, contactId) => {
             contactId: contactId
         };
         let newContact = await ContactModel.create(newContactItem);
-        
+
         //create notification
         let notificationItem = {
-            sender: currentUserId ,
+            sender: currentUserId,
             receiver: [contactId],
-            object:{
+            object: {
                 entity: NotificationModel.entity.CONTACT,
                 entityType: NotificationModel.entityTypes.ADD_CONTACT
             }
         };
         await NotificationModel.model.create(notificationItem);
-        
+
         resolve(newContact);
 
     })
-    
+
 }
 
 let removeContact = (currentUserId, contactId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let removeContact = await ContactModel.deleteOne({
             $or: [
-                {$and: [
-                    {"userId": currentUserId},
-                    {"contactId": contactId},
-                    {"status": true},
-                ]},
-                {$and: [
-                    {"userId": contactId},
-                    {"contactId": currentUserId},
-                    {"status": true},
-                ]},
+                {
+                    $and: [
+                        { "userId": currentUserId },
+                        { "contactId": contactId },
+                        { "status": true },
+                    ]
+                },
+                {
+                    $and: [
+                        { "userId": contactId },
+                        { "contactId": currentUserId },
+                        { "status": true },
+                    ]
+                },
             ]
         });
-        
+
         if (removeContact.n === 0) {
             return reject(false);
         }
 
         resolve(true);
     })
-    
+
 }
 
 let removeRequestContact = (currentUserId, contactId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let removeReq = await ContactModel.deleteOne({
             $and: [
-                {"userId": currentUserId},
-                {"contactId": contactId},
-                {"status": false},
+                { "userId": currentUserId },
+                { "contactId": contactId },
+                { "status": false },
             ]
         });
-        
+
         if (removeReq.n === 0) {
             return reject(false);
         }
@@ -139,9 +143,9 @@ let removeRequestContact = (currentUserId, contactId) => {
         //remove notification
         await NotificationModel.model.deleteOne({
             $and: [
-                {"sender": currentUserId},
-                {"receiver": contactId},
-                {"object.entityType": NotificationModel.entityTypes.ADD_CONTACT},
+                { "sender": currentUserId },
+                { "receiver": contactId },
+                { "object.entityType": NotificationModel.entityTypes.ADD_CONTACT },
             ]
         });
 
@@ -150,15 +154,15 @@ let removeRequestContact = (currentUserId, contactId) => {
 }
 
 let removeRequestContactReceived = (currentUserId, contactId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let removeReq = await ContactModel.deleteOne({
             $and: [
-                {"contactId": currentUserId},
-                {"userId": contactId},
-                {"status": false},
+                { "contactId": currentUserId },
+                { "userId": contactId },
+                { "status": false },
             ]
         });
-        
+
         if (removeReq.n === 0) {
             return reject(false);
         }
@@ -167,27 +171,27 @@ let removeRequestContactReceived = (currentUserId, contactId) => {
 }
 
 let approveRequestContactReceived = (currentUserId, contactId) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let approveReq = await ContactModel.updateOne({
             $and: [
-                {"contactId": currentUserId},
-                {"userId": contactId},
-                {"status": false},
+                { "contactId": currentUserId },
+                { "userId": contactId },
+                { "status": false },
             ]
         }, {
             "status": true,
             "updatedAt": Date.now(),
         });
-        
+
         if (approveReq.nModified === 0) {
             return reject(false);
         }
 
         //create notification đã chấp nhập kết bạn trong db
         let notificationItem = {
-            sender: currentUserId ,
+            sender: currentUserId,
             receiver: [contactId],
-            object:{
+            object: {
                 entity: NotificationModel.entity.CONTACT,
                 entityType: NotificationModel.entityTypes.APPROVE_CONTACT
             }
@@ -199,15 +203,15 @@ let approveRequestContactReceived = (currentUserId, contactId) => {
 }
 
 let findUsersContact = (currentUserId, keyword) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let deprecatedUserIds = [currentUserId];
         let contactsByUser = await ContactModel.find({
             $or: [
-                {"userId": currentUserId},
-                {"contactId": currentUserId}
+                { "userId": currentUserId },
+                { "contactId": currentUserId }
             ]
         });
-        
+
         contactsByUser.forEach((contact) => {
             deprecatedUserIds.push(contact.userId);
             deprecatedUserIds.push(contact.contactId)
@@ -216,20 +220,22 @@ let findUsersContact = (currentUserId, keyword) => {
         // find all users để kết bạn
         let users = await UserModel.find({
             $and: [
-                {"_id": {$nin: deprecatedUserIds}},
-                {$or: [
-                    {"firstName": {"$regex": new RegExp(keyword, "i")}},
-                    {"lastName": {"$regex": new RegExp(keyword, "i")}},
-                ]}
+                { "_id": { $nin: deprecatedUserIds } },
+                {
+                    $or: [
+                        { "firstName": { "$regex": new RegExp(keyword, "i") } },
+                        { "lastName": { "$regex": new RegExp(keyword, "i") } },
+                    ]
+                }
             ]
-        }, {_id: 1, firstName: 1, lastName: 1, address: 1, avatar: 1});
+        }, { _id: 1, firstName: 1, lastName: 1, address: 1, avatar: 1 });
         resolve(users);
     })
-    
+
 }
 
 let searchFriends = (currentUserId, keyword) => {
-    return new Promise( async (resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         let friendIds = [];
         let friends = await ContactModel.getFriends(currentUserId, 20);
         friends.forEach((item) => {
@@ -241,17 +247,17 @@ let searchFriends = (currentUserId, keyword) => {
         let users = await UserModel.getNormalUserDataByIdAndKeyword(friendIds, keyword);
         resolve(users);
     })
-    
+
 }
 
 let checkContact = (currentUserId, contactId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let isReceived = await ContactModel.findOne({
-                $and: [   
-                    {"userId": contactId },
-                    {"contactId": currentUserId },
-                    {"status": false}
+                $and: [
+                    { "userId": contactId },
+                    { "contactId": currentUserId },
+                    { "status": false }
                 ]
             })
             if (isReceived) {
@@ -260,10 +266,10 @@ let checkContact = (currentUserId, contactId) => {
             }
 
             let isSent = await ContactModel.findOne({
-                $and: [   
-                    {"userId": currentUserId },
-                    {"contactId": contactId },
-                    {"status": false}
+                $and: [
+                    { "userId": currentUserId },
+                    { "contactId": contactId },
+                    { "status": false }
                 ]
             })
             if (isSent) {
