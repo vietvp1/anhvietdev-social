@@ -199,6 +199,16 @@ let deletePlaceLived = async (req, res) => {
     }
 }
 
+let getRandomUserToAddFriend = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        const users = await userService.getRandomUserToAddFriend(userId);
+        return res.status(200).send({ users: users });
+    } catch (error) {
+        return res.status(500).send("Server Error");
+    }
+}
+
 module.exports = {
     getUser,
     updateInfo,
@@ -217,4 +227,5 @@ module.exports = {
     deleteWork,
     deleteEducation,
     deletePlaceLived,
+    getRandomUserToAddFriend
 }

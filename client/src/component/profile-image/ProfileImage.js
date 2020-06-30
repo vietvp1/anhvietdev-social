@@ -24,7 +24,7 @@ const ProfileImage = () => {
                 <img src={bg} className="img-fluid rounded w-100 rounded rounded" alt="profile-bg" />
                 <div className="title-on-header">
                 <div className="data-block">
-                    <h2>Your Photos</h2>
+                    <h2>Ảnh của bạn</h2>
                 </div>
                 </div>
             </div>

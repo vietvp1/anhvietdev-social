@@ -1,5 +1,4 @@
 import React, { Fragment, useState } from 'react'
-import CheckContact from './CheckContact';
 import { checkCoverImage } from '../../../clientHelper/helperClient'
 import axios from 'axios'
 import { updateUser } from '../../../actions/auth';
@@ -65,7 +64,7 @@ const Cover = ({ user, userauth }) => {
 
             {
                 user._id === userauth._id ?
-                    <ul className="header-nav d-flex flex-wrap justify-end p-0 m-0">
+                    <div className="header-nav d-flex flex-wrap justify-end p-0 m-0" style={{top: "auto"}}>
                         <li>
                             <span><i className="fas fa-pencil-alt" /></span>
                         </li>
@@ -81,7 +80,7 @@ const Cover = ({ user, userauth }) => {
                                 </span>
                             </label>
                         </li>
-                    </ul> : <CheckContact user={user} />
+                    </div> : null
             }
         </Fragment>
     )

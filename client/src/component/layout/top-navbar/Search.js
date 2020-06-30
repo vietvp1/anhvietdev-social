@@ -67,7 +67,7 @@ const Search = () => {
                                 <div className="search_content">
                                     {
                                         users.map((user, i) => (
-                                            <Fragment>
+                                            <Fragment key={i}>
                                                 <Link key={i} to={`/profile/${user._id}`} onClick={e => setShowContent(false)}>
                                                     <div className="user-finded">
                                                         <img

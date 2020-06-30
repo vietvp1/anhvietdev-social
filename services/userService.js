@@ -1,5 +1,6 @@
 const UserModel = require('../models/userModel')
-const photoModel = require('../models/photoModel')
+const _ = require('lodash');
+const ContactModel = require('../models/contactModel')
 const postService = require('./postService')
 
 let updatePassword = (id, item) => {
@@ -52,7 +53,10 @@ let getUser = (userId) => {
 let searchUser = (keyword) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const users = await UserModel.getNormalUserDataByKeyword(keyword);
+            const users = await UserModel.getNormalUserDataByKeyword(keyword.trim());
+            if (!users) {
+                resolve([])
+            }
             resolve(users)
         } catch (error) {
             reject(error)
@@ -280,6 +284,45 @@ let deletePlaceLived = (id, placeId) => {
     })
 };
 
+let getRandomUserToAddFriend = (currentUserId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let friendIds = [];
+            let friends = await ContactModel.getAllContact(currentUserId);
+            friends.forEach((item) => {
+                friendIds.push(item.userId);
+                friendIds.push(item.contactId)
+            });
+            friendIds = _.uniqBy(friendIds);
+
+            let users = [];
+            let rdBefore = [];
+            for (let i = 0; i < 5; i++) {
+                let count = await UserModel.countDocuments();
+                // Get a random entry
+                var random = Math.floor(Math.random() * count);
+                if (rdBefore.includes(random)) {
+                    i--;
+                    continue;
+                }
+                rdBefore.push(random);
+                // Again query all users but only fetch one offset by our random #
+                let result = await UserModel.findOne({
+                    "_id": { $nin: friendIds }
+                }, {avatar: 1, cover: 1, firstName: 1, lastName: 1}).skip(random);
+                if (result) {
+                    users.push(result);
+                }
+            }
+
+
+            resolve(users)
+        } catch (error) {
+            reject(error)
+        }
+    })
+};
+
 module.exports = {
     getUser,
     updateInfo,
@@ -296,5 +339,6 @@ module.exports = {
     deleteWork,
     deleteEducation,
     deletePlaceLived,
-    update_Avatar_Cover
+    update_Avatar_Cover,
+    getRandomUserToAddFriend
 }

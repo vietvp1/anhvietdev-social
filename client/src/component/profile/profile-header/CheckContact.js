@@ -101,7 +101,7 @@ const CheckContact = ({user}) => {
         }
     }
     return (
-        <ul className="header-nav d-flex flex-wrap justify-end p-0 m-0">
+        <div className="header-nav d-flex flex-wrap justify-end p-0 m-0">
             {display()}
             <li title="Nhắn tin">
                 <span>
@@ -118,7 +118,7 @@ const CheckContact = ({user}) => {
                     <div className="dropdown-item"><i className="fal fa-eye-slash"></i> Bỏ theo dõi</div>
                 </div>
             </li>
-        </ul>
+        </div>
     )
 }
 

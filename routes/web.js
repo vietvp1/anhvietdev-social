@@ -11,7 +11,8 @@ let { authController,
     messageController,
     groupChat,
     photo,
-    group
+    group,
+    followerController
 } = require('../controllers/index')
 const { initLocal } = require('../controllers/passportController/local')
 const { facebookLogin } = require("../controllers/passportController/facebook")
@@ -42,7 +43,11 @@ let initRoutes = (app) => {
     router.put("/user/delete-education", auth, userController.deleteEducation)
     router.put("/user/delete-placelived", auth, userController.deletePlaceLived)
     router.put("/user/delete-skill", auth, userController.deleteSkill)
+    router.get("/user/get-random-user-to-addfriend", auth, userController.getRandomUserToAddFriend)
 
+    router.post("/follow/add-new-follower", auth, followerController.addNewFollower)
+    router.delete("/follow/remove-follower/:id", auth, followerController.removeFollower)
+    router.get("/follow/check-follow/:id", auth, followerController.checkFollow)
 
     router.get("/post/get-all-posts", auth, postController.getAllPosts);
     router.get("/post/getmyposts", auth, postController.getMyPosts);

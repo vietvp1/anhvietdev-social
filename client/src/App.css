@@ -507,7 +507,7 @@ input[type="checkbox"]:checked:after {
 }
 
 
-/* slide-page appear ---------------------------------------*/
+/* slide-page appear ----------------------------------------------------------*/
 .slide-page-appear {
     opacity: 0;
     transform: scale(0.5) translateX(5px);
@@ -617,7 +617,7 @@ input[type="checkbox"]:checked:after {
     height: 20%;
 }
 
-/* post react + cmt + share */
+/* post react + cmt + share------------------------------------- */
 
 .post-state {
     display: flex;
@@ -824,7 +824,38 @@ input[type="checkbox"]:checked:after {
     margin-left: 10px;
 }
 
-/* ////////////////// */
+/* calendar --------------------------------------------------------------------- */
+.react-calendar{
+    width: auto;
+    background-color: var(--iq-dark-box);
+    border: none;
+}
+
+
+.react-calendar button{
+    color: var(--iq-dark-body-text);
+    text-transform: uppercase;
+    border-right: solid 0.1px #ddd;
+    border-bottom: solid 0.1px #ddd;
+}
+
+.react-calendar__month-view__days, .react-calendar__navigation{
+    border-top: solid 0.1px #ddd;
+    border-left: solid 0.1px #ddd;
+}
+
+
+.react-calendar__month-view__days button, .react-calendar__tile{
+    height: 80px;
+}
+
+.react-calendar__month-view__days__day--weekend{
+    color: var(--iq-primary) !important;
+}
+
+
+
+/* bonus --------------------------------------------------------------------- */
 
 .btn:hover {
     background-color: var(--iq-primary) !important;
@@ -988,3 +1019,5 @@ input[type="checkbox"]:checked:after {
 .dropdown-menu{
     color: var(--iq-dark-body-text)
 }
+
+

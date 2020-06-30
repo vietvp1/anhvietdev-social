@@ -11,7 +11,6 @@ import Files from '../files/Files';
 import FriendRequest from '../friend-request/FriendRequest';
 import Chat from '../chat/Chat';
 import BirthDay from '../birth-day/BirthDay';
-import Calendar from '../calendar/Calendar';
 import Weather from '../weather/Weather';
 import EmailCompose from '../email/EmailCompose';
 import SignIn from '../authentication/SignIn';
@@ -26,6 +25,7 @@ import Home from '../home/Home';
 import ForgotPassword from '../authentication/ForgotPassword';
 import ResetPassword from '../authentication/ResetPassword';
 import GroupProfile from '../groupProfile/GroupProfile';
+import CalendarPage from '../calendar/CalendarPage';
 export const history = createHistory();
 
 const Root = () => (
@@ -44,7 +44,7 @@ const Root = () => (
     <PrivateRoute exact path='/chat' component={Chat} />
     <PrivateRoute exact path='/chat/:id' component={Chat}/>
     <PrivateRoute exact path='/birthday' component={BirthDay} />
-    <PrivateRoute exact path='/calendar' component={Calendar} />
+    <PrivateRoute exact path='/calendar' component={CalendarPage} />
     <PrivateRoute exact path='/weather' component={Weather} />
     <PrivateRoute exact path='/email-compose' component={EmailCompose} />
     <Route exact path='/sign-in' component={SignIn} />

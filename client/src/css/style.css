@@ -1676,7 +1676,7 @@ ul.iq-week-data h6 {
     transition: all 0.45s ease 0s;
 }
 
-a.image-edit-btn {
+.image-edit-btn {
     position: absolute;
     top: 15px;
     left: auto;
@@ -1690,7 +1690,7 @@ a.image-edit-btn {
     opacity: 0;
 }
 
-.user-images:hover a.image-edit-btn {
+.user-images:hover .image-edit-btn {
     opacity: 1;
     transition: all 0.45s ease 0s;
 }
@@ -3494,13 +3494,13 @@ Calender
     background-color: var(--iq-primary);
 }
 
-.job-classification li,
+
 .today-schedule li {
     list-style-type: none;
     margin-bottom: 10px;
 }
 
-.job-classification li>i,
+
 .today-schedule li i {
     margin-right: 10px;
     border-radius: 50%;
@@ -3509,117 +3509,6 @@ Calender
 
 .schedule-text span {
     display: block;
-}
-
-.calender-small .flatpickr-day,
-.calender-small span.flatpickr-weekday,
-.calender-small .flatpickr-months .flatpickr-month {
-    color: var(--iq-dark-body-text);
-}
-
-.calender-small .flatpickr-months .flatpickr-prev-month,
-.calender-small .flatpickr-months .flatpickr-next-month {
-    color: var(--iq-dark-body-text);
-    fill: var(--iq-dark-body-text);
-}
-
-.calender-small .flatpickr-calendar.animate.inline {
-    width: 100%;
-    box-shadow: none;
-}
-
-.calender-small .dayContainer {
-    width: 100%;
-    min-width: auto;
-    background: var(--iq-dark-box);
-}
-
-.calender-small .flatpickr-weekdays {
-    background: var(--iq-dark-box);
-}
-
-.calender-small .flatpickr-days {
-    width: 100%;
-}
-
-.calender-small .flatpickr-day.today {
-    color: var(--iq-white);
-    border-color: var(--iq-primary);
-    background: var(--iq-primary);
-}
-
-.calender-small .flatpickr-day.today:hover,
-.calender-small .flatpickr-day.today:focus {
-    color: var(--iq-white);
-    border-color: var(--iq-primary);
-    background: var(--iq-primary)
-}
-
-.calender-small .flatpickr-months {
-    padding-bottom: 10px;
-    background: var(--iq-dark-box)
-}
-
-.calender-small .flatpickr-current-month .flatpickr-monthDropdown-months {
-    font-size: 16px;
-}
-
-.calender-small .flatpickr-current-month .flatpickr-monthDropdown-months:hover {
-    background: transparent;
-    color: var(--iq-primary);
-}
-
-.calender-small .flatpickr-current-month input.cur-year {
-    font-size: 16px;
-}
-
-.calender-small .numInputWrapper:hover {
-    background: transparent;
-}
-
-.calender-small .flatpickr-months .flatpickr-prev-month,
-.calender-small .flatpickr-months .flatpickr-next-month {
-    padding: 7px 10px;
-}
-
-.calender-small .flatpickr-day.selected,
-.calender-small .flatpickr-day.startRange,
-.calender-small .flatpickr-day.endRange,
-.calender-small .flatpickr-day.selected.inRange,
-.calender-small .flatpickr-day.startRange.inRange,
-.calender-small .flatpickr-day.endRange.inRange,
-.calender-small .flatpickr-day.selected:focus,
-.calender-small .flatpickr-day.startRange:focus,
-.calender-small .flatpickr-day.endRange:focus,
-.calender-small .flatpickr-day.selected:hover,
-.calender-small .flatpickr-day.startRange:hover,
-.calender-small .flatpickr-day.endRange:hover,
-.calender-small .flatpickr-day.selected.prevMonthDay,
-.calender-small .flatpickr-day.startRange.prevMonthDay,
-.calender-small .flatpickr-day.endRange.prevMonthDay,
-.calender-small .flatpickr-day.selected.nextMonthDay,
-.calender-small .flatpickr-day.startRange.nextMonthDay,
-.calender-small .flatpickr-day.endRange.nextMonthDay {
-    color: var(--iq-white);
-    border-color: var(--iq-primary);
-    background: var(--iq-primary);
-}
-
-.calender-small .flatpickr-day.inRange,
-.calender-small .flatpickr-day.prevMonthDay.inRange,
-.calender-small .flatpickr-day.nextMonthDay.inRange,
-.calender-small .flatpickr-day.today.inRange,
-.calender-small .flatpickr-day.prevMonthDay.today.inRange,
-.calender-small .flatpickr-day.nextMonthDay.today.inRange,
-.calender-small .flatpickr-day:hover,
-.calender-small .flatpickr-day.prevMonthDay:hover,
-.calender-small .flatpickr-day.nextMonthDay:hover,
-.calender-small .flatpickr-day:focus,
-.calender-small .flatpickr-day.prevMonthDay:focus,
-.calender-small .flatpickr-day.nextMonthDay:focus {
-    background: var(--iq-light-primary);
-    color: var(--iq-primary);
-    border-color: transparent;
 }
 
 .smaill-calender-home .flatpickr-calendar.animate.inline {
@@ -4358,19 +4247,19 @@ Profile Page
 	transform: translate(-50%, 0%);
 }
 
-ul.header-nav {
+div.header-nav {
     position: absolute;
     left: auto;
-    right: 0;
-    top: auto;
+    right: 2%;
+    top: 43%;
     bottom: 20px;
 }
 
-ul.header-nav li {
+div.header-nav li {
     list-style: none;
 }
 
-ul.header-nav li span {
+div.header-nav li span {
     display: block;
     list-style: none;
     height: 40px;

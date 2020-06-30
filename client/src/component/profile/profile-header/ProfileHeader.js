@@ -8,6 +8,7 @@ import youtube from '../../../images/icon/youtube.png'
 import linkedin from '../../../images/icon/linkedin.png'
 import Cover from './Cover';
 import { Avatar } from './Avatar';
+import CheckContact from './CheckContact';
 
 
 const ProfileHeader = ({ user }) => {
@@ -20,6 +21,10 @@ const ProfileHeader = ({ user }) => {
                     <div className="cover-container">
                         <Cover user={user} userauth={userauth} />
                     </div>
+                    {
+                        user._id !== userauth._id ? <CheckContact user={user} /> : null
+                    }
+                    
                     <div className="user-detail avatar text-center mb-3">
                         <Avatar user={user} userauth={userauth} />
                         <div className="profile-detail">

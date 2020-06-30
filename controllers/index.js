@@ -9,6 +9,7 @@ const message = require('./messageController')
 const groupChatController = require('./groupChatController')
 const photoController = require('./photoController')
 const groupController = require('./groupController')
+const followerController = require('./followerController')
 
 module.exports = {
     authController: auth,
@@ -21,5 +22,6 @@ module.exports = {
     messageController: message,
     groupChat: groupChatController,
     group: groupController,
-    photo: photoController
+    photo: photoController,
+    followerController
 }

@@ -4,12 +4,12 @@ const NotificationModel = require('../models/notificationModel')
 const _ = require("lodash");
 const LIMIT = 15;
 
-let getContacts = (currentUserId) => {
+let getContacts = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let contacts = await ContactModel.getFriends(currentUserId, LIMIT);
+            let contacts = await ContactModel.getFriends(userId, LIMIT);
             let users = contacts.map(async (contact) => {
-                if (contact.contactId == currentUserId) {
+                if (contact.contactId == userId) {
                     return await UserModel.getNormalUserDataById(contact.userId);
                 } else {
                     return await UserModel.getNormalUserDataById(contact.contactId);

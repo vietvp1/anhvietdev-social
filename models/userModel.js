@@ -242,7 +242,7 @@ UserSchema.statics = {
                     ]
                 }
             ]
-        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 }).populate('avatar');
+        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 });
     },
     getNormalUsersDataByIdsAndLimit(UserIds, limit) {
         return this.find({
@@ -257,7 +257,7 @@ UserSchema.statics = {
                 { "firstName": { "$regex": new RegExp(keyword, "i") } },
                 { "lastName": { "$regex": new RegExp(keyword, "i") } }
             ]
-        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 }).populate('avatar');
+        }, { _id: 1, firstName: 1, lastName: 1, cover: 1, avatar: 1 });
     },
 }
 

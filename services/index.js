@@ -9,6 +9,7 @@ const messageService = require("./messageService")
 const groupChatService = require("./groupChatService")
 const photoService = require("./photoService");
 const groupService = require("./groupService");
+const followerService = require("./followerService");
 
 module.exports = {
     authService: auth,
@@ -21,5 +22,6 @@ module.exports = {
     message: messageService,
     groupChat: groupChatService,
     photo: photoService,
-    groupService: groupService
+    groupService,
+    followerService
 }

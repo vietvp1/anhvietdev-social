@@ -734,7 +734,7 @@ NOTE: This file contains the styling for responsive Template.
     .profile-feed-items li {
         margin: 0 0 20px 0;
     }
-    ul.header-nav li {
+    div.header-nav li {
         height: 35px;
         width: 35px;
         line-height: 35px;

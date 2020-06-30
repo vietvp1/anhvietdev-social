@@ -43,7 +43,7 @@ const Group = () => {
                     <div className="row">
                         {
                             groupManaging.map((group, i) =>
-                                <GroupItem group={group} key={i} admin={1}/>
+                                <GroupItem group={group} key={i} admin={1} />
                             )
                         }
                     </div>
@@ -52,7 +52,7 @@ const Group = () => {
                     <div className="row">
                         {
                             groupJoined.map((group, i) =>
-                                <GroupItem group={group} key={i} setGroupJoined={setGroupJoined}/>
+                                <GroupItem group={group} key={i} setGroupJoined={setGroupJoined} />
                             )
                         }
                     </div>

@@ -1,8 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const FriendItem = ({ user }) => {
-    console.log(user);
+    const [isFollow, setIsFollow] = useState(false);
+
+    useEffect(() => {
+        let isSubscribed = true;
+        axios.get(`/follow/check-follow/${user._id}`).then(res => {
+            if (isSubscribed) {
+                setIsFollow(res.data.isFollow);
+            }
+        })
+        return () => isSubscribed = false;
+    }, [user._id])
+
     
+    const addNewFollower = async () => {
+        const res = await axios.post("/follow/add-new-follower", {followerId: user._id})
+        if (res.data.success) {
+            setIsFollow(true);
+        }
+    }
+
+    const removeFollower = async () => {
+        const res = await axios.delete(`/follow/remove-follower/${user._id}`)
+        if (res.data.success) {
+            setIsFollow(false);
+        }
+    }
+
     return (
         <div className="col-md-6">
             <div className="iq-card">
@@ -25,7 +51,17 @@ const FriendItem = ({ user }) => {
                                             }
                                         </div>
                                     </div>
-                                    <button type="submit" className="btn btn-primary">Theo dõi</button>
+                                    {
+                                        isFollow ?
+                                            <button className="btn btn-primary" onClick={removeFollower}>
+                                                Đang theo dõi
+                                            </button>
+                                            :
+                                            <button className="btn btn-primary" onClick={addNewFollower}>
+                                                Theo dõi
+                                            </button>
+                                    }
+
                                 </div>
                             </div>
                         </div>
