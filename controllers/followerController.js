@@ -33,8 +33,22 @@ let checkFollow = async (req, res) => {
     }
 }
 
+let getFollowNumber = async (req, res) => {
+    try {
+        let userId = req.params.id;
+        let followNumber = await followerService.getFollowNumber(userId);
+        return res.status(200).send({
+            followerNumber: followNumber.followerNumber,
+            followingNumber: followNumber.followingNumber
+        });
+    } catch (error) {
+        return res.status(500).send({ success: false });
+    }
+}
+
 module.exports = {
     addNewFollower,
     checkFollow,
-    removeFollower
+    removeFollower,
+    getFollowNumber
 }

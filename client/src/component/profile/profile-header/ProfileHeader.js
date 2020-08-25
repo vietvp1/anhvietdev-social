@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux'
 import facebook from '../../../images/icon/facebook.png'
 import twitter from '../../../images/icon/twitter.png'
@@ -9,10 +9,35 @@ import linkedin from '../../../images/icon/linkedin.png'
 import Cover from './Cover';
 import { Avatar } from './Avatar';
 import CheckContact from './CheckContact';
+import axios from 'axios'
 
 
 const ProfileHeader = ({ user }) => {
     const userauth = useSelector(state => state.auth.user);
+    const [followingNumber, setFollowingNumber] = useState(0);
+    const [followerNumber, setFollowerNumber] = useState(0);
+    const [postNumber, setPostNumber] = useState(0);
+
+    useEffect(() => {
+        let isSubscribed = true;
+        axios.get(`/follow/get-follow-number/${user._id}`).then(res => {
+            if (isSubscribed) {
+                setFollowerNumber(res.data.followerNumber);
+                setFollowingNumber(res.data.followingNumber)
+            }
+        })
+        return () => isSubscribed = false
+    }, [user._id])
+
+    useEffect(() => {
+        let isSubscribed = true;
+        axios.get(`/post/get-post-number-user/${user._id}`).then(res => {
+            if (isSubscribed) {
+                setPostNumber(res.data.postNumber);
+            }
+        })
+        return () => isSubscribed = false
+    }, [user._id])
 
     return userauth ? (
         <div className="iq-card">
@@ -24,7 +49,7 @@ const ProfileHeader = ({ user }) => {
                     {
                         user._id !== userauth._id ? <CheckContact user={user} /> : null
                     }
-                    
+
                     <div className="user-detail avatar text-center mb-3">
                         <Avatar user={user} userauth={userauth} />
                         <div className="profile-detail">
@@ -70,15 +95,15 @@ const ProfileHeader = ({ user }) => {
                             <ul className="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                                 <li className="text-center pl-3">
                                     <h6>Số bài viết</h6>
-                                    <p className="mb-0">690</p>
+                                    <p className="mb-0">{postNumber}</p>
                                 </li>
                                 <li className="text-center pl-3">
                                     <h6>Người theo dõi</h6>
-                                    <p className="mb-0">206</p>
+                                    <p className="mb-0">{followerNumber}</p>
                                 </li>
                                 <li className="text-center pl-3">
                                     <h6>Đang theo dõi</h6>
-                                    <p className="mb-0">100</p>
+                                    <p className="mb-0">{followingNumber}</p>
                                 </li>
                             </ul>
                         </div>

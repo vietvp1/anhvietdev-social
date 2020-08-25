@@ -3900,7 +3900,7 @@ Chat
     border-radius: 5px;
 }
 
-#chat-search {
+#chat-search, #chat-search1 {
     padding-left: 40px;
 }
 
@@ -4026,6 +4026,7 @@ span.avatar-status {
     margin: 0 1.33rem 1.33rem .3rem;
     clear: both;
     width: 87%;
+    word-break: break-all;
 }
 
 .bubble-me{

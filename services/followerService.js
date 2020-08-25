@@ -34,8 +34,17 @@ let checkFollow = (currentUserId, followerId) => {
     })
 }
 
+let getFollowNumber = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        let followerNumber = await FollowerModel.find({followerId: userId}).countDocuments();
+        let followingNumber = await FollowerModel.find({userId: userId}).countDocuments();
+        resolve({followerNumber, followingNumber})
+    })
+}
+
 module.exports = {
     addNewFollower,
     checkFollow,
-    removeFollower
+    removeFollower,
+    getFollowNumber
 }

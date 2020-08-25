@@ -17,7 +17,6 @@ const AvatarModal = ({ picture, file, toggle, setToggle, remove }) => {
     const [editor, setEditor] = useState(null);
     const [userProfilePic, setUserProfilePic] = useState('');
     const dispatch = useDispatch();
-    console.log(userProfilePic);
     
     const toggleHandle = () => {
         remove();

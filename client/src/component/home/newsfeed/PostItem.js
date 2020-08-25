@@ -51,7 +51,7 @@ const PostItem = ({ post, hidePost }) => {
                     <div>
                         <img className="rounded-circle img-fluid avatar-40 mr-2" src="images/page-img/47.png" alt="profile" />
                     </div>
-                    <div className="preview-file-name">
+                    <div className="preview-file-name text-overflow-three-dot">
                         {f.fileName}
                     </div>
                     <div>
@@ -83,6 +83,29 @@ const PostItem = ({ post, hidePost }) => {
                             <div className="media-support-info mt-2">
                                 <h5 className="mb-0 d-inline-block">
                                     <Link to={`/profile/${post.writer._id}`}>{post.writer.firstName} {post.writer.lastName}</Link>
+                                    {
+                                        post.tags.length > 0 ?
+                                            <span> với
+                                         <Link to={`/profile/${post.tags[0]._id}`}> {post.tags[0].firstName}&nbsp;{post.tags[0].lastName}</Link>
+                                            </span> : null
+                                    }
+                                    {
+                                        post.tags.length > 1 ?
+                                            <span className="dropdown">
+                                                <span className="dropdown-toggle pointer" data-toggle="dropdown" role="button">
+                                                    &nbsp;và {post.tags.length - 1} người khác
+                                                </span>
+                                                <div className="dropdown-menu">
+                                                    {
+                                                        post.tags.map((user, i) =>
+                                                                <Link className="dropdown-item" key={i} to={`/profile/${user._id}`}>{user.firstName}&nbsp;{user.lastName}</Link>
+                                                 
+                                                        )
+                                                    }
+                                                </div>
+                                            </span> : null
+                                    }
+                                    <span></span>
                                 </h5>
                                 <p className="mb-0 d-inline-block">&nbsp;{post.title}</p>
                                 <p className="mb-0 text-primary">{moment(post.createdAt).locale('vi').startOf("seconds").fromNow()}</p>
@@ -91,7 +114,7 @@ const PostItem = ({ post, hidePost }) => {
                         </div>
                     </div>
                     <div className="mt-3">
-                        <p>{post.text}</p>
+                        <div className="post-text-content">{post.text}</div>
                     </div>
 
                     <div className="user-post">

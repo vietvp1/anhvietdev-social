@@ -14,38 +14,56 @@ const PostReaction = ({ post, userId }) => {
     })
     const [reactAction, setReactAction] = useState(null)
     const [topReact, setTopReact] = useState([]);
+
+    const [usersLike, setUsersLike] = useState([]);
+    const [usersLove, setUsersLove] = useState([]);
+    const [usersHaha, setUsersHaha] = useState([]);
+    const [usersThink, setUsersThink] = useState([]);
+    const [usersWow, setUsersWow] = useState([]);
+    const [usersSad, setUsersSad] = useState([]);
+    const [usersAngry, setUsersAngry] = useState([]);
+
     let socket = useSelector(state => state.master_data.socket);
     const { like, love, haha, think, wow, sad, angry } = data;
     useEffect(() => {
         let cLike = 0, cLove = 0, cHaha = 0, cThink = 0, cWow = 0, cSad = 0, cAngry = 0;
+        setReactAction(null);
         post.reactions.forEach(react => {
             switch (react.typeReact) {
                 case 'LIKE':
                     cLike++;
+                    setUsersLike(u => [...u, react.user])
                     break;
                 case 'LOVE':
                     cLove++;
+                    setUsersLove(u => [...u, react.user])
                     break;
                 case 'HAHA':
                     cHaha++;
+                    setUsersHaha(u => [...u, react.user])
                     break;
                 case 'THINK':
                     cThink++;
+                    setUsersThink(u => [...u, react.user])
                     break;
                 case 'WOW':
                     cWow++;
+                    setUsersWow(u => [...u, react.user])
                     break;
                 case 'SAD':
                     cSad++;
+                    setUsersSad(u => [...u, react.user])
                     break;
                 case 'ANGRY':
                     cAngry++;
+                    setUsersAngry(u => [...u, react.user])
                     break;
                 default:
                     break;
             }
             if (react.user._id === userId) setReactAction(react.typeReact);
         })
+
         setData(d => ({ ...d, like: cLike }));
         setData(d => ({ ...d, love: cLove }));
         setData(d => ({ ...d, haha: cHaha }));
@@ -62,10 +80,10 @@ const PostReaction = ({ post, userId }) => {
     }, [post, userId, socket])
 
     useEffect(() => {
-        let arr = [{like}, {love}, {haha}, {think}, {wow}, {sad}, {angry}].sort((a,b) => b[Object.keys(b)] - a[Object.keys(a)]);
+        let arr = [{ like }, { love }, { haha }, { think }, { wow }, { sad }, { angry }].sort((a, b) => b[Object.keys(b)] - a[Object.keys(a)]);
         setTopReact([arr[0], arr[1], arr[2]]);
-    },[like, love, haha, think, wow, sad, angry]);
-    
+    }, [like, love, haha, think, wow, sad, angry]);
+
     return (
         <Fragment>
             <div className="post-state-details">
@@ -74,18 +92,18 @@ const PostReaction = ({ post, userId }) => {
                         <span className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                             <div className="total-like-img">
                                 {
-                                    topReact.map((r,i) => (
-                                        Object.values(r) > 0 ? 
-                                        <img key={i} src={require(`../../../images/icon/${Object.keys(r)}.png`)} className="avatar-30" alt="" /> : null
+                                    topReact.map((r, i) => (
+                                        Object.values(r) > 0 ?
+                                            <img key={i} src={require(`../../../images/icon/${Object.keys(r)}.png`)} className="avatar-30" alt="" /> : null
                                     ))
                                 }
-                                {(like + love + haha + think + wow + sad + angry)>0? <p>&nbsp;{like + love + haha + think + wow + sad + angry}</p> : null } 
+                                {(like + love + haha + think + wow + sad + angry) > 0 ? <p>&nbsp;{like + love + haha + think + wow + sad + angry}</p> : null}
                             </div>
                         </span>
                         <div className="dropdown-menu total-like-img-dropdown">
                             <ul className="nav nav-pills d-flex p-0 m-0">
                                 <li className="col-sm p-0">
-                                    <a className="nav-link active" data-toggle="pill"  href={`#like_${post._id}`}>
+                                    <a className="nav-link active" data-toggle="pill" href={`#like_${post._id}`}>
                                         <img src={require('../../../images/icon/like.png')} className="img-reaction" alt="" />
                                         <p>&nbsp;{like}</p>
                                     </a>
@@ -130,34 +148,59 @@ const PostReaction = ({ post, userId }) => {
                             </ul>
                             <div className="tab-content">
                                 <div className="tab-pane fade active show" id={`like_${post._id}`} role="tabpanel">
-                                    <div className="dropdown-item">Max Emum</div>
-                                    <div className="dropdown-item">Bill Yerds</div>
-                                    <div className="dropdown-item">Other</div>
+                                    {
+                                        usersLike.map((user, i) =>
+                                            <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                        )
+                                    }
                                 </div>
                                 <div className="tab-pane fade" id={`love_${post._id}`} role="tabpanel">
-                                    <div className="dropdown-item">Bill Yerds</div>
-                                    <div className="dropdown-item">Other</div>
+                                    {
+                                        usersLove.map((user, i) =>
+                                            <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                        )
+                                    }
                                 </div>
                                 <div className="tab-pane fade" id={`haha_${post._id}`} role="tabpanel">
-                                    <div className="dropdown-item">Viet saker</div>
+                                    {
+                                        usersHaha.map((user, i) =>
+                                            <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                        )
+                                    }
                                 </div>
                                 <div className="tab-pane fade" id={`think_${post._id}`} role="tabpanel">
-                                    <div className="dropdown-item">Anh ml</div>
+                                    {
+                                        usersThink.map((user, i) =>
+                                            <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                        )
+                                    }
                                 </div>
                                 <div className="tab-pane fade" id={`wow_${post._id}`} role="tabpanel">
-                                    <div className="dropdown-item">hooho</div>
+                                    {
+                                        usersWow.map((user, i) =>
+                                            <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                        )
+                                    }
                                 </div>
                                 <div className="tab-pane fade" id={`sad_${post._id}`} role="tabpanel">
-                                    <div className="dropdown-item">haha</div>
+                                    {
+                                        usersSad.map((user, i) =>
+                                            <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                        )
+                                    }
                                 </div>
                                 <div className="tab-pane fade" id={`angry_${post._id}`} role="tabpanel">
-                                    <div className="dropdown-item">Other</div>
+                                    {
+                                        usersAngry.map((user, i) =>
+                                            <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <p><img src={require('../../../images/icon/comment.png')} className="img-reaction" alt="" /> 24 Bình luận</p>
+                <p><img src={require('../../../images/icon/comment.png')} className="img-reaction" alt="" /> {post.numberComments} Bình luận</p>
             </div>
             <hr />
             <div className="post-state">

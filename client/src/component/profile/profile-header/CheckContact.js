@@ -5,17 +5,43 @@ import { approveContact, rejectContact, unfriend, removeRequestContact, addFrien
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 
-const CheckContact = ({user}) => {
+const CheckContact = ({ user }) => {
     const socket = useSelector(state => state.master_data.socket);
     const dispatch = useDispatch();
     const [checkContact, setCheckContact] = useState(null);
+    const [isFollow, setIsFollow] = useState(false);
+
+    useEffect(() => {
+        let isSubscribed = true;
+        axios.get(`/follow/check-follow/${user._id}`).then(res => {
+            if (isSubscribed) {
+                setIsFollow(res.data.isFollow);
+            }
+        })
+        return () => isSubscribed = false;
+    }, [user._id])
+
     useEffect(() => {
         let isSubscribed = true;
         axios.get(`/contact/check-contact/${user._id}`).then(res => {
-            if(isSubscribed) setCheckContact(res.data);
+            if (isSubscribed) setCheckContact(res.data);
         });
         return () => isSubscribed = false
-    },[user._id])
+    }, [user._id])
+
+    const addNewFollower = async () => {
+        const res = await axios.post("/follow/add-new-follower", { followerId: user._id })
+        if (res.data.success) {
+            setIsFollow(true);
+        }
+    }
+
+    const removeFollower = async () => {
+        const res = await axios.delete(`/follow/remove-follower/${user._id}`)
+        if (res.data.success) {
+            setIsFollow(false);
+        }
+    }
 
     const approveClick = async (e) => {
         e.preventDefault();
@@ -63,31 +89,31 @@ const CheckContact = ({user}) => {
                 return (
                     <li className="dropdown">
                         <span data-toggle="dropdown" className="dropdown-toggle" title="Chấp nhận kết bạn">
-                            <i className="fal fa-handshake"/>
+                            <i className="fal fa-handshake" />
                         </span>
                         <div className="dropdown-menu dropdown-menu-top">
-                            <div onClick={approveClick} className="dropdown-item"><i className="fal fa-user-check"/> Chấp nhận</div>
-                            <div onClick={rejectClick} className="dropdown-item"><i className="fal fa-user-times"/> Từ chối</div>
+                            <div onClick={approveClick} className="dropdown-item"><i className="fal fa-user-check" /> Chấp nhận</div>
+                            <div onClick={rejectClick} className="dropdown-item"><i className="fal fa-user-times" /> Từ chối</div>
                         </div>
                     </li>
                 );
             case 'isSent':
                 return (
                     <li onClick={removeRequestClick} title="Hủy yêu cầu kết bạn">
-                        <span><i className="fal fa-user-times"/></span>
+                        <span><i className="fal fa-user-times" /></span>
                     </li>
                 );
             case 'contactNotExists':
                 return (
                     <li onClick={addFriendClick} title="Thêm bạn">
-                        <span><i className="fal fa-user-plus"/></span>
+                        <span><i className="fal fa-user-plus" /></span>
                     </li>
                 );
             case 'contactExists':
                 return (
                     <li className="dropdown">
                         <span data-toggle="dropdown" className="dropdown-toggle" title="Bạn bè">
-                            <i className="fal fa-user-check"/>
+                            <i className="fal fa-user-check" />
                         </span>
                         <div className="dropdown-menu dropdown-menu-right">
                             <div className="dropdown-item"><i className="fal fa-star"></i> Bạn thân</div>
@@ -106,18 +132,25 @@ const CheckContact = ({user}) => {
             <li title="Nhắn tin">
                 <span>
                     <Link to={`/chat/${user._id}`}>
-                        <i className="fal fa-envelope-open-text"/>
+                        <i className="fal fa-envelope-open-text" />
                     </Link>
                 </span>
             </li>
-            <li className="dropdown">
-                <span data-toggle="dropdown" className="dropdown-toggle" title="Theo dõi">
-                    <i className="fal fa-eye"></i>
-                </span>
-                <div className="dropdown-menu dropdown-menu-right">
-                    <div className="dropdown-item"><i className="fal fa-eye-slash"></i> Bỏ theo dõi</div>
-                </div>
-            </li>
+
+            {
+                isFollow ?
+                    <li onClick={removeFollower}>
+                        <span title="Đang theo dõi">
+                            <i className="fal fa-eye"></i>
+                        </span>
+                    </li> :
+                    <li onClick={addNewFollower}>
+                        <span title="Theo dõi">
+                            <i className="fal fa-eye-slash"></i>
+                        </span>
+                    </li>
+            }
+
         </div>
     )
 }

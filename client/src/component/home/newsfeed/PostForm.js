@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import FlipMove from 'react-flip-move';
 import Swal from 'sweetalert2';
@@ -9,13 +9,62 @@ import img07 from '../../../images/small/07.png'
 import img08 from '../../../images/small/08.png'
 import img09 from '../../../images/small/09.png'
 import img10 from '../../../images/small/10.png'
+import Select from 'react-select';
 
 const PostForm = ({ updatePost, groupId }) => {
     const user = useSelector(state => state.auth.user);
+    const contacts = useSelector(state => state.contact.contacts);
     const [text, setText] = useState('');
     const [pictures, setPictures] = useState([]);
     const [file, setFile] = useState([]);
     const [preview, setPreview] = useState(false);
+
+    const [friends, setFriends] = useState([]);
+    const [isTagUser, setIsTagUser] = useState(false);
+    const [listUserTag, setListUserTag] = useState([]);
+
+    const [privacyPost, setPrivacyPost] = useState(1);
+
+    const privacy = [
+        { value: 0, label: 'Chỉnh mình tôi' },
+        { value: 1, label: 'Công khai' },
+        { value: 2, label: 'Bạn bè' },
+    ];
+
+    useEffect(() => {
+        contacts.forEach(contact => {
+            let item = { value: contact._id, label: contact.firstName + ` ` + contact.lastName };
+            setFriends(f => [...f, item]);
+        })
+    }, [contacts])
+
+    const onChangeTagUserText = (text) => {
+        setFriends([]);
+        if (text === "") {
+            contacts.forEach(contact => {
+                let item = { value: contact._id, label: contact.firstName + ` ` + contact.lastName };
+                setFriends(f => [...f, item]);
+            })
+        }
+        else {
+            axios.get(`/contact/search-friends/${text}`).then(res => {
+                let users = res.data.users;
+                users.forEach(contact => {
+                    let item = { value: contact._id, label: contact.firstName + ` ` + contact.lastName };
+                    setFriends(f => [...f, item]);
+                })
+            })
+        }
+    }
+
+    const handleChangeTagUserSelect = selectedOption => {
+        setListUserTag([]);
+        if (selectedOption) {
+            selectedOption.forEach(item => {
+                setListUserTag(us => [...us, item.value])
+            })
+        }
+    };
 
     const styles = {
         display: "flex",
@@ -80,7 +129,7 @@ const PostForm = ({ updatePost, groupId }) => {
                             <div>
                                 <img className="rounded-circle img-fluid avatar-40 mr-2" src="images/page-img/47.png" alt="profile" />
                             </div>
-                            <div className="preview-file-name">
+                            <div className="preview-file-name text-overflow-three-dot">
                                 {f.name}
                             </div>
                             <div>
@@ -109,6 +158,10 @@ const PostForm = ({ updatePost, groupId }) => {
         e.target.value = null;
     }
     ///////////////////////////////////////////////////////////
+
+    const handleChangePrivacy = selectedOption => {
+        setPrivacyPost(selectedOption.value);
+    };
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -139,10 +192,13 @@ const PostForm = ({ updatePost, groupId }) => {
         if (text) {
             formData.append("text", text);
         }
-
+        formData.append("tags", listUserTag);
+        formData.append("privacy", privacyPost);
         const res = await axios.post('/post/addnew', formData, config).catch(err => console.log(err))
         if (res.data.success) {
             updatePost(res.data.newPost);
+            console.log(res.data.newPost);
+
             setText('');
             setPictures([]);
             setPreview(false);
@@ -166,29 +222,18 @@ const PostForm = ({ updatePost, groupId }) => {
                         <input type="text" className="form-control rounded" placeholder="Bạn đang nghĩ gì..." style={{ border: 'none' }} />
                     </form>
                 </div>
+
                 <hr />
                 <ul className="post-opt-block d-flex align-items-center list-inline m-0 p-0">
-                    <li className="iq-bg-primary rounded p-2 pointer mr-3">
+                    <li className="iq-bg-primary rounded p-2 pointer mr-3 iq-bg-success-hover">
                         <img src={img07} alt="icon" className="img-fluid avatar-25" /> Ảnh/Video
                         </li>
-                    <li className="iq-bg-primary rounded p-2 pointer mr-3">
+                    <li className="iq-bg-primary rounded p-2 pointer mr-3 iq-bg-success-hover">
                         <img src={img08} alt="icon" className="img-fluid avatar-25" /> Gắn thẻ bạn bè
                         </li>
-                    <li className="iq-bg-primary rounded p-2 pointer mr-3">
+                    <li className="iq-bg-primary rounded p-2 pointer mr-3 iq-bg-success-hover">
                         <img src={img09} alt="icon" className="img-fluid avatar-25" /> Cảm xúc/Hoạt động
                         </li>
-                    <li className="rounded p-2 pointer">
-                        <div className="iq-card-header-toolbar d-flex align-items-center">
-                            <div className="dropdown">
-                                <span className="dropdown-toggle" id="post-option" data-toggle="dropdown">
-                                    <i className="far fa-ellipsis-h" />
-                                </span>
-                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="post-option">
-                                    <div className="dropdown-item">Check in</div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
                 </ul>
             </div>
             <div className="modal fade" id="post-modal" tabIndex={-1} role="dialog" aria-labelledby="post-modalLabel" aria-hidden="true" style={{ display: 'none' }}>
@@ -201,7 +246,7 @@ const PostForm = ({ updatePost, groupId }) => {
                         <div className="modal-body">
                             <div className="d-flex align-items-center">
                                 <div className="user-img">
-                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="userimg" className="avatar-60 rounded-circle img-fluid" />
+                                    <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="userimg" className="avatar-60 rounded-circle" />
                                 </div>
                                 <form className="post-text ml-3 w-100" action="">
                                     <input
@@ -214,11 +259,29 @@ const PostForm = ({ updatePost, groupId }) => {
                                         style={{ border: 'none' }} />
                                 </form>
                             </div>
+
+                            {
+                                isTagUser ?
+                                    <div className="mt-4">
+                                        <Select
+                                            classNamePrefix="react-select"
+                                            options={friends}
+                                            placeholder="Nhập tên bạn bè muốn gắn thẻ..."
+                                            onChange={handleChangeTagUserSelect}
+                                            isMulti={true}
+                                            onInputChange={onChangeTagUserText}
+                                        />
+                                    </div> : null
+                            }
+
+
                             {preview ? renderPreview() : null}
+
+
                             <hr />
                             <ul className="d-flex flex-wrap align-items-center list-inline m-0 p-0">
                                 <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3">
+                                    <div className="iq-bg-primary rounded p-2 pointer mr-3 iq-bg-success-hover">
                                         <label className="mb-0 full-width">
                                             <input
                                                 type="file"
@@ -231,15 +294,14 @@ const PostForm = ({ updatePost, groupId }) => {
                                         </label>
                                     </div>
                                 </li>
-                                <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3">
-                                        <img src={img08} alt="icon" className="img-fluid avatar-25" /> Gắn thẻ bạn bè</div>
+                                <li className="col-md-6 mb-3" onClick={e => setIsTagUser(!isTagUser)}>
+                                    <div className="iq-bg-primary rounded p-2 pointer mr-3 iq-bg-success-hover">
+                                        <img src={img08} alt="icon" className="img-fluid avatar-25" />
+                                        Gắn thẻ bạn bè
+                                    </div>
                                 </li>
                                 <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3"><img src={img09} alt="icon" className="img-fluid avatar-25" /> Cảm xúc/Hoạt động</div>
-                                </li>
-                                <li className="col-md-6 mb-3">
-                                    <div className="iq-bg-primary rounded p-2 pointer mr-3"><img src={img10} alt="icon" className="img-fluid avatar-25" /> Check in</div>
+                                    <div className="iq-bg-primary rounded p-2 pointer mr-3 iq-bg-success-hover"><img src={img09} alt="icon" className="img-fluid avatar-25" /> Cảm xúc/Hoạt động</div>
                                 </li>
                             </ul>
                             <hr />
@@ -251,41 +313,13 @@ const PostForm = ({ updatePost, groupId }) => {
                                         </div>
                                         <h6>Tin của bạn</h6>
                                     </div>
-                                    <div className="iq-card-post-toolbar">
-                                        <div className="dropdown">
-                                            <span className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                                                <span className="btn btn-primary">Bạn bè</span>
-                                            </span>
-                                            <div className="dropdown-menu m-0 p-0">
-                                                <a className="dropdown-item p-3" href="/">
-                                                    <div className="d-flex align-items-top">
-                                                        <div className="icon font-size-20"><i className="fal fa-globe-americas" /></div>
-                                                        <div className="data ml-2">
-                                                            <h6>Công khai</h6>
-                                                            <p className="mb-0">Bất cứ ai</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a className="dropdown-item p-3" href="/">
-                                                    <div className="d-flex align-items-top">
-                                                        <div className="icon font-size-20"><i className="fal fa-user-friends" /></div>
-                                                        <div className="data ml-2">
-                                                            <h6>Bạn bè</h6>
-                                                            <p className="mb-0">Bạn bè của bạn</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                                <a className="dropdown-item p-3" href="/">
-                                                    <div className="d-flex align-items-top">
-                                                        <div className="icon font-size-20"><i className="fal fa-lock-alt" /></div>
-                                                        <div className="data ml-2">
-                                                            <h6>Chỉ mình tôi</h6>
-                                                            <p className="mb-0">Chỉ mình tôi</p>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                        </div>
+                                    <div style={{ width: '200px' }}>
+                                        <Select
+                                            classNamePrefix="react-select"
+                                            options={privacy}
+                                            defaultValue={privacy[1]}
+                                            onChange={handleChangePrivacy}
+                                        />
                                     </div>
                                 </div>
                             </div>

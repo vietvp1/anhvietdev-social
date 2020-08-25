@@ -54,16 +54,6 @@ const Sidebar = () => {
                                 <i className="fal fa-tv-retro" /><span className="ml-2">Video</span>
                             </Link>
                         </li>
-                        <li onClick={e => chooseOption(8)} className={option === 8 ? "active" : null}>
-                            <Link to="/profile-event" className="iq-waves-effect">
-                                <i className="fal fa-calendar-week" /><span className="ml-2">Sự kiện</span>
-                            </Link>
-                        </li>
-                        <li onClick={e => chooseOption(9)} className={option === 9 ? "active" : null}>
-                            <Link to="/files" className="iq-waves-effect">
-                                <i className="fal fa-folder-open" /><span className="ml-2">Tập tin</span>
-                            </Link>
-                        </li>
                         <li onClick={e => chooseOption(10)} className={option === 10 ? "active" : null}>
                             <Link to="/friend-request" className="iq-waves-effect">
                                 <i className="fal fa-anchor" /><span className="ml-2">Yêu cầu kết bạn</span>
@@ -74,50 +64,11 @@ const Sidebar = () => {
                                 <i className="fal fa-calendar-alt" /><span className="ml-2">Lịch</span>
                             </Link>
                         </li>
-                        <li onClick={e => chooseOption(13)} className={option === 13 ? "active" : null}>
-                            <Link to="/birthday" className="iq-waves-effect">
-                                <i className="fal fa-birthday-cake" /><span className="ml-2">Sinh nhật</span>
-                            </Link>
-                        </li>
                         <li onClick={e => chooseOption(14)} className={option === 14 ? "active" : null}>
                             <Link to="/weather" className="iq-waves-effect">
                                 <i className="fal fa-clouds-sun" />
                                 <span className="ml-2">Thời tiết</span>
                             </Link>
-                        </li>
-                        <li onClick={e => chooseOption(16)} className={option === 16 ? "active" : null}>
-                            <a href="#mailbox" className="iq-waves-effect collapsed" data-toggle="collapse">
-                                <i className="fal fa-envelope" />
-                                <span className="ml-2">Email</span>
-                                <i className="fas fa-chevron-right iq-arrow-right" />
-                            </a>
-
-                            <ul id="mailbox" className="iq-submenu collapse">
-                                <li><Link to="/email-compose"><i className="fal fa-pencil" />Email Compose</Link></li>
-                            </ul>
-                        </li>
-
-
-                        <li onClick={e => chooseOption(17)} className={option === 17 ? "active" : null}>
-                            <a href="#pages" className="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false">
-                                <i className="fal fa-pager" />
-                                <span className="ml-2">Pages</span>
-                                <i className="fas fa-chevron-right iq-arrow-right" />
-                            </a>
-                            <ul id="pages" className="iq-submenu collapse" data-parent="#iq-sidebar-toggle">
-                                <li onClick={e => chooseOption()} >
-                                    <a href="#authentication" className="iq-waves-effect collapsed" data-toggle="collapse" aria-expanded="false">
-                                        <i className="fal fa-pager" />
-                                        <span className="ml-2">Authentication</span>
-                                        <i className="fas fa-chevron-right iq-arrow-right" />
-                                    </a>
-                                    <ul id="authentication" className="iq-submenu collapse" data-parent="#pages">
-                                        <li onClick={e => chooseOption()} ><Link to="pages-recoverpw"><i className="ri-record-mail-line" />Đổi mật khẩu</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-confirm-mail"><i className="ri-file-code-line" />Xác nhận email</Link></li>
-                                        <li onClick={e => chooseOption()} ><Link to="pages-lock-screen"><i className="ri-lock-line" />Lock Screen</Link></li>
-                                    </ul>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                 </nav>

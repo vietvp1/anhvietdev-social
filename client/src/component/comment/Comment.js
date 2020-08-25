@@ -7,7 +7,7 @@ const Comment = ({post}) => {
     const [commentLists, setCommentLists] = useState([]);
     useEffect(() => {
         let isSubscribed = true;
-        axios.post('/comment/getComments', {parent: post._id})
+        axios.post('/comment/getComments', {postId: post._id})
             .then(response => {
                 if (isSubscribed && response.data.success) {
                   setCommentLists(response.data.comments)
@@ -29,7 +29,7 @@ const Comment = ({post}) => {
     return (
         <Fragment>
             <div className="post-comments">
-                <div className="view-more-comment"> Xem thêm 8 bình luận</div>
+                <div className="view-more-comment"> Xem thêm</div>
                     {
                         commentLists && commentLists.map((comment, index) => (
                             (!comment.responseTo &&

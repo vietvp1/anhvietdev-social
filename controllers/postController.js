@@ -13,9 +13,10 @@ const addNew = async (req, res) => {
             let filesVal = req.files;
             let groupId = req.body.groupId? req.body.groupId : false;
             let title = req.body.title? req.body.title : "";
-            let newPost = await postService.addNew(writerId, filesVal, text, title, groupId);
+            let tags = req.body.tags ? req.body.tags.split(',') : []; // pass array from client => server revieve a string            
+            let privacy = req.body.privacy;
+            let newPost = await postService.addNew(writerId, filesVal, text, title, groupId, tags, privacy);
             return res.status(200).send({newPost , success: true})
-
         } catch (error) {
             return res.status(500).send(error)
         }
@@ -93,13 +94,26 @@ let getFileInPost = async (req, res) => {
         return res.status(500).send(error)
     }
 }
+
+
+let getPostNumberOfUser = async (req, res) => {
+    try {
+        let userId = req.params.id;
+        let postNumber = await postService.getPostNumberOfUser(userId);
+        return res.status(200).send({postNumber});
+    } catch (error) {
+        return res.status(500).send({ success: false });
+    }
+}
+
 module.exports = {
-    addNew: addNew,
-    getOnePost: getOnePost,
-    removePost: removePost,
-    getMyPosts: getMyPosts,
-    getAllPosts: getAllPosts,
-    getpostsByUserId: getpostsByUserId,
-    getPostInGroup: getPostInGroup,
-    getFileInPost: getFileInPost
+    addNew,
+    getOnePost,
+    removePost,
+    getMyPosts,
+    getAllPosts,
+    getpostsByUserId,
+    getPostInGroup,
+    getFileInPost,
+    getPostNumberOfUser
 }

@@ -17,7 +17,7 @@ const { deleteFileInDb } = require('../services/photoService')
  * @param {String} title 
  * @param {String} groupId id of group
  */
-const addNew = (writerId, filesVal, text, title, groupId) => {
+const addNew = (writerId, filesVal, text, title, groupId, tags, privacy) => {
     return new Promise(async (resolve, reject) => {
         try {
             if (!text && filesVal.length == 0) {
@@ -31,14 +31,16 @@ const addNew = (writerId, filesVal, text, title, groupId) => {
                 text: text ? text : '',
                 from: from,
                 writer: writerId,
-                title: title
+                title: title,
+                tags: tags,
+                privacy: privacy
             };
             let newPost = await (await PostModel.model.create(newPostItem)).populate(
                 {
                     path: 'writer',
                     select: ['firstName', 'lastName', 'address', 'avatar']
                 }
-            ).execPopulate();
+            ).populate('tags', ['firstName', 'lastName', 'address', 'avatar']).execPopulate();
             if (filesVal.length > 0) {
                 let arrayFilesPromise = filesVal.map(async fileVal => {
                     let checkImg = 0;
@@ -173,7 +175,7 @@ const getPostInGroup = (groupId) => {
             }
             let posts = await PostModel.model.getPostInGroup(item);
             console.log(posts);
-            
+
             resolve(posts)
         } catch (error) {
             return reject(error);
@@ -195,13 +197,27 @@ let getFileInPost = (postId) => {
     })
 }
 
+let getPostNumberOfUser = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        let postNumber = await PostModel.model.find({
+            writer: userId,
+            from: {
+                managedBy: PostModel.from.PERSONAL,
+                idManager: userId
+            },
+        }).countDocuments();
+        resolve(postNumber)
+    })
+}
+
 module.exports = {
-    addNew: addNew,
-    getOnePost: getOnePost,
-    removePost: removePost,
-    getMyPosts: getMyPosts,
-    getAllPosts: getAllPosts,
-    getpostsByUserId: getpostsByUserId,
-    getPostInGroup: getPostInGroup,
-    getFileInPost: getFileInPost
+    addNew,
+    getOnePost,
+    removePost,
+    getMyPosts,
+    getAllPosts,
+    getpostsByUserId,
+    getPostInGroup,
+    getFileInPost,
+    getPostNumberOfUser
 }

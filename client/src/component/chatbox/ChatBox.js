@@ -29,7 +29,7 @@ const ChatBox = () => {
                                 <div className="chat-box">
                                     <div className="chat-head">
                                         <div className="status"><i className="fas fa-circle"></i></div>
-                                        <div className="name-chat-box">{c.userChat.firstName}&nbsp;{c.userChat.lastName}</div>
+                                        <div className="name-chat-box text-overflow-three-dot">{c.userChat.firstName}&nbsp;{c.userChat.lastName}</div>
                                         <div className="more">
                                             <ChatVideoCall conversation={c} />
                                             <div className="more-optns"><i className="far fa-ellipsis-h"></i>

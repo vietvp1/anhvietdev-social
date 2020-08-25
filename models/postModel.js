@@ -11,6 +11,11 @@ const PostSchema = new Schema({
         idManager: String
     },
     title: String,
+    numberComments: {
+        type: Number,
+        default: 0,
+        min: 0
+    },
     text: {
         type: String
     },
@@ -56,7 +61,8 @@ PostSchema.statics = {
                     select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
-            .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
+            .populate('reactions.user', ['firstName', 'lastName'])
+            .populate('tags', ['firstName', 'lastName'])
             .sort({ "updatedAt": -1 });
     },
 
@@ -68,7 +74,8 @@ PostSchema.statics = {
                     select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
-            .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
+            .populate('reactions.user', ['firstName', 'lastName'])
+            .populate('tags', ['firstName', 'lastName'])
             .sort({ "updatedAt": -1 });
     },
 
@@ -80,7 +87,8 @@ PostSchema.statics = {
                     select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             )
-            .populate('reactions.user', ['firstName', 'lastName', 'address', 'avatar'])
+            .populate('reactions.user', ['firstName', 'lastName'])
+            .populate('tags', ['firstName', 'lastName'])
             .sort({ "updatedAt": -1 });
     },
 
@@ -98,7 +106,7 @@ PostSchema.statics = {
                 $pull: { "reactions": { user: userId } }
             }
         )
-    }
+    },
 }
 
 module.exports = {

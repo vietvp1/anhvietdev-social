@@ -6,7 +6,7 @@ const commentSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'user',
     }, 
-    parent: {
+    postId: {
         type: Schema.Types.ObjectId,
         ref: 'post',
     },
@@ -33,7 +33,7 @@ const commentSchema = mongoose.Schema({
 
 commentSchema.statics = {
     deleteCmtInPost(postId){
-        return this.deleteMany({"parent" : postId });
+        return this.deleteMany({"postId" : postId });
     },
 
     deleteComment(commentId){
@@ -64,7 +64,7 @@ commentSchema.statics = {
     getCommentResByCmtId(cmtResId , postId){
         return this.find({
             $and: [
-                {"parent": postId},
+                {"postId": postId},
                 {"responseTo": cmtResId}
             ]
         })
@@ -77,7 +77,7 @@ commentSchema.statics = {
     getCommentChildOfPost(postId){
         return this.find({
             $and: [
-                {"parent": postId},
+                {"postId": postId},
                 {"responseTo": null}
             ]
         })

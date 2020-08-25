@@ -1,12 +1,52 @@
 import React, { Fragment, useEffect, useState } from 'react'
 
-const CommentReaction = ({data, comment}) => {
+const CommentReaction = ({ data, comment }) => {
     const [topReact, setTopReact] = useState([]);
+
+    const [usersLike, setUsersLike] = useState([]);
+    const [usersLove, setUsersLove] = useState([]);
+    const [usersHaha, setUsersHaha] = useState([]);
+    const [usersThink, setUsersThink] = useState([]);
+    const [usersWow, setUsersWow] = useState([]);
+    const [usersSad, setUsersSad] = useState([]);
+    const [usersAngry, setUsersAngry] = useState([]);
+
     const { like, love, haha, think, wow, sad, angry } = data;
     useEffect(() => {
-        let arr = [{like}, {love}, {haha}, {think}, {wow}, {sad}, {angry}].sort((a,b) => b[Object.keys(b)] - a[Object.keys(a)]);
+        let arr = [{ like }, { love }, { haha }, { think }, { wow }, { sad }, { angry }].sort((a, b) => b[Object.keys(b)] - a[Object.keys(a)]);
         setTopReact([arr[0], arr[1], arr[2]]);
-    },[like, love, haha, think, wow, sad, angry]);
+    }, [like, love, haha, think, wow, sad, angry]);
+
+    useEffect(() => {
+        comment.reactions.forEach(react => {
+            switch (react.typeReact) {
+                case 'LIKE':
+                    setUsersLike(u => [...u, react.user])
+                    break;
+                case 'LOVE':
+                    setUsersLove(u => [...u, react.user])
+                    break;
+                case 'HAHA':
+                    setUsersHaha(u => [...u, react.user])
+                    break;
+                case 'THINK':
+                    setUsersThink(u => [...u, react.user])
+                    break;
+                case 'WOW':
+                    setUsersWow(u => [...u, react.user])
+                    break;
+                case 'SAD':
+                    setUsersSad(u => [...u, react.user])
+                    break;
+                case 'ANGRY':
+                    setUsersAngry(u => [...u, react.user])
+                    break;
+                default:
+                    break;
+            }
+        })
+    }, [comment.reactions])
+
     return (
         <Fragment>
             <div className="total-like-block react-cmt">
@@ -14,12 +54,12 @@ const CommentReaction = ({data, comment}) => {
                     <span className="dropdown-toggle" data-toggle="dropdown">
                         <div className="total-like-img">
                             {
-                                topReact.map((r,i) => (
-                                    Object.values(r) > 0 ? 
-                                    <img key={i} src={require(`../../images/icon/${Object.keys(r)}.png`)} className="avatar-20" alt="" /> : null
+                                topReact.map((r, i) => (
+                                    Object.values(r) > 0 ?
+                                        <img key={i} src={require(`../../images/icon/${Object.keys(r)}.png`)} className="avatar-20" alt="" /> : null
                                 ))
                             }
-                            {(like + love + haha + think + wow + sad + angry)>0? <p>&nbsp;{like + love + haha + think + wow + sad + angry}</p> : null } 
+                            {(like + love + haha + think + wow + sad + angry) > 0 ? <p>&nbsp;{like + love + haha + think + wow + sad + angry}</p> : null}
                         </div>
                     </span>
                     <div className="dropdown-menu total-like-img-dropdown">
@@ -70,28 +110,53 @@ const CommentReaction = ({data, comment}) => {
                         </ul>
                         <div className="tab-content">
                             <div className="tab-pane fade active show" id={`like_${comment._id}`} role="tabpanel">
-                                <div className="dropdown-item">Max Emum</div>
-                                <div className="dropdown-item">Bill Yerds</div>
-                                <div className="dropdown-item">Other</div>
+                                {
+                                    usersLike.map((user, i) =>
+                                        <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                    )
+                                }
                             </div>
                             <div className="tab-pane fade" id={`love_${comment._id}`} role="tabpanel">
-                                <div className="dropdown-item">Bill Yerds</div>
-                                <div className="dropdown-item">Other</div>
+                                {
+                                    usersLove.map((user, i) =>
+                                        <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                    )
+                                }
                             </div>
                             <div className="tab-pane fade" id={`haha_${comment._id}`} role="tabpanel">
-                                <div className="dropdown-item">Viet saker</div>
+                                {
+                                    usersHaha.map((user, i) =>
+                                        <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                    )
+                                }
                             </div>
                             <div className="tab-pane fade" id={`think_${comment._id}`} role="tabpanel">
-                                <div className="dropdown-item">Anh ml</div>
+                                {
+                                    usersThink.map((user, i) =>
+                                        <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                    )
+                                }
                             </div>
                             <div className="tab-pane fade" id={`wow_${comment._id}`} role="tabpanel">
-                                <div className="dropdown-item">hooho</div>
+                                {
+                                    usersWow.map((user, i) =>
+                                        <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                    )
+                                }
                             </div>
                             <div className="tab-pane fade" id={`sad_${comment._id}`} role="tabpanel">
-                                <div className="dropdown-item">haha</div>
+                                {
+                                    usersSad.map((user, i) =>
+                                        <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                    )
+                                }
                             </div>
                             <div className="tab-pane fade" id={`angry_${comment._id}`} role="tabpanel">
-                                <div className="dropdown-item">Other</div>
+                                {
+                                    usersAngry.map((user, i) =>
+                                        <div key={i} className="dropdown-item">{user.firstName} {user.lastName}</div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>

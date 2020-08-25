@@ -2,17 +2,17 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import Axios from 'axios'
 
-const ReactAction = ({comment, post, reactAction, setReactAction, data, setData }) => {
+const ReactAction = ({ comment, post, reactAction, setReactAction, data, setData }) => {
     const socket = useSelector(state => state.master_data.socket);
-    
+
     const onReaction = async (e) => {
         let type = e.currentTarget.id;
         let typeLowerCase = type.toLowerCase();
         let value = data[typeLowerCase];
         if (reactAction === type) {
             let response = !comment ?
-            await Axios.post('/reaction/unReaction', { postId: post._id, writerId: post.writer._id, type: type }) :
-            await Axios.post('/reaction/unReactionComment', {commentId: comment._id, writerId: comment.writer._id, postId: post._id, type: type})
+                await Axios.post('/reaction/unReaction', { postId: post._id, writerId: post.writer._id, type: type }) :
+                await Axios.post('/reaction/unReactionComment', { commentId: comment._id, writerId: comment.writer._id, postId: post._id, type: type })
 
             if (response.data.success) {
                 setReactAction(null)
@@ -20,20 +20,20 @@ const ReactAction = ({comment, post, reactAction, setReactAction, data, setData 
             setData({ ...data, [typeLowerCase]: value - 1 })
         } else {
             let response = !comment ?
-            await Axios.post('/reaction/upReaction', { postId: post._id, writerId: post.writer._id, type: type }) :
-            await Axios.post('/reaction/upReactionComment', {commentId: comment._id, writerId: comment.writer._id, postId: post._id, type: type})
+                await Axios.post('/reaction/upReaction', { postId: post._id, writerId: post.writer._id, type: type }) :
+                await Axios.post('/reaction/upReactionComment', { commentId: comment._id, writerId: comment.writer._id, postId: post._id, type: type })
             if (response.data.success) {
                 if (!reactAction) {
-                    setData({ ...data, [typeLowerCase]: value + 1})
-                }else {
+                    setData({ ...data, [typeLowerCase]: value + 1 })
+                } else {
                     let reactActionLowerCase = reactAction.toLowerCase();
                     setData({ ...data, [typeLowerCase]: value + 1, [reactActionLowerCase]: data[reactActionLowerCase] - 1 })
                 }
 
                 if (response.data.notification) {
                     !comment ?
-                    socket.emit("upReaction", { contactId: post.writer._id, notification: response.data.notification }) : 
-                    socket.emit("upReaction-cmt", {contactId: comment.writer._id, notification: response.data.notification});
+                        socket.emit("upReaction", { contactId: post.writer._id, notification: response.data.notification }) :
+                        socket.emit("upReaction-cmt", { contactId: comment.writer._id, notification: response.data.notification });
                 }
                 setReactAction(type);
             }

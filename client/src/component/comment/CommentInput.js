@@ -21,14 +21,14 @@ const CommentInput = ({ post, updateComment, comment }) => {
         let variables = comment ? {
             content: Comment,
             writer: user._id,
-            parent: comment.parent,
+            postId: comment.postId,
             responseTo: comment._id,
         } : {
                 content: Comment,
                 writer: user._id,
-                parent: post._id
+                postId: post._id
             }
-        axios.post('/comment/saveComment', { variables, writerPost: post.writer._id })
+        axios.post('/comment/saveComment', { variables, writerPost: post.writer._id})
             .then(response => {
                 if (response.data.success) {
                     setComment("")
@@ -51,8 +51,6 @@ const CommentInput = ({ post, updateComment, comment }) => {
                     onKeyPress={e => e.key === "Enter" ? onSubmit(e) : null}
                 />
                 <div className="icons">
-                    <i className="fal fa-paperclip"></i>
-
                     <span className="dropdown not-close-when-click">
                         <span className="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
                             <i className="fal fa-laugh-wink" />
@@ -61,7 +59,6 @@ const CommentInput = ({ post, updateComment, comment }) => {
                             <Picker onSelect={onChangeEmoji} darkMode={true} />
                         </div>
                     </span>
-                    <i className="fal fa-image" />
                 </div>
             </div>
         </div>

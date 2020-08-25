@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment }  from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import axios from "axios"
 import { useSelector } from 'react-redux';
 import ImageLibrary from '../grid-images';
@@ -10,30 +10,30 @@ const ProfileImage = () => {
     useEffect(() => {
         let isSubscribed = true;
         user && axios.get(`/photos/${user._id}`).then(res => {
-            if(isSubscribed) 
+            if (isSubscribed)
                 res.data.photos.forEach(item => {
                     setPhotos(p => [...p, `${process.env.REACT_APP_UPLOADS_IMG}/${item.fileName}`])
                 })
         });
         return () => isSubscribed = false
-    },[user])
+    }, [user])
     return (
         <Fragment>
             <div className="header-for-bg">
-            <div className="background-header position-relative">
-                <img src={bg} className="img-fluid rounded w-100 rounded rounded" alt="profile-bg" />
-                <div className="title-on-header">
-                <div className="data-block">
-                    <h2>Ảnh của bạn</h2>
+                <div className="background-header position-relative">
+                    <img src={bg} className="img-fluid rounded w-100 rounded rounded" alt="profile-bg" />
+                    <div className="title-on-header">
+                        <div className="data-block">
+                            <h2>Ảnh của bạn</h2>
+                        </div>
+                    </div>
                 </div>
-                </div>
-            </div>
             </div>
             {/* Page Content  */}
             <div id="content-page" className="content-page">
-            <div className="container">
-                <ImageLibrary images={photos}/>
-            </div>
+                <div className="container">
+                    <ImageLibrary images={photos} />
+                </div>
             </div>
 
         </Fragment>

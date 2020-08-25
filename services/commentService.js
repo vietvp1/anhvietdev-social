@@ -1,4 +1,5 @@
-const CommentModel = require('../models/commentModel')
+const CommentModel = require('../models/commentModel');
+const postModel = require('../models/postModel');
 
 let saveComment = (variable) => {
     return new Promise(async (resolve, reject) => {
@@ -9,6 +10,9 @@ let saveComment = (variable) => {
                     select: ['firstName', 'lastName', 'address', 'avatar']
                 }
             ).execPopulate();
+            let post = await postModel.model.findById(variable.postId);
+            post.numberComments++;
+            post.save();
             resolve(comment)
         } catch (error) {
             reject(error)
@@ -45,13 +49,17 @@ let getComments = (variable) => {
     })
 };
 
-let deleteComment = (cmtId) => {
+let deleteComment = (cmtId, postId) => {
     return new Promise(async (resolve, reject) => {
         try {
             let removeReq = await CommentModel.deleteComment(cmtId);
             if (removeReq.n === 0) {
                 return reject(false);
             }
+            let post = await postModel.model.findById(postId);
+            post.numberComments = post.numberComments - removeReq.n;
+            post.save();
+            
             resolve(true)
         } catch (error) {
             reject(error)

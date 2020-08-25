@@ -75,8 +75,8 @@ const ChatDrop = ({ userId }) => {
                                             <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${c.userChat.avatar}`} className="avatar-40 rounded" alt="" />
                                         </div>
                                         <div className="media-body ml-3 chat-sidebar-name">
-                                            <h6 className="mb-0 "> {c.userChat.firstName} {c.userChat.lastName}</h6>
-                                            <h6 className="preview-mess">
+                                            <h6 className="mb-0 text-overflow-three-dot"> {c.userChat.firstName} {c.userChat.lastName}</h6>
+                                            <h6 className="preview-mess text-overflow-three-dot">
                                                 {
                                                     (c.messages && c.messages.length > 0) ?
                                                         (lastItemOfArray(c.messages).file.length > 0) ? "Tệp đính kèm..." :

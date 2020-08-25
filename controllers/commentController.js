@@ -25,8 +25,7 @@ let getComments = async (req, res) => {
 
 let deleteComment = async (req, res) => {
     try {
-        const cmtId = req.params.id;
-        await commentService.deleteComment(cmtId);
+        await commentService.deleteComment(req.body.cmtId, req.body.postId);
         res.status(200).json({ success: true })
     } catch (error) {
         return res.status(500).send("Server error :(");

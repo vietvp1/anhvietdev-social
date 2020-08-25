@@ -95,7 +95,7 @@ const MessageInput = ({conversation, setNewConver}) => {
                 {(picture.isImage)? (<img src={picture.dataURL} className="uploadPicture" alt="preview"/>):(
                     <div className="preview-file">
                         <div><i className="fad fa-file-alt"></i></div>
-                        <div className="preview-file-name">{picture.name}</div>
+                        <div className="preview-file-name text-overflow-three-dot">{picture.name}</div>
                     </div>
                 )}
             </div>

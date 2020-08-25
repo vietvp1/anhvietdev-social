@@ -49,14 +49,14 @@ const SignIn = () => {
                             <p>Nhập địa chỉ email và mật khẩu của bạn.</p>
                             <form className="mt-4">
                                 <div className="form-group">
-                                    <label htmlFor="exampleInputEmail1">Địa chỉ Email</label>
+                                    <label htmlFor="exampleInputEmail3">Địa chỉ Email</label>
                                     <input
                                         type="email"
                                         name="email"
                                         value={email}
                                         onChange={e => onChange(e)}
                                         className="form-control mb-0"
-                                        id="exampleInputEmail1"
+                                        id="exampleInputEmail3"
                                         placeholder="Email"
                                         required
                                     />

@@ -41,7 +41,7 @@ const TopNavbar = () => {
                                 <Link to={`/profile/${user._id}`} className="iq-waves-effect d-flex align-items-center">
                                     <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} className="img-fluid rounded-circle mr-3" alt="user" />
                                     <div className="caption">
-                                        <h6 className="mb-0 line-height">{user.firstName} {user.lastName}</h6>
+                                        <h6 className="mb-0 line-height text-overflow-three-dot">{user.firstName} {user.lastName}</h6>
                                     </div>
                                 </Link>
                             </li>

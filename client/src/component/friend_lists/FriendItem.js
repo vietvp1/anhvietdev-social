@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 const FriendItem = ({ user }) => {
     const [isFollow, setIsFollow] = useState(false);
@@ -14,9 +15,9 @@ const FriendItem = ({ user }) => {
         return () => isSubscribed = false;
     }, [user._id])
 
-    
+
     const addNewFollower = async () => {
-        const res = await axios.post("/follow/add-new-follower", {followerId: user._id})
+        const res = await axios.post("/follow/add-new-follower", { followerId: user._id })
         if (res.data.success) {
             setIsFollow(true);
         }
@@ -40,17 +41,19 @@ const FriendItem = ({ user }) => {
                         <div className="profile-info p-4">
                             <div className="user-detail">
                                 <div className="d-flex flex-wrap justify-content-between align-items-start">
-                                    <div className="profile-detail d-flex">
-                                        <div className="profile-img pr-4">
-                                            <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="profile-img" className="avatar-130 img-fluid" />
+                                    <Link to={`/profile/${user._id}`}>
+                                        <div className="profile-detail d-flex">
+                                            <div className="profile-img pr-4">
+                                                <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`} alt="profile-img" className="avatar-130 img-fluid" />
+                                            </div>
+                                            <div className="user-data-block">
+                                                <h4>{user.firstName} {user.lastName}</h4>
+                                                {
+                                                    user.description ? <p>{user.description}</p> : null
+                                                }
+                                            </div>
                                         </div>
-                                        <div className="user-data-block">
-                                            <h4>{user.firstName} {user.lastName}</h4>
-                                            {
-                                                user.description ? <p>{user.description}</p> : null
-                                            }
-                                        </div>
-                                    </div>
+                                    </Link>
                                     {
                                         isFollow ?
                                             <button className="btn btn-primary" onClick={removeFollower}>

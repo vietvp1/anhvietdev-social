@@ -48,10 +48,12 @@ let initRoutes = (app) => {
     router.post("/follow/add-new-follower", auth, followerController.addNewFollower)
     router.delete("/follow/remove-follower/:id", auth, followerController.removeFollower)
     router.get("/follow/check-follow/:id", auth, followerController.checkFollow)
+    router.get("/follow/get-follow-number/:id", auth, followerController.getFollowNumber)
 
     router.get("/post/get-all-posts", auth, postController.getAllPosts);
     router.get("/post/getmyposts", auth, postController.getMyPosts);
     router.get("/post/getposts/:id", auth, postController.getpostsByUserId);
+    router.get("/post/get-post-number-user/:id", auth, postController.getPostNumberOfUser);
     router.get("/post/:id", auth, postController.getOnePost);
     router.post("/post/addnew", auth, postController.addNew);
     router.delete("/post/remove/:id", auth, postController.removePost);
@@ -86,12 +88,12 @@ let initRoutes = (app) => {
 
     router.post("/comment/saveComment", auth, commentController.saveComment);
     router.post("/comment/getComments", auth, commentController.getComments);
-    router.delete("/comment/delete-comment/:id", auth, commentController.deleteComment);
+    router.put("/comment/delete-comment", auth, commentController.deleteComment);
 
     router.post("/message/get-all-conversations", auth, messageController.allConversationWithMessages)
     router.post("/message/add-new-text-emoji", auth, messageController.addNewTextEmoji)
     router.post("/message/add-new-image", auth, messageController.addNewFile)
-    router.get("/message/read-more-all-chat", auth, messageController.readMoreAllChat)
+    router.get("/message/read-more-all-chat", auth, messageController.readMoreAllChat) 
     router.get("/message/read-more-personal-chat", auth, messageController.readMorePersonalChat)
     router.get("/message/read-more-group-chat", auth, messageController.readMoreGroupChat)
     router.get("/message/read-more", auth, messageController.readMore)

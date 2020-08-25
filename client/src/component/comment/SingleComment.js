@@ -89,7 +89,7 @@ const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep }) => {
                         <CommentReaction data={data} comment={comment} />
                     </div>
                     <div className="uk-text-small">
-                        <span className="mr-3">
+                        <span className="mr-3 pointer">
                             <ReactAction
                                 comment={comment}
                                 post={post}
@@ -99,7 +99,7 @@ const SingleComment = ({ comment, hideComment, post, OpenRep, setOpenRep }) => {
                                 setData={setData}
                             />
                         </span>
-                        <span className="mr-3" onClick={openReply}> Trả lời </span>
+                        <span className="mr-3 pointer" onClick={openReply}> Trả lời </span>
                         <span className="time-cmt">{moment(comment.createdAt).locale('vi').startOf("seconds").fromNow()} </span>
                     </div>
                 </div>

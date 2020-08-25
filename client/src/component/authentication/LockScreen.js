@@ -17,8 +17,8 @@ const LockScreen = () => {
                             <form className="mt-4">
 
                                 <div className="form-group">
-                                    <label for="exampleInputEmail1">Password</label>
-                                    <input type="Password" className="form-control mb-0" id="exampleInputEmail1" placeholder="Password" />
+                                    <label for="exampleInputEmail2">Password</label>
+                                    <input type="Password" className="form-control mb-0" id="exampleInputEmail2" placeholder="Password" />
                                 </div>
 
                                 <div className="d-inline-block w-100">

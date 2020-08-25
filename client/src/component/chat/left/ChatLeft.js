@@ -25,7 +25,7 @@ const ChatLeft = ({ showRight, conversations }) => {
                         <input
                             type="text"
                             className="form-control round"
-                            id="chat-search"
+                            id="chat-search1"
                             placeholder="Tìm kiếm..." />
                         <i className="far fa-search mt-1" />
                     </div>
@@ -47,8 +47,10 @@ const ChatLeft = ({ showRight, conversations }) => {
                                             <span className="avatar-status"><i className="ri-checkbox-blank-circle-fill text-success" /></span>
                                         </div>
                                         <div className="chat-sidebar-name">
-                                            <h6 className="mb-0"> {c.userChat.firstName} {c.userChat.lastName}</h6>
-                                            <h6 className="preview-mess">
+                                            <h6 className="mb-0 text-overflow-three-dot" style={{ width: "60%" }}>
+                                                {c.userChat.firstName} {c.userChat.lastName}
+                                            </h6>
+                                            <h6 className="preview-mess text-overflow-three-dot" style={{ width: "60%" }}>
                                                 {
                                                     (c.messages && c.messages.length > 0) ?
                                                         (lastItemOfArray(c.messages).file.length > 0) ? "Tệp đính kèm..." :

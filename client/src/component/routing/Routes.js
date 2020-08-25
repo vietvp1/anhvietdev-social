@@ -5,12 +5,9 @@ import FriendList from '../friend_lists/FriendList';
 import Group from '../group/Group';
 import ProfileImage from '../profile-image/ProfileImage'
 import ProfileVideo from '../profile-video/ProfileVideo'
-import ProfileEvent from '../profile-event/ProfileEvent'
 import Notification from '../notification/Notification';
-import Files from '../files/Files';
 import FriendRequest from '../friend-request/FriendRequest';
 import Chat from '../chat/Chat';
-import BirthDay from '../birth-day/BirthDay';
 import Weather from '../weather/Weather';
 import EmailCompose from '../email/EmailCompose';
 import SignIn from '../authentication/SignIn';
@@ -37,13 +34,10 @@ const Root = () => (
     <PrivateRoute exact path='/group/:id' component={GroupProfile} />
     <PrivateRoute exact path='/profile-images' component={ProfileImage} />
     <PrivateRoute exact path='/profile-video' component={ProfileVideo} />
-    <PrivateRoute exact path='/profile-event' component={ProfileEvent} />
     <PrivateRoute exact path='/notification' component={Notification} />
-    <PrivateRoute exact path='/files' component={Files} />
     <PrivateRoute exact path='/friend-request' component={FriendRequest}/>
     <PrivateRoute exact path='/chat' component={Chat} />
     <PrivateRoute exact path='/chat/:id' component={Chat}/>
-    <PrivateRoute exact path='/birthday' component={BirthDay} />
     <PrivateRoute exact path='/calendar' component={CalendarPage} />
     <PrivateRoute exact path='/weather' component={Weather} />
     <PrivateRoute exact path='/email-compose' component={EmailCompose} />

@@ -36,7 +36,7 @@ const MessageItem = ({ message, userChat }) => {
                         <a href={`data:${f.contentType}; base64, ${bufferToBase64(f.data.data)}`} download={f.fileName}>
                             <div className="preview-file">
                                 <div><i className="fad fa-file-alt"></i></div>
-                                <div className="preview-file-name">{f.fileName}</div>
+                                <div className="preview-file-name text-overflow-three-dot">{f.fileName}</div>
                             </div>
                         </a>
                     </div> : null

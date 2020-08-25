@@ -39,6 +39,9 @@
     content: none;
 }
 
+
+/*---------------------------------- react-select--------------------- */
+
 .react-select__control, .react-select__menu {
     background-color: var(--iq-light-primary) !important;
     border: none !important;
@@ -46,6 +49,10 @@
 
 .react-select__placeholder, .react-select__single-value {
     color: var(--iq-primary) !important;
+}
+
+.react-select__input input{
+    color: #ffffff !important;
 }
 
 /* checkbox */
@@ -155,12 +162,12 @@ input[type="checkbox"]:checked:after {
     border: 1px solid #dee2e6!important;
 }
 
-.preview-mess, .chat-sidebar-name>h6, .caption h6, .name-chat-box, .name-right-sidebar span, .preview-file-name {
+.text-overflow-three-dot{
     overflow: hidden!important;
-    width: 100%;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
+    width: 100%;
 }
 
 .name-right-sidebar span {
@@ -856,6 +863,9 @@ input[type="checkbox"]:checked:after {
 
 
 /* bonus --------------------------------------------------------------------- */
+.post-text-content{
+    word-break: break-all;
+}
 
 .btn:hover {
     background-color: var(--iq-primary) !important;
@@ -1020,4 +1030,6 @@ input[type="checkbox"]:checked:after {
     color: var(--iq-dark-body-text)
 }
 
-
+.user-post-data a{
+    color: var(--iq-primary);
+}

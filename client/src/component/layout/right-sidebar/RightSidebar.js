@@ -123,7 +123,11 @@ const RightSidebar = () => {
                                         <img className="rounded-circle avatar-50" src={`${process.env.REACT_APP_API}/uploads/avatar/adminViet.jpg`} alt="" />
                                     </div>
                                     <div className="media-body ml-3">
-                                        <h6 className="mb-0 name-right-sidebar"><span>Admin Trần Việt</span></h6>
+                                        <h6 className="mb-0 name-right-sidebar">
+                                            <span className="text-overflow-three-dot">
+                                                Admin Trần Việt
+                                            </span>
+                                        </h6>
                                         <p className="mb-0">Admin</p>
                                     </div>
                                 </div>
