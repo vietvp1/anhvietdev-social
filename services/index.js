@@ -8,6 +8,7 @@ const commentService = require("./commentService")
 const messageService = require("./messageService")
 const groupChatService = require("./groupChatService")
 const photoService = require("./photoService");
+const videoService = require("./videoService");
 const groupService = require("./groupService");
 const followerService = require("./followerService");
 
@@ -22,6 +23,7 @@ module.exports = {
     message: messageService,
     groupChat: groupChatService,
     photo: photoService,
+    videoService,
     groupService,
     followerService
 }

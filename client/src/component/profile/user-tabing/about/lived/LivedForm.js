@@ -65,7 +65,7 @@ const LivedForm = ({ place, i, toggleEdit }) => {
         <form onSubmit={submitUpdatePlace}>
             <div>
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="placename"
                     value={formData.placename}
@@ -77,7 +77,7 @@ const LivedForm = ({ place, i, toggleEdit }) => {
                     <div className="col-6">
                         <span className="mr-3">Chuyển đến từ</span>
                         <DatePicker
-                            className="input-light-primary br-0 text-primary bdrs5 p-1"
+                            className="input-light-primary br-0 text-primary br-5 p-1"
                             dateFormat="dd/MM/yyyy"
                             required
                             placeholderText="Thời gian"

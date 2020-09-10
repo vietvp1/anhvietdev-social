@@ -749,6 +749,15 @@ Background Color Opacity
 }
 
 /*--------------*/
+.iq-bg-primary-hover,
+.iq-bg-secondary-hover,
+.iq-bg-success-hover,
+.iq-bg-danger-hover,
+.iq-bg-warning-hover,
+.iq-bg-info-hover,
+.iq-bg-dark-hover{
+    transition: all 0.5s ease-out 0s;
+}
 
 .iq-bg-primary-hover:hover {
     background: var(--iq-light-primary) !important;

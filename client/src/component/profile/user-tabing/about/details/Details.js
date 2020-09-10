@@ -39,7 +39,7 @@ const Details = ({ user }) => {
                     <form onSubmit={e => onSubmit(e, 0)}>
                         <div>
                             <input
-                                className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                 type="text"
                                 name="introduce"
                                 value={introduce}
@@ -86,7 +86,7 @@ const Details = ({ user }) => {
                     <form onSubmit={e => onSubmit(e, 1)}>
                         <div>
                             <input
-                                className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                 type="text"
                                 name="another_name"
                                 value={another_name}

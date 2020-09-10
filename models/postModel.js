@@ -53,8 +53,32 @@ const FROM = {
 }
 
 PostSchema.statics = {
-    getposts(userId) {
-        return this.find({ "from.managedBy": FROM.PERSONAL, "writer": userId })
+    getPosts(userId, currentUserId, friendIds) {
+        return this.find({
+            "from.managedBy": FROM.PERSONAL,
+            $or: [
+                {
+                    "tags": userId
+                },
+
+                {
+                    "writer": userId,
+                    $or: [
+                        {
+                            "privacy": { $eq: 1 }
+                        },
+                        {
+                            "writer": { $in: friendIds },
+                            "privacy": { $eq: 2 }
+                        },
+                        {
+                            "writer": currentUserId,
+                            "privacy": { $eq: 0 }
+                        },
+                    ]
+                }
+            ]
+        })
             .populate(
                 {
                     path: 'writer',
@@ -66,8 +90,26 @@ PostSchema.statics = {
             .sort({ "updatedAt": -1 });
     },
 
-    getAllPosts(UserIds) {
-        return this.find({ "from.managedBy": FROM.PERSONAL, "writer": { $in: UserIds } })
+    getAllPosts(followingIds, friendIds, currentUserId) {
+        return this.find({
+            "from.managedBy": FROM.PERSONAL,
+            $or: [
+                {
+                    "writer": { $in: followingIds },
+                    "privacy": { $eq: 1 }
+                },
+                {
+                    $and: [
+                        { "writer": { $in: friendIds } },
+                        { "writer": { $in: followingIds } },
+                    ],
+                    "privacy": { $eq: 2 }
+                },
+                {
+                    "writer": currentUserId,
+                },
+            ]
+        })
             .populate(
                 {
                     path: 'writer',

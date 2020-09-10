@@ -1841,17 +1841,11 @@ div#post-modal-data .modal .modal-dialog {
     transition: all 0.5s ease 0s !important;
 }
 
-.total-comment-block .dropdown:hover>.dropdown-menu,
 .total-like-block .dropdown:hover>.dropdown-menu,
 .like-data .dropdown:hover>.dropdown-menu{
     opacity: 1;
     visibility: visible;
     transition: all 0.45s ease 0s;
-}
-
-.total-comment-block .dropdown>.dropdown-menu>a{
-    color: var(--iq-white);
-    padding: 2px 10px;
 }
 
 .like-data .dropdown-menu {
@@ -1871,8 +1865,7 @@ div#post-modal-data .modal .modal-dialog {
     transition: all 0.45s ease 0s;
 }
 
-.total-like-block .dropdown-menu,
-.total-comment-block .dropdown-menu {
+.total-like-block .dropdown-menu{
     display: block;
     visibility: hidden;
     opacity: 0;
@@ -3942,14 +3935,9 @@ span.avatar-status {
     text-decoration: none;
     display: block;
     padding: 15px 0;
-    border-bottom: 1px solid var(--iq-border-dark);
 }
 
-.iq-chat-ui li a.active {
-    border-color: transparent;
-}
-
-.nav-pills li a.active {
+.chat-data-left .active {
     color: var(--iq-primary);
     background-color: var(--iq-light-primary);
 }
@@ -3964,7 +3952,7 @@ span.avatar-status {
 }
 
 .chat-sidebar-channel {
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     height: calc(100vh - 19rem);
     margin-bottom: 15px;
@@ -3995,9 +3983,13 @@ span.avatar-status {
     overflow-x: hidden;
 }
 
+.chat-attachment,
+.file-post{
+    border: 1px solid var(--iq-dark-body-text)
+}
+
 .css-y1c0xs{
     padding: 1.1rem;
-    text-align: center;
 }
 
 .chat-footer.bg-white,

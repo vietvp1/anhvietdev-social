@@ -79,7 +79,7 @@ const WorkForm = ({ w, i, toggleEditWork }) => {
         <form onSubmit={submitUpdateWork}>
             <div>
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="company"
                     value={formWorkData.company}
@@ -88,7 +88,7 @@ const WorkForm = ({ w, i, toggleEditWork }) => {
                     placeholder="Công ty..."
                 />
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="position"
                     value={formWorkData.position}
@@ -97,7 +97,7 @@ const WorkForm = ({ w, i, toggleEditWork }) => {
                     placeholder="Chức vụ..."
                 />
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="location"
                     value={formWorkData.location}
@@ -105,7 +105,7 @@ const WorkForm = ({ w, i, toggleEditWork }) => {
                     placeholder="Nơi làm việc..."
                 />
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="description"
                     value={formWorkData.description}
@@ -128,7 +128,7 @@ const WorkForm = ({ w, i, toggleEditWork }) => {
                     <div className="col-6">
                         <span className="mr-3">Từ năm</span>
                         <DatePicker
-                            className="input-light-primary br-0 text-primary bdrs5 p-1"
+                            className="input-light-primary br-0 text-primary br-5 p-1"
                             dateFormat="yyyy"
                             required
                             placeholderText="Từ năm"
@@ -145,7 +145,7 @@ const WorkForm = ({ w, i, toggleEditWork }) => {
                             <div className="col-6">
                                 <span className="mr-3">Đến năm</span>
                                 <DatePicker
-                                    className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                    className="input-light-primary br-0 text-primary br-5 p-1"
                                     dateFormat="yyyy"
                                     required
                                     placeholderText="Đến năm"

@@ -141,12 +141,12 @@ const CheckContact = ({ user }) => {
                 isFollow ?
                     <li onClick={removeFollower}>
                         <span title="Đang theo dõi">
-                            <i className="fal fa-eye"></i>
+                            <i className="fal fa-wifi"></i>
                         </span>
                     </li> :
                     <li onClick={addNewFollower}>
                         <span title="Theo dõi">
-                            <i className="fal fa-eye-slash"></i>
+                            <i className="fal fa-wifi-slash"></i>
                         </span>
                     </li>
             }

@@ -1,9 +1,21 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { approveContact, rejectContact } from '../../../actions/contact';
 
 const FriendRequest = () => {
     const ContactReceived = useSelector(state => state.contact.contactsReceived);
+    const socket = useSelector(state => state.master_data.socket);
+    const dispatch = useDispatch();
+
+    const approveClick = async (user) => {
+        dispatch(approveContact(user, socket))
+    }
+
+    const rejectClick = async (user) => {
+        dispatch(rejectContact(user, socket));
+    }
+
     return (
         <li className="nav-item dropdown">
             <span className="dropdown-toggle iq-waves-effect" data-toggle="dropdown">
@@ -72,8 +84,8 @@ const FriendRequest = () => {
                                             </div>
                                         </div>
                                         <div className="d-flex align-items-center">
-                                            <a href="/#" className="mr-3 btn btn-primary rounded">Xác nhận</a>
-                                            <a href="/#" className="mr-3 btn btn-secondary rounded">Xóa yêu cầu</a>
+                                            <span onClick={() => approveClick(user)} className="mr-3 btn btn-primary rounded">Xác nhận</span>
+                                            <span onClick={() => rejectClick(user)} className="mr-3 btn btn-secondary rounded">Xóa yêu cầu</span>
                                         </div>
                                     </div>
                                 </div>

@@ -45,7 +45,7 @@ const Chat = ({ match }) => {
                             <div className="iq-card">
                                 <div className="iq-card-body chat-page p-0">
                                     <div className="chat-data-block">
-                                        <div className="row">
+                                        <div className="row frame-chat">
                                             <ChatLeft showRight={showRight} conversations={conversations} />
                                             <div className="col-lg-9 chat-data p-0 chat-data-right">
                                                 <div className="tab-content">

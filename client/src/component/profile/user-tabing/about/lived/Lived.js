@@ -75,7 +75,7 @@ const Lived = ({ user }) => {
                     <form onSubmit={submitAddPlace}>
                         <div>
                             <input
-                                className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                 type="text"
                                 name="placename"
                                 required
@@ -86,7 +86,7 @@ const Lived = ({ user }) => {
                                 <div className="col-6">
                                     <span className="mr-3">Chuyển đến từ</span>
                                     <DatePicker
-                                        className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                        className="input-light-primary br-0 text-primary br-5 p-1"
                                         dateFormat="dd/MM/yyyy"
                                         required
                                         placeholderText="Thời gian"

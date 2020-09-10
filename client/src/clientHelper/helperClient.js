@@ -85,8 +85,6 @@ export const checkMimeType = (event) => {
 }
 
 export const checkFileSize = (event) => {
-    console.log(event.target);
-    
     let files = event.target.files
     let size = 2 * 1048576 //2MB
     let err = "";

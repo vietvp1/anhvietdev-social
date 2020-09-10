@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from 'react-router-dom'
 import axios from 'axios';
-import { addFriend } from '../../actions/contact';
+import { addFriend, approveContact, rejectContact } from '../../actions/contact';
 
 const FriendRequest = () => {
   const ContactReceived = useSelector(state => state.contact.contactsReceived);
@@ -27,6 +27,14 @@ const FriendRequest = () => {
   const addFriendClick = (user) => {
     dispatch(addFriend(user, socket));
     setUsersSuggestion(usersSuggestion.filter(userSuggest => userSuggest._id !== user._id));
+  }
+
+  const approveClick = async (user) => {
+    dispatch(approveContact(user, socket))
+  }
+
+  const rejectClick = async (user) => {
+    dispatch(rejectContact(user, socket));
   }
 
   return (
@@ -58,8 +66,8 @@ const FriendRequest = () => {
                             </Link>
                           </div>
                           <div className="d-flex align-items-center">
-                            <a href="/#" className="mr-3 btn btn-primary rounded">Xác nhận</a>
-                            <a href="/#" className="mr-3 btn btn-secondary rounded">Xóa yêu cầu</a>
+                            <span onClick={() => approveClick(user)} className="mr-3 btn btn-primary rounded">Xác nhận</span>
+                            <span onClick={() => rejectClick(user)} className="mr-3 btn btn-secondary rounded">Xóa yêu cầu</span>
                           </div>
                         </li>
                       ))

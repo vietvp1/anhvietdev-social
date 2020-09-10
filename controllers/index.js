@@ -8,6 +8,7 @@ const comment = require('./commentController')
 const message = require('./messageController')
 const groupChatController = require('./groupChatController')
 const photoController = require('./photoController')
+const videoController = require('./videoController')
 const groupController = require('./groupController')
 const followerController = require('./followerController')
 
@@ -23,5 +24,6 @@ module.exports = {
     groupChat: groupChatController,
     group: groupController,
     photo: photoController,
-    followerController
+    followerController,
+    videoController
 }

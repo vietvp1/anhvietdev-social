@@ -39,6 +39,14 @@ videoSchema.statics = {
         videos.forEach(item => fsExtra.remove(item.url))
         return this.deleteMany( {"post": postId});
     },
+    getAllMyVideo(userId) {
+        return this.find({
+            from: {
+                managedBy: "PERSONAL",
+                idManager: userId
+            }
+        }).sort({ "createdAt": -1 })
+    },
 }
 
 module.exports = mongoose.model('video', videoSchema);

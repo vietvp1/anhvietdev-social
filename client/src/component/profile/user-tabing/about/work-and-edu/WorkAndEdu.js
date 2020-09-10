@@ -154,7 +154,7 @@ const WorkAndEdu = ({ user }) => {
                         <form onSubmit={submitAddWork}>
                             <div>
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="company"
                                     required
@@ -162,7 +162,7 @@ const WorkAndEdu = ({ user }) => {
                                     placeholder="Công ty..."
                                 />
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="position"
                                     required
@@ -170,14 +170,14 @@ const WorkAndEdu = ({ user }) => {
                                     placeholder="Chức vụ..."
                                 />
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="location"
                                     onChange={handleInputChangeWork}
                                     placeholder="Nơi làm việc..."
                                 />
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="description"
                                     onChange={handleInputChangeWork}
@@ -199,7 +199,7 @@ const WorkAndEdu = ({ user }) => {
                                     <div className="col-6">
                                         <span className="mr-3">Từ năm</span>
                                         <DatePicker
-                                            className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                            className="input-light-primary br-0 text-primary br-5 p-1"
                                             dateFormat="yyyy"
                                             minDate={1 / 1 / 2000}
                                             required
@@ -217,7 +217,7 @@ const WorkAndEdu = ({ user }) => {
                                             <div className="col-6">
                                                 <span className="mr-3">Đến năm</span>
                                                 <DatePicker
-                                                    className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                                    className="input-light-primary br-0 text-primary br-5 p-1"
                                                     dateFormat="yyyy"
                                                     minDate={1 / 1 / 2000}
                                                     required
@@ -295,7 +295,7 @@ const WorkAndEdu = ({ user }) => {
                     addSkill ?
                         <form onSubmit={submitAddSkill}>
                             <input
-                                className="input-light-primary br-0 text-primary bdrs5 p-2"
+                                className="input-light-primary br-0 text-primary br-5 p-2"
                                 type="text"
                                 required
                                 onChange={e => setSkillText(e.target.value)}
@@ -340,7 +340,7 @@ const WorkAndEdu = ({ user }) => {
                         <form onSubmit={submitAddEdu}>
                             <div>
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="school"
                                     required
@@ -348,7 +348,7 @@ const WorkAndEdu = ({ user }) => {
                                     placeholder="Tên trường..."
                                 />
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="fieldofstudy"
                                     required
@@ -356,14 +356,14 @@ const WorkAndEdu = ({ user }) => {
                                     placeholder="Chuyên ngành..."
                                 />
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="location"
                                     onChange={handleInputChangeEdu}
                                     placeholder="Địa điểm..."
                                 />
                                 <input
-                                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                                     type="text"
                                     name="description"
                                     onChange={handleInputChangeEdu}
@@ -385,7 +385,7 @@ const WorkAndEdu = ({ user }) => {
                                     <div className="col-6">
                                         <span className="mr-3">Từ năm</span>
                                         <DatePicker
-                                            className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                            className="input-light-primary br-0 text-primary br-5 p-1"
                                             dateFormat="yyyy"
                                             minDate={1 / 1 / 2000}
                                             required
@@ -403,7 +403,7 @@ const WorkAndEdu = ({ user }) => {
                                             <div className="col-6">
                                                 <span className="mr-3">Đến năm</span>
                                                 <DatePicker
-                                                    className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                                    className="input-light-primary br-0 text-primary br-5 p-1"
                                                     dateFormat="yyyy"
                                                     minDate={1 / 1 / 2000}
                                                     required

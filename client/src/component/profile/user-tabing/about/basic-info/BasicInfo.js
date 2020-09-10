@@ -83,7 +83,7 @@ const BasicInfo = ({ user }) => {
                         {
                             !edit.phone ? <p className="mb-0">{user.phone ? user.phone : "Bạn chưa cập nhập số điện thoại"}</p> :
                                 <div>
-                                    <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                    <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                         name="phone" onChange={onChange}
                                     />
                                     <div className="mt-1 mb-3">
@@ -107,7 +107,7 @@ const BasicInfo = ({ user }) => {
                         {
                             !edit.address ? <p className="mb-0"> {user.address ? user.address : "Bạn chưa cập nhập số địa chỉ"} </p> :
                                 <div>
-                                    <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                    <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                         name="address" onChange={onChange}
                                     />
                                     <div className="mt-1 mb-3">
@@ -132,7 +132,7 @@ const BasicInfo = ({ user }) => {
                     {
                         !edit.facebookUrl ? <p className="mb-0"> {user.social && user.social.facebookUrl ? user.social.facebookUrl : "Chưa cập nhập đường dẫn đến facebook người dùng"} </p> :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="facebookUrl" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="facebookUrl">Lưu</span>
@@ -151,7 +151,7 @@ const BasicInfo = ({ user }) => {
                     {
                         !edit.twitterUrl ? <p className="mb-0"> {user.social && user.social.twitterUrl ? user.social.twitterUrl : "Chưa cập nhập đường dẫn đến twitter người dùng"} </p> :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="twitterUrl" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="twitterUrl">Lưu</span>
@@ -170,7 +170,7 @@ const BasicInfo = ({ user }) => {
                     {
                         !edit.instagramUrl ? <p className="mb-0"> {user.social && user.social.instagramUrl ? user.social.instagramUrl : "Chưa cập nhập đường dẫn đến instagram người dùng"} </p> :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="instagramUrl" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="instagramUrl">Lưu</span>
@@ -189,7 +189,7 @@ const BasicInfo = ({ user }) => {
                     {
                         !edit.googleUrl ? <p className="mb-0"> {user.social && user.social.googleUrl ? user.social.googleUrl : "Chưa cập nhập đường dẫn đến google người dùng"} </p> :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="googleUrl" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="googleUrl">Lưu</span>
@@ -208,7 +208,7 @@ const BasicInfo = ({ user }) => {
                     {
                         !edit.youtubeUrl ? <p className="mb-0"> {user.social && user.social.youtubeUrl ? user.social.youtubeUrl : "Chưa cập nhập đường dẫn đến youtube người dùng"} </p> :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="youtubeUrl" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="youtubeUrl">Lưu</span>
@@ -227,7 +227,7 @@ const BasicInfo = ({ user }) => {
                     {
                         !edit.linkedinUrl ? <p className="mb-0"> {user.social && user.social.linkedinUrl ? user.social.linkedinUrl : "Chưa cập nhập đường dẫn đến linked-in người dùng"} </p> :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="linkedinUrl" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="linkedinUrl">Lưu</span>
@@ -253,7 +253,7 @@ const BasicInfo = ({ user }) => {
                                 <p className="mb-0">Chưa cập nhập</p> :
                             <div>
                                 <DatePicker
-                                className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                className="input-light-primary br-0 text-primary br-5 p-1"
                                 dateFormat="dd/MM/yyyy"
                                 maxDate={new Date()}
                                 selected={startDate} onChange={date => setStartDate(date)}/>
@@ -277,7 +277,7 @@ const BasicInfo = ({ user }) => {
                             <p className="mb-0"> Chưa cập nhập</p>
                             :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="gender" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="gender">Lưu</span>
@@ -296,7 +296,7 @@ const BasicInfo = ({ user }) => {
                     {
                         !edit.interestedIn ? <p className="mb-0"> {user.interestedIn ? user.interestedIn : "Chưa cập nhập"} </p> :
                             <div>
-                                <input className="input-light-primary br-0 text-primary bdrs5 p-1" type="text"
+                                <input className="input-light-primary br-0 text-primary br-5 p-1" type="text"
                                     onChange={onChange} name="interestedIn" />
                                 <div className="mt-1 mb-3">
                                     <span className="btn text-primary" onClick={onSubmit} name="interestedIn">Lưu</span>

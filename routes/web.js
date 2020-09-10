@@ -12,11 +12,12 @@ let { authController,
     groupChat,
     photo,
     group,
-    followerController
+    followerController,
+    videoController
 } = require('../controllers/index')
 const { initLocal } = require('../controllers/passportController/local')
 const { facebookLogin } = require("../controllers/passportController/facebook")
-const { googleLogin } = require("../controllers/passportController/google")
+const { googleLogin } = require("../controllers/passportController/google");
 
 let initRoutes = (app) => {
     router.post('/facebook-login', facebookLogin);
@@ -51,8 +52,7 @@ let initRoutes = (app) => {
     router.get("/follow/get-follow-number/:id", auth, followerController.getFollowNumber)
 
     router.get("/post/get-all-posts", auth, postController.getAllPosts);
-    router.get("/post/getmyposts", auth, postController.getMyPosts);
-    router.get("/post/getposts/:id", auth, postController.getpostsByUserId);
+    router.get("/post/getposts/:id", auth, postController.getPostsByUserId);
     router.get("/post/get-post-number-user/:id", auth, postController.getPostNumberOfUser);
     router.get("/post/:id", auth, postController.getOnePost);
     router.post("/post/addnew", auth, postController.addNew);
@@ -121,7 +121,9 @@ let initRoutes = (app) => {
 
     router.get("/photos/:id", auth, photo.getAllMyPhoto)
     router.post("/photo/get-photo-in-post", auth, photo.photoInPost)
-    router.get('/uploads/image/:filename', photo.disPlayImage);
+    router.get("/videos/:id", auth, videoController.getAllMyVideo)
+    router.get('/uploads/file/:filename', photo.displayFile);
+
 
     return app.use("/", router)
 }

@@ -16,7 +16,7 @@ let photoSchema = new Schema({
     },
     files_id: {
         type: Schema.Types.ObjectId,
-        ref: 'album'
+        ref: 'uploads.files'
     },
     fileName: String,
     description: String,

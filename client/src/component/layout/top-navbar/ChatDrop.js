@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { lastItemOfArray } from "../../../clientHelper/helperClient"
 import moment from 'moment';
+import axios from 'axios';
 
 const ChatDrop = ({ userId }) => {
     const conversations = useSelector(state => state.conversation.conversations);
+    let socket = useSelector(state => state.master_data.socket);
     const [count, setCount] = useState(0);
+    const dispatch = useDispatch();
     useEffect(() => {
         if (conversations) {
             let a = 0;
@@ -17,6 +20,33 @@ const ChatDrop = ({ userId }) => {
             setCount(a);
         }
     }, [conversations, userId])
+
+    const handleClickConversation = async (conver) => {
+        dispatch({
+            type: 'ADD_MESSDROP',
+            payload: conver
+        });
+        if (!lastItemOfArray(conver.messages).isReaded && lastItemOfArray(conver.messages).receiver === userId) {
+            const res = await axios.put("/message/mark-as-read", { messageId: lastItemOfArray(conver.messages)._id });
+            if (res.data.success) {
+                let data = {
+                    conversationId: conver._id,
+                    messageId: res.data.message._id,
+                    time: res.data.message.updatedAt
+                }
+                dispatch({
+                    type: 'MARK_AS_READ_MESSAGE',
+                    payload: data
+                });
+                socket && socket.emit('user-mark-readed-mess', {
+                    data,
+                    contactId: conver.userChat ? conver.userChat._id : false,
+                    groupId: conver.members ? conver._id : false
+                });
+            }
+        }
+    }
+
     return (
         <li className="nav-item dropdown">
             <span className="dropdown-toggle iq-waves-effect" data-toggle="dropdown">
@@ -68,9 +98,11 @@ const ChatDrop = ({ userId }) => {
 
                         {
                             conversations.map((c, i) =>
-                                <div key={i} id={`anh${i}`} className={!lastItemOfArray(c.messages).isReaded &&
+                                <div 
+                                onClick={e => handleClickConversation(c)}
+                                key={i} id={`anh${i}`} className={!lastItemOfArray(c.messages).isReaded &&
                                     lastItemOfArray(c.messages).receiver === userId ? "iq-sub-card readed-false" : "iq-sub-card"}>
-                                    <div className="media align-items-center">
+                                    <div className="media align-items-center pointer">
                                         <div>
                                             <img src={`${process.env.REACT_APP_UPLOADS_IMG}/${c.userChat.avatar}`} className="avatar-40 rounded" alt="" />
                                         </div>
@@ -80,7 +112,6 @@ const ChatDrop = ({ userId }) => {
                                                 {
                                                     (c.messages && c.messages.length > 0) ?
                                                         (lastItemOfArray(c.messages).file.length > 0) ? "Tệp đính kèm..." :
-                                                            (lastItemOfArray(c.messages).video.length > 0) ? "Video..." :
                                                                 `${lastItemOfArray(c.messages).text}` : null
                                                 }
                                             </h6>

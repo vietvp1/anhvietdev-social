@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import PostReaction from './PostReaction';
 import { useSelector } from 'react-redux';
 import PostOption from './PostOption';
+import pageImgae47 from '../../../images/page-img/47.png'
 
 const PostItem = ({ post, hidePost }) => {
     const user = useSelector(state => state.auth.user);
@@ -46,21 +47,15 @@ const PostItem = ({ post, hidePost }) => {
                     </div> : null
             }
 
-            {attachment.length > 0 && attachment.map((f, i) =>
-                <div key={i} className="file-post">
+            {attachment.map((f, i) =>
+                <div key={i} className="file-post iq-bg-primary mt-2">
                     <div>
-                        <img className="rounded-circle img-fluid avatar-40 mr-2" src="images/page-img/47.png" alt="profile" />
+                        <img className="rounded-circle img-fluid avatar-40 mr-2" src={pageImgae47} alt="profile" />
                     </div>
                     <div className="preview-file-name text-overflow-three-dot">
-                        {f.fileName}
-                    </div>
-                    <div>
-                        <div className="flex align-items-center list-user-action">
-                            <span>
-                                <a href={`${f.url}`} download={f.fileName}><i className="ri-download-line" /></a>
-                            </span>
-                            {/* <span><i className="ri-delete-bin-line" /></span> */}
-                        </div>
+                        <a href={`${f.url}`} download={f.fileName}>
+                            {f.fileName}
+                        </a>
                     </div>
                 </div>
             )}
@@ -98,8 +93,8 @@ const PostItem = ({ post, hidePost }) => {
                                                 <div className="dropdown-menu">
                                                     {
                                                         post.tags.map((user, i) =>
-                                                                <Link className="dropdown-item" key={i} to={`/profile/${user._id}`}>{user.firstName}&nbsp;{user.lastName}</Link>
-                                                 
+                                                            <Link className="dropdown-item" key={i} to={`/profile/${user._id}`}>{user.firstName}&nbsp;{user.lastName}</Link>
+
                                                         )
                                                     }
                                                 </div>

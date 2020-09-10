@@ -33,23 +33,12 @@ const getOnePost = async (req,res) => {
     }
 }
 
-const getpostsByUserId = async (req,res) => {
+const getPostsByUserId = async (req,res) => {
     try {
         const userId = req.params.id;
-        const posts = await postService.getpostsByUserId(userId);
+        const currentUserId = req.user._id
+        const posts = await postService.getPostsByUserId(userId, currentUserId);
         res.json(posts);
-    } catch (error) {
-        res.status(500).send('Server Error');
-    }
-}
-
-const getMyPosts = async (req,res) => {
-    try {
-        const userId = req.user._id;
-        
-        const myPosts = await postService.getMyPosts(userId);
-        
-        res.json(myPosts);
     } catch (error) {
         res.status(500).send('Server Error');
     }
@@ -110,9 +99,8 @@ module.exports = {
     addNew,
     getOnePost,
     removePost,
-    getMyPosts,
     getAllPosts,
-    getpostsByUserId,
+    getPostsByUserId,
     getPostInGroup,
     getFileInPost,
     getPostNumberOfUser

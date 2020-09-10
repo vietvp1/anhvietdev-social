@@ -9,6 +9,7 @@ import Sidebar from './layout/sidebar/Sidebar';
 import RightSidebar from './layout/right-sidebar/RightSidebar';
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import ChatVideoModal from './chat/chatVideoCall/ChatVideoModal';
+import ChatBox from './chatbox/ChatBox';
 
 // import ChatVideoModal from './chat/chatVideoCall/ChatVideoModal';
 
@@ -197,15 +198,16 @@ const AllComponents = () => {
             <CSSTransition in={auth} timeout={1000} classNames="fade">
                 <RightSidebar />
             </CSSTransition>
+            
 
         <Route render={({location}) =>(
-            <TransitionGroup>
-                <CSSTransition key={location.key} timeout={1000} classNames="slide">
+            // <TransitionGroup>
+            //     <CSSTransition key={location.key} timeout={1000} classNames="slide">
                     <Switch>
                         <Route component={Routes} />
                     </Switch>
-                </CSSTransition>
-            </TransitionGroup>
+            //      </CSSTransition>
+            //</TransitionGroup> 
         )} />
 
         </Router>

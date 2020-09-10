@@ -89,7 +89,7 @@ const Family = ({ user }) => {
                         </li> : !addRel ?
                             <li className="d-flex mb-4 align-items-center">
                                 <div className="media-support-info">
-                                    <span onClick={e => setAddRel(true)} className="box-like-btn bdrs5">{user.relationship_status.status}</span>
+                                    <span onClick={e => setAddRel(true)} className="box-like-btn br-5">{user.relationship_status.status}</span>
                                 </div>
                                 <div onClick={e => setAddRel(true)} className="edit-relation d-link"><span><i className="fal fa-pencil mr-2" />Edit</span></div>
                             </li> : null

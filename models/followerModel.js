@@ -30,6 +30,10 @@ followerSchema.statics = {
             ]
         })
     },
+
+    getAllFollowing(id) {
+        return this.find({ "userId": id }).sort({ "updatedAt": -1 });
+    },
 }
 
 module.exports = mongoose.model('follower', followerSchema)

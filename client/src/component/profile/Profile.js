@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ProfileHeader from './profile-header/ProfileHeader'
 import UserTabling from './user-tabing/UserTabling'
 import axios from 'axios'
-import { CSSTransition } from 'react-transition-group'
+//import { CSSTransition } from 'react-transition-group'
 import PageLoader from '../layout/spinner/PageLoader'
 
 const Profile = ({ match }) => {
@@ -16,7 +16,7 @@ const Profile = ({ match }) => {
     }, [match]);
 
     return contact?(
-        <CSSTransition in appear timeout={1000} classNames="slide-page">
+        //<CSSTransition in appear timeout={1000} classNames="slide-page">
                  <div id="content-page" className="content-page">
                     <div className="container">
                         <div className="row">
@@ -49,7 +49,7 @@ const Profile = ({ match }) => {
                         </div>
                     </div>
                 </div>
-        </CSSTransition>
+        //</CSSTransition>
     ): <PageLoader/>
 }
 

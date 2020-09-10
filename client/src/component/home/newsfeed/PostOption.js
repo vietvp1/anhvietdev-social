@@ -56,19 +56,10 @@ const PostOption = ({ user, post, hidePost }) => {
                             <Fragment>
                                 <div className="dropdown-item p-3">
                                     <div className="d-flex align-items-top">
-                                        <div className="icon font-size-20"><i className="ri-user-unfollow-line" /></div>
+                                        <div className="icon font-size-20"><i className="fal fa-wifi-slash"></i></div>
                                         <div className="data ml-2">
                                             <h6>Bỏ theo dõi người dùng</h6>
                                             <p className="mb-0">Ngừng xem bài viết nhưng vẫn là bạn bè.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="dropdown-item p-3">
-                                    <div className="d-flex align-items-top">
-                                        <div className="icon font-size-20"><i className="ri-notification-line" /></div>
-                                        <div className="data ml-2">
-                                            <h6>Thông báo</h6>
-                                            <p className="mb-0">Bật thông báo cho bài viết này</p>
                                         </div>
                                     </div>
                                 </div>

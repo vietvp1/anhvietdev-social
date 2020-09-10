@@ -2,6 +2,9 @@ const ContactModel = require('../models/contactModel')
 const UserModel = require('../models/userModel')
 const NotificationModel = require('../models/notificationModel')
 const _ = require("lodash");
+const { addNewFollower, removeFollower } = require('./followerService');
+const followerModel = require('../models/followerModel');
+const {getListFriendId} = require('./helper')
 const LIMIT = 15;
 
 let getContacts = (userId) => {
@@ -121,6 +124,16 @@ let removeContact = (currentUserId, contactId) => {
             return reject(false);
         }
 
+        let followExists2 = await followerModel.findFollowExist(contactId, currentUserId);
+        if (followExists2) {
+            await followerModel.removeFollower(contactId, currentUserId);
+        }
+
+        let followExists1 = await followerModel.findFollowExist(currentUserId, contactId);
+        if (followExists1) {
+            await followerModel.removeFollower(currentUserId, contactId);
+        }
+
         resolve(true);
     })
 
@@ -187,6 +200,25 @@ let approveRequestContactReceived = (currentUserId, contactId) => {
             return reject(false);
         }
 
+        let followExists1 = await followerModel.findFollowExist(currentUserId, contactId);
+        if (!followExists1) {
+            let newItem = {
+                userId: currentUserId,
+                followerId: contactId
+            };
+            await followerModel.create(newItem);
+        }
+
+        let followExists2 = await followerModel.findFollowExist(contactId, currentUserId);
+        if (!followExists2) {
+            let newItem = {
+                userId: contactId,
+                followerId: currentUserId
+            };
+            await followerModel.create(newItem);
+        }
+
+
         //create notification đã chấp nhập kết bạn trong db
         let notificationItem = {
             sender: currentUserId,
@@ -236,13 +268,7 @@ let findUsersContact = (currentUserId, keyword) => {
 
 let searchFriends = (currentUserId, keyword) => {
     return new Promise(async (resolve, reject) => {
-        let friendIds = [];
-        let friends = await ContactModel.getFriends(currentUserId, 20);
-        friends.forEach((item) => {
-            friendIds.push(item.userId);
-            friendIds.push(item.contactId)
-        });
-        friendIds = _.uniqBy(friendIds);
+        let friendIds = await getListFriendId(currentUserId);
         friendIds = friendIds.filter(userId => userId != currentUserId);
         let users = await UserModel.getNormalUserDataByIdAndKeyword(friendIds, keyword);
         resolve(users);

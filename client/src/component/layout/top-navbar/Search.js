@@ -6,6 +6,7 @@ const Search = () => {
     const [text, setText] = useState('');
     const [users, setUsers] = useState([]);
     const [ShowContent, setShowContent] = useState(false);
+    const typingTimeoutRef = useRef(null);
 
     const node = useRef();
     const handleClickResult = () => {
@@ -25,17 +26,24 @@ const Search = () => {
         }
     }
 
-    const onChange = async (e) => {
-        setText(e.target.value);
-        if (e.target.value === "") {
+    const onChange = (e) => {
+        const value = e.target.value;
+        setText(value);
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current);
+        }
+
+        if (value === "") {
             setShowContent(false);
             setUsers([]);
         } else {
-            const res = await axios.get(`/user/search-user/${e.target.value}`);
-            if (res.data.success) {
-                setUsers(res.data.users);
-                handleClickResult();
-            }
+            typingTimeoutRef.current = setTimeout(async () => {
+                const res = await axios.get(`/user/search-user/${value}`);
+                if (res.data.success) {
+                    setUsers(res.data.users);
+                    handleClickResult();
+                }
+            }, 400)
         }
     }
 
@@ -69,7 +77,7 @@ const Search = () => {
                                         users.map((user, i) => (
                                             <Fragment key={i}>
                                                 <Link key={i} to={`/profile/${user._id}`} onClick={e => setShowContent(false)}>
-                                                    <div className="user-finded">
+                                                    <div className="user-finded iq-bg-primary-hover">
                                                         <img
                                                             src={`${process.env.REACT_APP_UPLOADS_IMG}/${user.avatar}`}
                                                             alt=''
@@ -83,7 +91,7 @@ const Search = () => {
                                     }
                                 </div>
                             ) : (
-                                    <div className="search_content">
+                                    <div className="search_content ml-3">
                                         Chúng tôi không thể tìm thấy bất cứ kết quả nào cho {text}
                                     </div>
                                 )

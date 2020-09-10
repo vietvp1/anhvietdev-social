@@ -13,7 +13,7 @@ let attachmentSchema = new Schema({
     album: String,
     files_id: {
         type: Schema.Types.ObjectId,
-        ref: 'album'
+        ref: 'uploads.files'
     },
     fileName: String,
     description: String,

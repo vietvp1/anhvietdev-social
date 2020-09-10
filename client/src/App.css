@@ -4,11 +4,15 @@
     cursor: pointer;
 }
 
+.border-dark-1 {
+    border-bottom: 1px solid var(--iq-border-dark);
+}
+
 .d-link:hover {
     color: #0056b3;
 }
 
-.bdrs5 {
+.br-5 {
     border-radius: 5px;
 }
 
@@ -39,7 +43,6 @@
     content: none;
 }
 
-
 /*---------------------------------- react-select--------------------- */
 
 .react-select__control, .react-select__menu {
@@ -51,7 +54,7 @@
     color: var(--iq-primary) !important;
 }
 
-.react-select__input input{
+.react-select__input input {
     color: #ffffff !important;
 }
 
@@ -122,6 +125,15 @@ input[type="checkbox"]:checked:after {
     width: 100px;
 }
 
+.frame-chat {
+    height: calc(100vh - 110px);
+    ;
+}
+
+.chat-data-right {
+    height: 100%;
+}
+
 .preview-image-post {
     padding: 10px;
 }
@@ -162,7 +174,7 @@ input[type="checkbox"]:checked:after {
     border: 1px solid #dee2e6!important;
 }
 
-.text-overflow-three-dot{
+.text-overflow-three-dot {
     overflow: hidden!important;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -237,7 +249,7 @@ input[type="checkbox"]:checked:after {
 
 .more {
     display: flex;
-    margin-left: 30px;
+    margin-left: 55px;
 }
 
 .more>div {
@@ -246,7 +258,7 @@ input[type="checkbox"]:checked:after {
 }
 
 .more i {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .more-optns>ul {
@@ -305,10 +317,7 @@ input[type="checkbox"]:checked:after {
 }
 
 .chat-friendz {
-    position: absolute;
-    display: inline-block;
-    text-align: center;
-    width: 100%;
+    float: right;
 }
 
 .more-optns>ul {
@@ -357,10 +366,7 @@ input[type="checkbox"]:checked:after {
 
 .chat-box {
     border-radius: 3px;
-    bottom: -2px;
-    position: absolute;
-    right: 100%;
-    width: 300px;
+    width: 330px;
     height: 420px;
     z-index: 9999999;
     transition: all 0.2s linear 0s;
@@ -368,7 +374,6 @@ input[type="checkbox"]:checked:after {
     text-align: left;
     background: #1d2333;
     border-color: #272f41;
-    bottom: 80px;
 }
 
 .chat-box .css-y1c0xs {
@@ -393,7 +398,20 @@ input[type="checkbox"]:checked:after {
 }
 
 .text-box {
-    padding: 0px 15px;
+    padding: 0px 5px;
+}
+
+.line-list-conversation {
+    border-radius: 3px;
+    position: absolute;
+    right: 100%;
+    width: auto;
+    max-width: 900px;
+    height: 420px;
+    transition: all 0.2s linear 0s;
+    bottom: 72px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 /* //////////////////////// viet anh social */
@@ -468,8 +486,8 @@ input[type="checkbox"]:checked:after {
     opacity: 0;
 }
 
-
 /* slide appear */
+
 .slide-appear {
     opacity: 0;
     transform: scale(0.5) translateX(5px);
@@ -513,8 +531,8 @@ input[type="checkbox"]:checked:after {
     opacity: 0;
 }
 
-
 /* slide-page appear ----------------------------------------------------------*/
+
 .slide-page-appear {
     opacity: 0;
     transform: scale(0.5) translateX(5px);
@@ -557,7 +575,6 @@ input[type="checkbox"]:checked:after {
 .slide-page-exit-done {
     opacity: 0;
 }
-
 
 /* chat video modal------------------------------------------------------------------- */
 
@@ -832,38 +849,36 @@ input[type="checkbox"]:checked:after {
 }
 
 /* calendar --------------------------------------------------------------------- */
-.react-calendar{
+
+.react-calendar {
     width: auto;
     background-color: var(--iq-dark-box);
     border: none;
 }
 
-
-.react-calendar button{
+.react-calendar button {
     color: var(--iq-dark-body-text);
     text-transform: uppercase;
     border-right: solid 0.1px #ddd;
     border-bottom: solid 0.1px #ddd;
 }
 
-.react-calendar__month-view__days, .react-calendar__navigation{
+.react-calendar__month-view__days, .react-calendar__navigation {
     border-top: solid 0.1px #ddd;
     border-left: solid 0.1px #ddd;
 }
 
-
-.react-calendar__month-view__days button, .react-calendar__tile{
+.react-calendar__month-view__days button, .react-calendar__tile {
     height: 80px;
 }
 
-.react-calendar__month-view__days__day--weekend{
+.react-calendar__month-view__days__day--weekend {
     color: var(--iq-primary) !important;
 }
 
-
-
 /* bonus --------------------------------------------------------------------- */
-.post-text-content{
+
+.post-text-content {
     word-break: break-all;
 }
 
@@ -1018,18 +1033,29 @@ input[type="checkbox"]:checked:after {
     border-bottom: 1px solid var(--iq-border-dark);
 }
 
-.toggleColor { 
+.toggleColor {
     color: #2ACC77;
 }
 
-.dropdown-menu-top{
-    margin : -70px 0px 0px -210px;
+.dropdown-menu-top {
+    margin: -70px 0px 0px -210px;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     color: var(--iq-dark-body-text)
 }
 
-.user-post-data a{
+.user-post-data a {
     color: var(--iq-primary);
+}
+
+.isReadedMess {
+    float: right;
+    font-size: 12px;
+    color: gray;
+    clear: both;
+}
+
+.typing-gif {
+    width: 50px;
 }

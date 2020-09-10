@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { ModalBody, Modal, ModalHeader } from 'reactstrap';
 import Select from 'react-select';
 import Swal from 'sweetalert2';
@@ -13,6 +13,7 @@ const CreateGroup = () => {
     const [users, setUsers] = useState([]);
     const [usersAdded, setUsersAdded] = useState([]);
     const [usersAddedId, setUsersAddedId] = useState([]);
+    const typingTimeoutRef = useRef(null);
 
     const privacyList = [
         { value: 1, label: 'Riêng tư' },
@@ -35,13 +36,21 @@ const CreateGroup = () => {
     }
 
     const onChangeText = async (e) => {
-        setText(e.target.value);
-        if (e.target.value === "") {
+        let value = e.target.value;
+        setText(value);
+        
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current);
+        }
+
+        if (value === "") {
             setUsers([]);
         }
         else {
-            let res = await axios.get(`/contact/search-friends/${e.target.value}`)
-            setUsers(res.data.users);
+            typingTimeoutRef.current = setTimeout(async () => {
+                let res = await axios.get(`/contact/search-friends/${value}`)
+                setUsers(res.data.users);
+            }, 400)
         }
     }
 

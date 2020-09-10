@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios';
 import FlipMove from 'react-flip-move';
 import Swal from 'sweetalert2';
@@ -24,7 +24,7 @@ const PostForm = ({ updatePost, groupId }) => {
     const [listUserTag, setListUserTag] = useState([]);
 
     const [privacyPost, setPrivacyPost] = useState(1);
-
+    const typingTimeoutRef = useRef(null);
     const privacy = [
         { value: 0, label: 'Chỉnh mình tôi' },
         { value: 1, label: 'Công khai' },
@@ -40,6 +40,9 @@ const PostForm = ({ updatePost, groupId }) => {
 
     const onChangeTagUserText = (text) => {
         setFriends([]);
+        if (typingTimeoutRef.current) {
+            clearTimeout(typingTimeoutRef.current);
+        }
         if (text === "") {
             contacts.forEach(contact => {
                 let item = { value: contact._id, label: contact.firstName + ` ` + contact.lastName };
@@ -47,13 +50,15 @@ const PostForm = ({ updatePost, groupId }) => {
             })
         }
         else {
-            axios.get(`/contact/search-friends/${text}`).then(res => {
-                let users = res.data.users;
-                users.forEach(contact => {
-                    let item = { value: contact._id, label: contact.firstName + ` ` + contact.lastName };
-                    setFriends(f => [...f, item]);
+            typingTimeoutRef.current = setTimeout(() => {
+                axios.get(`/contact/search-friends/${text}`).then(res => {
+                    let users = res.data.users;
+                    users.forEach(contact => {
+                        let item = { value: contact._id, label: contact.firstName + ` ` + contact.lastName };
+                        setFriends(f => [...f, item]);
+                    })
                 })
-            })
+            }, 400)
         }
     }
 

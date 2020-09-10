@@ -49,6 +49,7 @@ let typingOn = (io) => {
                 }
             }
             if (data.contactId) {
+                
                 if (clients[data.contactId]) {
                     emitNotifyToArray(clients, data.contactId, io, "response-user-mark-readed-mess", data.data); 
                 }

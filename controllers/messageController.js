@@ -3,6 +3,7 @@ const {message} =require("../services/index")
 const {app} =require("../config/app")
 const fsExtra =require("fs-extra")
 const multer = require('multer')
+const {uploadFilesToDB} = require('../config/db')
 
 let allConversationWithMessages = async (req,res) => {
     try {
@@ -55,7 +56,8 @@ let ImageMessageUploadFile = multer({
     limits: {fileSize: app.image_message_limit_size }
 }).array("file")
 
-let addNewFile = (req, res) => {
+//add by multer
+let addNewFile1 = (req, res) => {
     ImageMessageUploadFile(req, res, async(error) => {
         if (error) {
             if(error.message) {
@@ -76,6 +78,25 @@ let addNewFile = (req, res) => {
                 await fsExtra.remove(`${app.image_message_directory}/${result.newMessage.file[x].fileName}`);
             };
 
+            return res.status(200).send({message: result.newMessage, newConversation: result.newConversation? result.newConversation:null});
+            } catch (error) {
+                return res.status(500).send(error)
+            }
+    });
+}
+
+let addNewFile = (req, res) => {
+    uploadFilesToDB(req, res, async err => {
+        if (err) {
+            return res.json({ success: false, err })
+        }
+        try {
+            let senderId = req.user._id;
+            let receivedId = req.body.receivedId;
+            let messageVal = req.files;
+            let isChatGroup = req.body.isChatGroup;
+            let isCurrent = req.body.isCurrent;
+            let result = await message.addNewFile(senderId, receivedId, messageVal, isChatGroup, isCurrent);
             return res.status(200).send({message: result.newMessage, newConversation: result.newConversation? result.newConversation:null});
             } catch (error) {
                 return res.status(500).send(error)

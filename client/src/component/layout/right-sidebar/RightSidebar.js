@@ -56,7 +56,7 @@ const RightSidebar = () => {
                 _id: "admin",
                 avatar: "uploads/avatar/group-avatar-vietanhdev.png",
                 firstName: "Admin",
-                lastName: "Tran Viettttttttttttttttttttt"
+                lastName: "Tran Viettt"
             },
             messages: []
         }
@@ -74,8 +74,6 @@ const RightSidebar = () => {
     }
 
     const toggleSidebar = () => {
-        console.log("vaooo");
-
         dispatch({ type: 'TOGGLE_RIGHT_SIDEBAR' });
     }
 

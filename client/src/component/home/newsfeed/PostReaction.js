@@ -215,22 +215,11 @@ const PostReaction = ({ post, userId }) => {
                     </div>
                 </div>
 
-                <div className="post-state-btns"> <i className="uil-heart" />
-                    <div className="total-comment-block">
-                        <div className="dropdown">
-                            <span className="dropdown-toggle" data-toggle="dropdown" role="button">
-                                <img src={require('../../../images/icon/comment.png')} className="img-reaction" alt="" /> Bình luận
-                            </span>
-                            <div className="dropdown-menu">
-                                <a className="dropdown-item" href="/">Max Emum</a>
-                                <a className="dropdown-item" href="/">Bill Yerds</a>
-                                <a className="dropdown-item" href="/">Other</a>
-                            </div>
-                        </div>
-                    </div>
+                <div className="post-state-btns">
+                    <img src={require('../../../images/icon/comment.png')} className="img-reaction" alt="" />&nbsp;Bình luận
                 </div>
                 <div className="post-state-btns">
-                    <img src={require('../../../images/icon/share.png')} className="img-reaction" alt="" />&nbsp;193 Chia sẻ
+                    <img src={require('../../../images/icon/share.png')} className="img-reaction" alt="" />&nbsp;Chia sẻ
                 </div>
             </div>
         </Fragment>

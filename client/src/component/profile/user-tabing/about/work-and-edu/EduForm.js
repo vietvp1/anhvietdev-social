@@ -79,7 +79,7 @@ const EduForm = ({ edu, i, toggleEditEdu }) => {
         <form onSubmit={submitUpdateEdu}>
             <div>
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="school"
                     value={formEduData.school}
@@ -88,7 +88,7 @@ const EduForm = ({ edu, i, toggleEditEdu }) => {
                     placeholder="Tên trường..."
                 />
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="fieldofstudy"
                     value={formEduData.fieldofstudy}
@@ -97,7 +97,7 @@ const EduForm = ({ edu, i, toggleEditEdu }) => {
                     placeholder="Chuyên ngành..."
                 />
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="location"
                     value={formEduData.location}
@@ -105,7 +105,7 @@ const EduForm = ({ edu, i, toggleEditEdu }) => {
                     placeholder="Địa điểm..."
                 />
                 <input
-                    className="input-light-primary text-primary bdrs5 p-3 mb-3 font-size-16"
+                    className="input-light-primary text-primary br-5 p-3 mb-3 font-size-16"
                     type="text"
                     name="description"
                     value={formEduData.description}
@@ -128,7 +128,7 @@ const EduForm = ({ edu, i, toggleEditEdu }) => {
                     <div className="col-6">
                         <span className="mr-3">Từ năm</span>
                         <DatePicker
-                            className="input-light-primary br-0 text-primary bdrs5 p-1"
+                            className="input-light-primary br-0 text-primary br-5 p-1"
                             dateFormat="yyyy"
                             required
                             placeholderText="Từ năm"
@@ -145,7 +145,7 @@ const EduForm = ({ edu, i, toggleEditEdu }) => {
                             <div className="col-6">
                                 <span className="mr-3">Đến năm</span>
                                 <DatePicker
-                                    className="input-light-primary br-0 text-primary bdrs5 p-1"
+                                    className="input-light-primary br-0 text-primary br-5 p-1"
                                     dateFormat="yyyy"
                                     required
                                     placeholderText="Đến năm"
