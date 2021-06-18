@@ -30,7 +30,6 @@ const SignUp = ({history}) => {
         } else {
             const res = await dispatch(register({ firstName, lastName, email, password }));
             if (res.success) {
-                console.log("vaoo");
                 history.push('/sign-in');
 			}
         }

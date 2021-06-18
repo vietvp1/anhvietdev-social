@@ -17,10 +17,8 @@ const ChatRight = ({ i, c, showRight }) => {
     const [isReaded, setIsReaded] = useState(false);
 
     useEffect(() => {
-        console.log(socket);
         if (socket) {
             socket.on("response-user-is-typing", res => {
-                console.log("vaooo");
                 setAvatarTyping(res.avatar);
                 setIsTyping(true);
             })

@@ -212,8 +212,6 @@ UserSchema.virtual('password')
 
 UserSchema.methods = {
     comparePassword(password) {
-        console.log(password);
-
         return bcrypt.compare(password, this.local.password); // return promise true or false
     }
 }

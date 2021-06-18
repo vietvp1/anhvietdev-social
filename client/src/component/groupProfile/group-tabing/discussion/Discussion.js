@@ -21,9 +21,6 @@ const Discussion = ({ group }) => {
         return () => isSubscribed = false;
     }, [group._id])
 
-    console.log(Posts);
-    
-
     const updatePost = (newPost) => {
         setPosts([newPost, ...Posts]);
     }

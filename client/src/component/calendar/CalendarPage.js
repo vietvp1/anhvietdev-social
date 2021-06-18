@@ -4,7 +4,6 @@ import bg from '../../images/page-img/profile-bg6.jpg'
 
 const CalendarPage = () => {
     const [date, setDate] = useState(new Date())
-    console.log(date);
 
     const onChange = date => {
         setDate(date);

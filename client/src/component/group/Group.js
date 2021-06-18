@@ -61,7 +61,9 @@ const Group = () => {
                     <div className="row">
                         {
                             groupSuggestions.map((group, i) =>
-                                <GroupSuggestionItem group={group} key={i} user={user} />
+                                <div key={i} className="col-md-6 col-lg-4">
+                                    <GroupSuggestionItem group={group} user={user} />
+                                </div>
                             )
                         }
                     </div>

@@ -32,7 +32,6 @@ const ChatVideoModal = ({user}) => {
         });
         let getPeerId;
         peer.on("open", function (peerId) {
-            //console.log(peerId);
             getPeerId = peerId;
         })
         
@@ -118,7 +117,6 @@ const ChatVideoModal = ({user}) => {
                 }).then((result) => {
                 /* Read more about handling dismissals below */
                 if (result.dismiss === Swal.DismissReason.timer) {
-                    console.log('I was closed by the timer')
                 }
                 })
             })

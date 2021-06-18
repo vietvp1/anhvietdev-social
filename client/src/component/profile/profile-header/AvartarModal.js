@@ -40,7 +40,6 @@ const AvatarModal = ({ picture, file, toggle, setToggle, remove }) => {
         }
         const res = await axios.put('/user/update-avatar', formData, config);
         if (res.data.success) {
-            console.log(res.data);
             setToggle(!toggle);
             dispatch(updateUser(res.data.user));
             Swal.fire({

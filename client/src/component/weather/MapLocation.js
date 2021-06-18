@@ -30,7 +30,6 @@ const MapLocation = ({ latLng }) => {
     const positionGPS = [state.GPS.lat, state.GPS.lng];
 
     const handleClick = (e) => {
-        console.log(e.latlng);
     }
 
     return (

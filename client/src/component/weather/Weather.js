@@ -46,7 +46,6 @@ const Weather = () => {
             await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${position.coords.latitude}&lon=${position.coords.longitude}&exclude=minutely,hourly&units=metric&appid=ff3360ceee082483de51fd9ec4206f92`)
                 .then(res => res.json())
                 .then(result => {
-                    console.log(result);
                     setCurrent(result.current);
                     setTemp(result.daily);
                     setCountry('Viet Nam');

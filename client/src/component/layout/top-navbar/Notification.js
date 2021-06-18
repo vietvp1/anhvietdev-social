@@ -132,7 +132,7 @@ const Notification = ({ user }) => {
                               <p className="mb-0"><i className="ri-award-line iq-bg-primary" /></p>
                             </div>
                           ) :
-                            (n.object.entityType === 'ON_COMMENT_POST' && user._id === n.post.writer) ? (
+                            (n.object.entityType === 'ON_COMMENT_POST' && user._id === n.post?.writer) ? (
                               <div className="media-body ml-3">
                                 <h6 className="mb-0 font-size-14">
                                   <strong>{n.sender.firstName} {n.sender.lastName}</strong>&nbsp;
@@ -144,7 +144,7 @@ const Notification = ({ user }) => {
                                 <p className="mb-0"><i className="ri-award-line iq-bg-primary" /></p>
                               </div>
                             ) :
-                              (n.object.entityType === 'ON_COMMENT_POST' && user._id !== n.post.writer) ? (
+                              (n.object.entityType === 'ON_COMMENT_POST' && user._id !== n.post?.writer) ? (
                                 <div className="media-body ml-3">
                                   <h6 className="mb-0 font-size-14">
                                     <strong>{n.sender.firstName} {n.sender.lastName}</strong>&nbsp;
@@ -156,7 +156,7 @@ const Notification = ({ user }) => {
                                   <p className="mb-0"><i className="ri-award-line iq-bg-primary" /></p>
                                 </div>
                               ) :
-                                (n.object.entityType === 'ON_RES_COMMENT' && user._id === n.post.writer) ? (
+                                (n.object.entityType === 'ON_RES_COMMENT' && user._id === n.post?.writer) ? (
                                   <div className="media-body ml-3">
                                     <h6 className="mb-0 font-size-14">
                                       <strong>{n.sender.firstName} {n.sender.lastName}</strong>&nbsp;
@@ -168,7 +168,7 @@ const Notification = ({ user }) => {
                                     <p className="mb-0"><i className="ri-award-line iq-bg-primary" /></p>
                                   </div>
                                 ) :
-                                  (n.object.entityType === 'ON_RES_COMMENT' && user._id === n.comment.writer) ? (
+                                  (n.object.entityType === 'ON_RES_COMMENT' && user._id === n.comment?.writer) ? (
                                     <div className="media-body ml-3">
                                       <h6 className="mb-0 font-size-14">
                                         <strong>{n.sender.firstName} {n.sender.lastName}</strong>&nbsp;
@@ -180,7 +180,7 @@ const Notification = ({ user }) => {
                                       <p className="mb-0"><i className="ri-award-line iq-bg-primary" /></p>
                                     </div>
                                   ) :
-                                    (n.object.entityType === 'ON_RES_COMMENT' && user._id !== n.comment.writer && user._id !== n.post.writer) ? (
+                                    (n.object.entityType === 'ON_RES_COMMENT' && user._id !== n.comment?.writer && user._id !== n.post?.writer) ? (
                                       <div className="media-body ml-3">
                                         <h6 className="mb-0 font-size-14">
                                           <strong>{n.sender.firstName} {n.sender.lastName}</strong>&nbsp;

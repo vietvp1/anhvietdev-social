@@ -159,8 +159,6 @@ const getPostInGroup = (groupId) => {
                 }
             }
             let posts = await PostModel.model.getPostInGroup(item);
-            console.log(posts);
-
             resolve(posts)
         } catch (error) {
             return reject(error);

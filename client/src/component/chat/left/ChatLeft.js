@@ -24,7 +24,6 @@ const ChatLeft = ({ showRight, conversations }) => {
         }
         else {
             typingTimeoutRef.current = setTimeout(async () => {
-                console.log(value);
                 let res = await axios.get(`/contact/search-friends/${value}`)
                 setFoundChats(res.data.users);
             }, 400)

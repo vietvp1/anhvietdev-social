@@ -6,7 +6,6 @@ let chatVideoGroup = (io) => {
     var channels = {};
     var sockets = {};
     io.on("connection", (socket) => {
-        console.log(socket.id);
         let currentUserId = socket.request.user._id;
         clients = pushSocketIdToArray(clients, currentUserId, socket.id);
         socket.request.user.chatGroupIds.forEach(group => {
@@ -121,8 +120,6 @@ let chatVideoGroup = (io) => {
         });
 
         function part(channel) {
-            console.log("["+ socket.id + "] part ");
-    
             if (!(channel in socket.channels)) {
                 return;
             }

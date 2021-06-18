@@ -10,7 +10,6 @@ let addNewGroup = async (req, res) => {
         errors.forEach(item => {
             errorArr.push(item.msg)
         })
-        console.log(errorArr);
         return res.status(500).send(errorArr)
     }
 

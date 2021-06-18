@@ -227,7 +227,6 @@ let markAllAsRead = (currentUserId) => {
             await NotificationModel.model.updateMany({"receiver": currentUserId} , {"isRead": true})
             resolve(true);         
         } catch (error) {
-            console.log(`Error when mark notification as read: ${error}`);
             reject(false);
         }
     })

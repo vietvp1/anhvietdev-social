@@ -202,8 +202,6 @@ const PostForm = ({ updatePost, groupId }) => {
         const res = await axios.post('/post/addnew', formData, config).catch(err => console.log(err))
         if (res.data.success) {
             updatePost(res.data.newPost);
-            console.log(res.data.newPost);
-
             setText('');
             setPictures([]);
             setPreview(false);

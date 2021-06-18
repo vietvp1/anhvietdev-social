@@ -32,10 +32,6 @@ let MessageSchema = new Schema({
     ],
 }, { timestamps: true })
 
-// MessageSchema.path('text').validate(function(v) {
-//     console.log("vao mess");
-//   });
-
 MessageSchema.statics = {
     getMessagesInPersonal(currentId, receiver, limit) {
         return this.find({
